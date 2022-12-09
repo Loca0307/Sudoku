@@ -72,7 +72,7 @@ function selectNumber(){
     numSelected = this;
     numSelected.classList.add("number-selected");
 }
-
+// 
 function selectTile() {
     if (numSelected) {
         if (this.innerText != "") {
@@ -93,3 +93,20 @@ function selectTile() {
         }
     }
 }
+// solve board via recursion
+// randomise first tile
+// check if valid
+// if valid, move to next tile
+// if not valid, try next number
+// if no numbers left, move back to previous tile
+// if no previous tile, no solution
+// function solve() {
+//     let r = Math.floor(Math.random() * 9);
+//     let c = Math.floor(Math.random() * 9);
+//     let tile = document.getElementById(r.toString() + "-" + c.toString());
+//     let number = document.getElementById(solution[r][c]);
+//     selectTile.call(tile);
+//     selectNumber.call(number);
+//     // check if valid
+//     if 
+// }
