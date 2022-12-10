@@ -190,7 +190,6 @@ function checkColumn(gridValues, column, number) {
     }
     return true;
 
-
 }
 
 
