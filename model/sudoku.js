@@ -10,6 +10,19 @@ let sudoku = []; //2D array representing board
 
 
 
+function createGrid() {
+    for (let i = 0; i < gridSize; i++) {
+      const input = document.createElement('input');
+      input.setAttribute('id', `input-${i}`);
+      input.setAttribute('type', 'number');
+      input.setAttribute('min', '1');
+      input.setAttribute('max', '9');
+      input.setAttribute('maxlength', '1');
+      grid.appendChild(input);
+    }
+    
+};
+
 
 
 
@@ -37,5 +50,6 @@ module.exports = {
     newGame,
     arrayto2D,
     gridValues,
+    createGrid,
     sudoku
 }
