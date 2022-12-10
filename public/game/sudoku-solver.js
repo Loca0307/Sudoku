@@ -261,7 +261,7 @@ function checkSquare(sudoku, row, column, number) {
 
 // will work 
 function checkNumber(sudoku, row, column, number) {
-    let gridValues = arrayto1D(sudoku);
+    // let gridValues = arrayto1D(sudoku);
     if (checkRow(sudoku, row, number) 
     && checkColumn(sudoku, column, number) 
     && checkSquare(sudoku, row, column, number)) {
@@ -311,7 +311,7 @@ function solveGrid(gridValues) {
     return true;
 }
 //solveGrid(gridValues);
-console.log(gridValues);
+// console.log(gridValues);
 
 
 
@@ -328,9 +328,15 @@ let N = 9;
 function solveSudoku(sudoku, row, column)
 {
 	
-	/* If we have reached the 8th
+	/*
+    quindi vuoi git push?
+    git pull
+
+
+    
+    If we have reached the 8th
 	row and 9th column (0
-	indexed matrix) ,
+	indexed matrix) 
 	we are returning true to avoid further
 	backtracking	 */
 	if (row == N - 1 && column == N)
