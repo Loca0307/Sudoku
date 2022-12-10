@@ -6,3 +6,4 @@ Group members:
 - Alberto Sardo
 - Eduardo Trabattoni
 - Kirustika Mohanathas
+- Philip Krause
