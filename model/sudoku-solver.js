@@ -32,15 +32,27 @@ gridValues represents a 1D array
 // Create the grid
 
 function createGrid() {
-for (let i = 0; i < gridSize; i++) {
-  const input = document.createElement('input');
-  input.setAttribute('id', `input-${i}`);
-  input.setAttribute('type', 'number');
-  input.setAttribute('min', '1');
-  input.setAttribute('max', '9');
-  input.setAttribute('maxlength', '1');
-  grid.appendChild(input);
-}
+
+    var htmlout = "";
+
+    for (let i = 0; i < gridSize; i++) {
+
+    const input = document.createElement('input');
+    htmlout += "<input ";
+    
+    input.setAttribute('id', `input-${i}`);
+    htmlout += " id='input-'" + i + " ";
+
+    input.setAttribute('type', 'number');
+
+    input.setAttribute('min', '1');
+    input.setAttribute('max', '9');
+    input.setAttribute('maxlength', '1');
+    htmlout += ">";
+
+    return htmlout;
+    grid.appendChild(input);
+    }
 
 };
 
