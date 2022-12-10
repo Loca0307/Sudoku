@@ -14,10 +14,10 @@ router.post("/sudoku/new_game", function(req,res) {
 
     //TODO: Call sudokumodel (model/sudoku.js) to set up the game
 
-    db.name_coll.insertOne(name_data).then(n => {
+    db.name_coll.insertOne(data).then(n => {
         res.format({
             'json': function () {
-                res.status(201).json(name_data);
+                res.status(201).json(data);
             }
         })
     });
