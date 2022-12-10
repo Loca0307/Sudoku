@@ -206,19 +206,38 @@ function checkColumn(sudoku, column, number) {
 
 
 // check if the number is already in the same 3x3 square
-function checkSquare(gridValues, position, number) {
-    // calculate the square
-    let square = Math.floor(position / 27) * 27 + Math.floor(position % 9 / 3) * 3;
-    // iterate over the square and check if the number is already there
-    for (let i = square; i < square + 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            if (gridValues[i + j * 9] === number) {
-                return false;
-            }
-        }
-    }
-    return true;
+// function checkSquare(gridValues, position, number) {
+//     // calculate the square
+//     let square = Math.floor(position / 27) * 27 + Math.floor(position % 9 / 3) * 3;
+//     // iterate over the square and check if the number is already there
+//     for (let i = square; i < square + 3; i++) {
+//         for (let j = 0; j < 3; j++) {
+//             if (gridValues[i + j * 9] === number) {
+//                 return false;
+//             }
+//         }
+//     }
+//     return true;
+// }
+
+
+function checkSquare(sudoku, row, column, number) {
+
+    let indexR = row - row % 3;
+    let indexC = column - column % 3;
+     
+
+    for (let i = 0; i < 3; i++)
+        for (let j = 0; j < 3; j++)
+            if (number == sudoku[i + indexR][j + indexC])
+                return false;           
+                            
+
+    return true; 
 }
+
+
+
 
 
 // check if the number is valid in a certain position
@@ -230,6 +249,20 @@ function checkNumber(gridValues, position, number) {
     }
     return false;
 }
+
+// will work 
+function checkNumber(sudoku, row, column, number) {
+    let gridValues = arrayto1D(sudoku);
+    if (checkRow(sudoku, row, number) 
+    && checkColumn(sudoku, column, number) 
+    && checkSquare(sudoku, row, column, number)) {
+        return true;
+    }
+    return false;
+}
+
+
+
 
 // solve the grid
 function solveGrid(gridValues) {
@@ -281,7 +314,9 @@ let N = 9;
 	such a way to meet the requirements for
 	Sudoku solution (non-duplication across rows,
 	columns, and boxes) */
-function solveSudoku(grid, row, col)
+
+
+function solveSudoku(sudoku, row, column)
 {
 	
 	/* If we have reached the 8th
@@ -289,7 +324,7 @@ function solveSudoku(grid, row, col)
 	indexed matrix) ,
 	we are returning true to avoid further
 	backtracking	 */
-	if (row == N - 1 && col == N)
+	if (row == N - 1 && column == N)
 		return true;
 
 	// Check if column value becomes 9 ,
