@@ -17,3 +17,7 @@ router.post("/sudoku/new_game", function(req,res) {
     
     res.render("sudoku");
 });
+
+router.get("/sudoku/test_game", function(req,res) {
+    res.render("sodukotest");
+});
