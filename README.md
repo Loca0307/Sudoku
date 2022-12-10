@@ -9,17 +9,17 @@ Group members:
 - Philip Krause
 - Hoormazd Pirayeshfar
 
-Assigned Roles:
 
+Current Tasks:
 
-valentino : HTML and etc
+Valentino : Modular CSS for all pages
 
-kuristika : Database 
+Kuristika : Database Model
 
-eduardo and philip game logic
+Eduardo and Philip : Game Logic
 
-hoormazd : server stuff
+Hoormazd : Node server and Routing
 
-luca : login, different server stuff 
+Luca : Login Verification, Validating username against the database
 
-alberto : Not Assigned Yet
+Alberto : -
