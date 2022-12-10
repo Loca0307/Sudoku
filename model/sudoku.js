@@ -8,16 +8,10 @@ let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
 
-
-
-
-
-
-function newGame(){
+function newGame() {
     //TODO Set up the board and start a new game
     //return the board
 }
-
 
 
 function arrayto2D() {
