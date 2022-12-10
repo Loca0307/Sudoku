@@ -53,6 +53,12 @@ function arrayto2D() {
     return sudoku; 
 }
 
+// takes 2D array representing sudoku board, converts to 1D array needed for display
+function arrayto1D() {
+    gridValues = [].concat(...sudoku);
+    return gridValues;
+}
+
 
 // assign to the 3 const a random number between 1 and 9 different from each other
 
