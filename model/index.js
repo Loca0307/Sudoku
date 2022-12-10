@@ -1,3 +1,10 @@
+/**
+ * Web Atelier 2022  
+ *
+ * Student: __Kirustika Mohanathas__
+ *
+ *
+ */
 
 
 const mongodb = require('mongodb');
@@ -6,9 +13,9 @@ const mongodb_uri = 'mongodb://127.0.0.1:27017/';
 
 const client = new mongodb.MongoClient(mongodb_uri);
 
-const db_name = 'web-atelier-ex';
+const db_name = 'web-atelier-project';
 
-const collection_names = [];
+const collection_names = ['high_scores'];
 
 const model = {};
 
