@@ -14,12 +14,12 @@ Current Tasks:
 
 Valentino : Modular CSS for all pages
 
-Kuristika : Database Model
+Kirustika : -
 
 Eduardo and Philip : Game Logic
 
 Hoormazd : Node server and Routing
 
-Luca : Login Verification, Validating username against the database
+Luca : Implementing the Database model, validating player usernames against the database
 
 Alberto : -

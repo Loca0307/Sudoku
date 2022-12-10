@@ -8,7 +8,44 @@ let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
 
-function newGame() {
+
+
+// function createGrid() {
+//     for (let i = 0; i < gridSize; i++) {
+//       const input = document.createElement('input');
+//       input.setAttribute('id', `input-${i}`);
+//       input.setAttribute('type', 'number');
+//       input.setAttribute('min', '1');
+//       input.setAttribute('max', '9');
+//       input.setAttribute('maxlength', '1');
+//       grid.appendChild(input);
+//     }
+    
+// };
+
+function createGrid() {
+    var htmlout = "";
+    for (let i = 0; i < gridSize; i++) {
+    htmlout += "<input ";
+    htmlout += " id='input-'" + i + " ";
+    htmlout += " type='number' ";
+    htmlout += " min='1' ";
+    htmlout += " max='9' ";
+    htmlout += " maxlength='1' ";
+    htmlout += ">";
+
+    
+    return htmlout;
+    // grid.appendChild(input);
+
+    }
+
+};
+
+
+
+
+function newGame(){
     //TODO Set up the board and start a new game
     //return the board
 }
@@ -31,5 +68,6 @@ module.exports = {
     newGame,
     arrayto2D,
     gridValues,
+    createGrid,
     sudoku
 }
