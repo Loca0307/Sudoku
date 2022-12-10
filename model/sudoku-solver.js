@@ -6,6 +6,15 @@ const rowSize = 9;
 const gridArray = Array.from(grid.children); //maybe we need to acces .value of children elelemtn
 
 
+/* 
+
+Explanations:
+
+Sudoku represents a 2D array
+gridValues represents a 1D array 
+
+*/
+
 
 
 /**
@@ -183,8 +192,7 @@ function checkColumn(sudoku, column, number) {
 }
 
 
-///complete 
-
+///everything before this has been adapted to work with a 2D array
 
 
 
@@ -320,182 +328,3 @@ function solveSudoku(grid, row, col)
 	return false;
 }
 
-
-
-
-
-
-
-
-
-
-// update html
-// function updateDisplay() {
-//     for (let i = 0; i < gridSize; i++) {
-//         document.getElementById(`input-${i}`).value = gridValues[i];
-//     }
-// }
-// updateDisplay();
-
-
-// update the solved grid in the html
-// function updateGrid(gridValues) {
-//     for (let i = 0; i < gridSize; i++) {
-//         document.getElementById(`input-${i}`).value = gridValues[i];
-//     }
-// }
-// updateGrid(gridValues);
-// console.log(gridValues);
-
-// // get all the input values from the grid
-
-
-
-
-
-
-// const gridValues = getGridValues();
-// console.log(gridValues);
-
-// // check if the number is already in the same row
-// function checkRow() {
-//     for (let i = 0; i < 9; i++) {
-//         if (gridValues[i] === gridValues[i + 1] 
-//          || gridValues[i] === gridValues[i + 2] 
-//          || gridValues[i] === gridValues[i + 3] 
-//          || gridValues[i] === gridValues[i + 4] 
-//          || gridValues[i] === gridValues[i + 5] 
-//          || gridValues[i] === gridValues[i + 6] 
-//          || gridValues[i] === gridValues[i + 7] 
-//          || gridValues[i] === gridValues[i + 8]) {
-//             return false;
-//         }
-
-//     }
-//     return true;
-// }
-
-// // check if the number is already in the same column
-// function checkColumn() {
-//     for (let i = 0; i < 9; i++) {
-//         if (gridValues[i] === gridValues[i + 9]
-//             || gridValues[i] === gridValues[i + 18]
-//             || gridValues[i] === gridValues[i + 27]
-//             || gridValues[i] === gridValues[i + 36]
-//             || gridValues[i] === gridValues[i + 45]
-//             || gridValues[i] === gridValues[i + 54]
-//             || gridValues[i] === gridValues[i + 63]
-//             || gridValues[i] === gridValues[i + 72]) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-// check if the number is already in the same 3x3 square
-// pass to the function parameter 
-// function checkSubSquare() {
-    
-
-
-// function checkSubSquare() {
-//     // check the first 3x3 square
-//     // loc
-//     if (gridValues[0] === gridValues[1]
-// || gridValues[0] === gridValues[2]
-// || gridValues[0] === gridValues[9]
-// || gridValues[0] === gridValues[10]
-// || gridValues[0] === gridValues[11]
-// || gridValues[0] === gridValues[18]
-// || gridValues[0] === gridValues[19]
-// || gridValues[0] === gridValues[20]
-// || gridValues[1] === gridValues[2]
-// || gridValues[1] === gridValues[9]
-// || gridValues[1] === gridValues[10]
-// || gridValues[1] === gridValues[11]
-// || gridValues[1] === gridValues[18]
-// || gridValues[1] === gridValues[19]
-// || gridValues[1] === gridValues[20]
-// || gridValues[2] === gridValues[9]
-// || gridValues[2] === gridValues[10]
-// || gridValues[2] === gridValues[11]
-// || gridValues[2] === gridValues[18]
-// || gridValues[2] === gridValues[19]
-// || gridValues[2] === gridValues[20]
-// || gridValues[9] === gridValues[10]
-// || gridValues[9] === gridValues[11]
-// || gridValues[9] === gridValues[18]
-// || gridValues[9] === gridValues[19]
-// || gridValues[9] === gridValues[20]
-// || gridValues[10] === gridValues[11]
-// || gridValues[10] === gridValues[18]
-// || gridValues[10] === gridValues[19]
-// || gridValues[10] === gridValues[20]
-// || gridValues[11] === gridValues[18]
-// || gridValues[11] === gridValues[19]
-// || gridValues[11] === gridValues[20]
-// || gridValues[18] === gridValues[19]
-// || gridValues[18] === gridValues[20]
-// || gridValues[19] === gridValues[20]) {
-
-//     return false;
-// }
-
-
-
-
-
-
-
-
-    // check the second 3x3 square
-
-    
-
-// private boolean isNumberInSubGrid(int[][] sudoku, int number, int row, int column) {
-//     int localRow = row - row % 3;
-//     int localColumn = column - column % 3;
-
-//     for (int i = localRow; i < localRow + 3; i++) {
-//         for (int j = localColumn; j < localColumn + 3; j++) {
-//             if (sudoku[i][j] == number) {
-//                 return true;
-//             }
-
-//         }
-
-//     }
-//     return false;
-// }
-
-
-
-
-
-
-
-
-
-
-// console.log(grid);
-
-// save grind in an array
-
-// console.log(gridArray);
-
-// save the grid in a 2D array
-// const grid2D = [];
-// for (let i = 0; i < 9; i++) {
-//     grid2D.push(gridArray.slice(i * 9, i * 9 + 9));
-//     }
-// console.log('');
-// console.log('');
-// console.log('');
-// console.log(grid2D);
-// save the grid in a string
-
-
-
-
-
-// const gridString = gridArray.map(input => input.value).join('_')
