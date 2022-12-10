@@ -42,15 +42,6 @@ function arrayto2D() {
 }
 
 
-
-
-
-
-// assign to 3 variabels the value 0
-let first = 0;
-let second = 0;
-let third = 0;
-console.log(first, second, third);
 // assign to the 3 const a random number between 1 and 9 different from each other
 
 
@@ -80,7 +71,6 @@ console.log(x);
 
 // populate the grid with the 3 random numbers
 // const gridValues = getGridValues();
-
 
 
 let sudoku = []; // this is the actual playing board
@@ -180,12 +170,12 @@ function checkRow(sudoku, row, number) {
 }
 
 // check if the number is already in the same column
-function checkColumn(gridValues, column, number) {
+function checkColumn(sudoku, column, number) {
     // calculate the column
     //const column = position % 9;
     // iterate over the column and check if the number is already there
     for (let i = 0; i < 9; i++) {
-        if (number === gridValues[i][column]) 
+        if (number === sudoku[i][column]) 
             return false;
     }
     return true;
@@ -193,8 +183,7 @@ function checkColumn(gridValues, column, number) {
 }
 
 
-
-
+///complete 
 
 
 

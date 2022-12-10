@@ -4,7 +4,8 @@ const path = require('path');
 const gridSize = 81;
 const columnSize = 9;
 const rowSize = 9;
-
+let gridValues = []; //1D array representing board
+let sudoku = []; //2D array representing board
 
 
 
@@ -35,5 +36,6 @@ module.exports = {
     rowSize,
     newGame,
     arrayto2D,
-    
+    gridValues,
+    sudoku
 }
