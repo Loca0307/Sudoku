@@ -331,6 +331,8 @@ function solveSudoku(sudoku, row, column)
 	/*
     quindi vuoi git push?
     git pull
+    vedi non funzica
+    dovrebbe esserci gia un git inore
 
 
     
