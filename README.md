@@ -7,3 +7,4 @@ Group members:
 - Eduardo Trabattoni
 - Kirustika Mohanathas
 - Philip Krause
+- Hoormazd Pirayeshfar
