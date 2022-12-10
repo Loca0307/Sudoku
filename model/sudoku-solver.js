@@ -5,6 +5,9 @@ const columnSize = 9;
 const rowSize = 9;
 const gridArray = Array.from(grid.children); //maybe we need to acces .value of children elelemtn
 
+let gridValues = []; //1D array representing board
+let sudoku = []; //2D array representing board
+
 
 /* 
 
@@ -82,7 +85,7 @@ console.log(x);
 // const gridValues = getGridValues();
 
 
-let sudoku = []; // this is the actual playing board
+//let sudoku = []; // this is the actual playing board
 
 
 function populateGrid() {
