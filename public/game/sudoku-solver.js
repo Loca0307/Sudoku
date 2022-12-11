@@ -11,6 +11,7 @@ let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
 
+
 let test = [ [ 3, 0, 6, 5, 0, 8, 4, 0, 0 ],
              [ 5, 2, 0, 0, 0, 0, 0, 0, 0 ],
              [ 0, 8, 7, 0, 0, 0, 0, 3, 1 ],
@@ -60,19 +61,23 @@ gridValues represents a 1D array
 //either this function will take the empty array, or it will remain global
 
 function init() {
+    let sudoku = [];
 
     createGrid();
     // console.log("sudoku grid created");
 
     // console.log(sudoku);
-    populateGrid(sudoku);
+    x = populateGrid(sudoku);
     //  console.log(sudoku);
    // solveSudoku(sudoku, 0, 0);
     // getRandomNumbers();
     // console.log(sudoku);
-    // solveSudoku(sudoku, 0, 0);
+    solveSudoku(x, 0, 0);
+    console.log("kjshdfkjsahdfkljashdfkjhsadfk");
+
+    console.log(x);
     // console.log(sudoku);
-    displayGridValues(sudoku);
+    displayGridValues(x);
     // console.log(sudoku);
 
 }
@@ -99,7 +104,6 @@ for (let i = 0; i < gridSize; i++) {
   grid.appendChild(input);
 //   console.log(input);
 }
-console.log("kjshdfkjsahdfkljashdfkjhsadfk");
 
 };
 
@@ -275,7 +279,7 @@ console.log(sudoku);
 
 // display the grid values in html input
 function displayGridValues(sudoku) {
-    sudoku = populateGrid(sudoku);
+    
     let n = 0; //this is associated to the input element ids
 
     for (let i = 0; i < columnSize; i++) {
@@ -451,7 +455,9 @@ function solveGrid(gridValues) {
 
 
 function solveSudoku(sudoku, row, column)
-{
+{   
+    
+
 	 let N = 9;
 	
 	if (row == N - 1 && column == N)
@@ -486,6 +492,7 @@ function solveSudoku(sudoku, row, column)
 	}
 	return false;
 }
+
 
 // function testSudokuSOlver(sudoku){
 //     for (let row = 0; row < 9; row++) {
