@@ -94,13 +94,20 @@ function arrayto1D() {
 
 // @return {Array} with 3 random numbers
 function getRandomNumbers() {
-    let first, second, third; 
-    while (first === second || first === third || second === third) {
+    let first, second, third, fourth, fifth, sixth, seventh, eighth, ninth;; 
+    while (first === second || second === third || third === fourth || fourth === fifth 
+        || fifth === sixth || sixth === seventh || seventh === eighth || eighth === ninth ) {
         first = Math.floor(Math.random() * 9) + 1;
         second = Math.floor(Math.random() * 9) + 1;
         third = Math.floor(Math.random() * 9) + 1;
+        fourth = Math.floor(Math.random() * 9) + 1;
+        fifth = Math.floor(Math.random() * 9) + 1;
+        sixth = Math.floor(Math.random() * 9) + 1;
+        seventh = Math.floor(Math.random() * 9) + 1;
+        eighth = Math.floor(Math.random() * 9) + 1;
+        ninth = Math.floor(Math.random() * 9) + 1;
     }
-    return [first, second, third];
+    return [first, second, third, fourth, fifth, sixth, seventh, eighth, ninth];
 
 }
 
