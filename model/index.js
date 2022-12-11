@@ -33,5 +33,4 @@ client
     .catch(err => console.error(err));
 
 
-model.Id = mongodb.ObjectId;    //creating the id of the database
 exports.model = model; 

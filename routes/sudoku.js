@@ -14,6 +14,7 @@ router.post("/sudoku/new_game", function(req,res) {
 
     //TODO: Call sudokumodel (model/sudoku.js) to set up the game
 
+    /*
     db.name_coll.insertOne(data).then(n => {
         res.format({
             'json': function () {
@@ -21,6 +22,7 @@ router.post("/sudoku/new_game", function(req,res) {
             }
         })
     });
+    */
     
     res.render("sudoku");
 });
