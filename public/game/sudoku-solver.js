@@ -116,10 +116,11 @@ function arrayto2D(gridValues) {
 // console.log(arrayto2D(test1D));
 
 // takes 2D array representing sudoku board, converts to 1D array needed for display
-function arrayto1D(sudoku) {
+function arrayto1D() {
     gridValues = [].concat(...sudoku);
     return gridValues;
 }
+// console.log(arrayto1D(test));
 
 
 
@@ -132,6 +133,12 @@ function get3RandomNumbers() {
         first = Math.floor(Math.random() * 9) + 1;
         second = Math.floor(Math.random() * 9) + 1;
         third = Math.floor(Math.random() * 9) + 1;
+        fourth = Math.floor(Math.random() * 9) + 1;
+        fifth = Math.floor(Math.random() * 9) + 1;
+        sixth = Math.floor(Math.random() * 9) + 1;
+        seventh = Math.floor(Math.random() * 9) + 1;
+        eighth = Math.floor(Math.random() * 9) + 1;
+        ninth = Math.floor(Math.random() * 9) + 1;
     }
     return [first, second, third];
 
@@ -224,18 +231,15 @@ function populateGrid(sudoku) {
 
 //let sudoku = []; // this is the actual playing board
 
+// populate the sudoku board with the 9 random numbers
+
+
 
 function populateGridOld(sudoku) {
     let randomSeed = getRandomNumbers(); // array of random numbers
-    let row1 = [];
     let zeroRow = [];
     // generate row with 3 random values; 
-    for (let i = 0; i < 9; i++) {
-        if (i < 3)
-            row1.push(randomSeed[i]);
-        else
-            row1.push(0);
-    }
+    
     // make an array of 0's 
     for (let i = 0; i < 9; i++)
         zeroRow.push(0);
@@ -243,13 +247,12 @@ function populateGridOld(sudoku) {
     
     // generate initial sudoku board
     for (let i = 0; i < 9; i++) {
-        if (i == 0)
-            sudoku.push(row1);
-        else
-            sudoku.push(zeroRow);
-            
+            sudoku.push(zeroRow);       
     }
-    // rest of grid values to 0
+    // insert the random numbers in the sudoku board
+    for (let i = 0; i < 9; i++) {
+        sudoku[i][i] = randomSeed[i];
+    }
     
 }
 
@@ -472,7 +475,31 @@ function solveSudoku(sudoku, row, column)
 	return false;
 }
 
+// function testSudokuSOlver(sudoku){
+//     for (let row = 0; row < 9; row++) {
+//         for (let col = 0; col < 9; col++) {
+//             if (sudoku[row][col] == 0) {
+//                 for (let number = 1; number <= 9; number++) {
+//                     if (checkNumber(sudoku, row, col, number)) {
+//                         sudoku[row][col] = number;
+//                         if (testSudokuSOlver(sudoku)[0]) {
+//                             return [true, sudoku];
+//                         } else {
+//                             sudoku[row][col] = 0;
+//                         }
+//                     }
+//                 }
+//                 return [false, sudoku];
+//             }
+//         }
 
+//     }
+//     return [true, sudoku];
+// }
+// testSudokuSOlver(sudoku);
+// displayGridValues();
+
+// console.log(sudoku);
 
 
 
