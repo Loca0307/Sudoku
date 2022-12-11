@@ -20,7 +20,16 @@ let test = [ [ 3, 0, 6, 5, 0, 8, 4, 0, 0 ],
              [ 0, 0, 5, 2, 0, 6, 3, 0, 0 ] ]
   
 
-
+let test2 = [ 
+[ 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+[ 0, 2, 0, 0, 0, 0, 0, 0, 0 ],
+[ 0, 0, 3, 0, 0, 0, 0, 0, 0 ],
+[ 0, 0, 0, 4, 0, 0, 0, 0, 0 ],
+[ 0, 0, 0, 0, 5, 0, 0, 0, 0 ],
+[ 0, 0, 0, 0, 0, 6, 0, 0, 0 ],
+[ 0, 0, 0, 0, 0, 0, 7, 0, 0 ],
+[ 0, 0, 0, 0, 0, 0, 0, 8, 0 ],
+[ 0, 0, 0, 0, 0, 0, 0, 0, 9 ]]
 
 
 /* 
@@ -333,32 +342,16 @@ console.log(gridValues);
 
 
 
-// N is the size of the 2D matrix N*N
 
-
-/* Takes a partially filled-in grid and attempts
-	to assign values to all unassigned locations in
-	such a way to meet the requirements for
-	Sudoku solution (non-duplication across rows,
-	columns, and boxes) */
-
-
-function solveSudoku(sudoku, row, column)
+function solveSudoku(sudoku, row, column, size)
 {
-	let N = 9;
-	/* If we have reached the 8th
-	row and 9th column (0
-	indexed matrix) ,
-	we are returning true to avoid further
-	backtracking	 */
-	if (row == N - 1 && column == N)
+	// let N = 9;
+	
+	if (row == size - 1 && column == size)
 		return true;
 
-	// Check if column value becomes 9 ,
-	// we move to next row
-	// and column start from 0
-	if (column == N)
-	{
+	
+	if (column == size) {
 		row++;
 		column = 0;
 	}
@@ -370,19 +363,10 @@ function solveSudoku(sudoku, row, column)
 	if (sudoku[row][column] != 0)
 		return solveSudoku(sudoku, row, column + 1);
 
-	for(let num = 1; num < 10; num++)
-	{
+	for (let num = 1; num <= 9; num++) {
 		
-		// Check if it is safe to place
-		// the num (1-9) in the given
-		// row ,col ->we move to next column
-		if (checkNumber(sudoku, row, column, num))
-		{
+		if (checkNumber(sudoku, row, column, num)) {
 			
-			/* assigning the num in the current
-			(row,col) position of the grid and
-			assuming our assigned num in the position
-			is correct */
 			sudoku[row][column] = num;
 
 			// Checking for next
@@ -391,11 +375,12 @@ function solveSudoku(sudoku, row, column)
 				return true;
 		}
 		
-		/* removing the assigned num , since our
-		assumption was wrong , and we go for next
-		assumption with diff num value */
 		sudoku[row][column] = 0;
 	}
 	return false;
 }
+
+
+
+
 
