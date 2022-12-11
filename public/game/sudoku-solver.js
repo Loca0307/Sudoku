@@ -9,6 +9,20 @@ let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
 
+let test = [ [ 3, 0, 6, 5, 0, 8, 4, 0, 0 ],
+             [ 5, 2, 0, 0, 0, 0, 0, 0, 0 ],
+             [ 0, 8, 7, 0, 0, 0, 0, 3, 1 ],
+             [ 0, 0, 3, 0, 1, 0, 0, 8, 0 ],
+             [ 9, 0, 0, 8, 6, 3, 0, 0, 5 ],
+             [ 0, 5, 0, 0, 9, 0, 6, 0, 0 ],
+             [ 1, 3, 0, 0, 0, 0, 2, 5, 0 ],
+             [ 0, 0, 0, 0, 0, 0, 0, 7, 4 ],
+             [ 0, 0, 5, 2, 0, 6, 3, 0, 0 ] ]
+  
+
+
+
+
 /* 
 
 Explanations:
@@ -132,7 +146,7 @@ function populateGrid(sudoku) {
 
 //console.log(gridValues);
 console.log("break");
-populateGrid(sudoku);
+//populateGrid(sudoku);
 console.log(sudoku);
 
 // display the grid values in html input
@@ -148,6 +162,8 @@ function displayGridValues() {
     }
 
 }
+
+solveSudoku(test, 0, 0);
 displayGridValues();
 
 
@@ -236,10 +252,7 @@ function checkSquare(sudoku, row, column, number) {
     let indexR = row - row % 3;
     let indexC = column - column % 3;
      
-<<<<<<< HEAD
 
-=======
->>>>>>> 7cb83da21dbc462d4e0598517c664ac9e24373e2
     for (let i = 0; i < 3; i++)
         for (let j = 0; j < 3; j++)
             if (number == sudoku[i + indexR][j + indexC])
@@ -263,20 +276,10 @@ function checkSquare(sudoku, row, column, number) {
 //     return false;
 // }
 
-// will work 
-function checkNumber(sudoku, row, column, number) {
-    // let gridValues = arrayto1D(sudoku);
-    if (checkRow(sudoku, row, number) 
-    && checkColumn(sudoku, column, number) 
-    && checkSquare(sudoku, row, column, number)) {
-        return true;
-    }
-    return false;
-}
 
-<<<<<<< HEAD
 // will work 
 function checkNumber(sudoku, row, column, number) {
+
     let gridValues = arrayto1D(sudoku);
     if (checkRow(sudoku, row, number) 
     && checkColumn(sudoku, column, number) 
@@ -285,9 +288,6 @@ function checkNumber(sudoku, row, column, number) {
     }
     return false;
 }
-
-=======
->>>>>>> 7cb83da21dbc462d4e0598517c664ac9e24373e2
 
 
 
@@ -329,12 +329,12 @@ function solveGrid(gridValues) {
     return true;
 }
 //solveGrid(gridValues);
-// console.log(gridValues);
+console.log(gridValues);
 
 
 
 // N is the size of the 2D matrix N*N
-let N = 9;
+
 
 /* Takes a partially filled-in grid and attempts
 	to assign values to all unassigned locations in
@@ -345,18 +345,10 @@ let N = 9;
 
 function solveSudoku(sudoku, row, column)
 {
-	
-	/*
-    quindi vuoi git push?
-    git pull
-    vedi non funzica
-    dovrebbe esserci gia un git inore
-
-
-    
-    If we have reached the 8th
+	let N = 9;
+	/* If we have reached the 8th
 	row and 9th column (0
-	indexed matrix) 
+	indexed matrix) ,
 	we are returning true to avoid further
 	backtracking	 */
 	if (row == N - 1 && column == N)
@@ -391,7 +383,7 @@ function solveSudoku(sudoku, row, column)
 			(row,col) position of the grid and
 			assuming our assigned num in the position
 			is correct */
-			grsudokuid[row][col] = num;
+			sudoku[row][column] = num;
 
 			// Checking for next
 			// possibility with next column
