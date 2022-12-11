@@ -62,11 +62,15 @@ gridValues represents a 1D array
 function init() {
 
     createGrid();
+    // console.log("sudoku grid created");
+
     // console.log(sudoku);
     populateGrid(sudoku);
-     console.log(sudoku);
+    //  console.log(sudoku);
    // solveSudoku(sudoku, 0, 0);
-    getRandomNumbers();
+    // getRandomNumbers();
+    // console.log(sudoku);
+    // solveSudoku(sudoku, 0, 0);
     // console.log(sudoku);
     displayGridValues(sudoku);
     // console.log(sudoku);
@@ -91,9 +95,11 @@ for (let i = 0; i < gridSize; i++) {
   input.setAttribute('min', '1');
   input.setAttribute('max', '9');
   input.setAttribute('maxlength', '1');
-  
+//   input.setAttribute('value', '0');
   grid.appendChild(input);
+//   console.log(input);
 }
+console.log("kjshdfkjsahdfkljashdfkjhsadfk");
 
 };
 
@@ -167,26 +173,48 @@ function getRandomNumbers() {
 
 function populateGrid(sudoku) {
     console.log("population");
-    console.log(sudoku);
+    // console.log(sudoku);
     let randomSeed = getRandomNumbers(); // array of random numbers
-    console.log(randomSeed);
-    let zeroRow = [];
+    // console.log(randomSeed);
+    // let zeroRow = [];
     
-    // make an array of 0's 
-    for (let i = 0; i < 9; i++)
-        zeroRow.push(0);
+    // // make an array of 0's 
+    // for (let i = 0; i < 9; i++)
+    //     zeroRow.push(0);
     
-    // generate initial sudoku board
-    for (let i = 0; i < 9; i++) {
-            sudoku.push(zeroRow);       
-    }
+    // // generate initial sudoku board
+    // for (let i = 0; i < 9; i++) {
+    //         sudoku.push(zeroRow);       
+    // }
+
     // insert the random numbers in the sudoku board
+    // for (let i = 0; i < 9; i++) {
+    //     sudoku[i][i] = i;
+    // }
+    // sudoku[0][0] = 1;
+    sudoku = [[0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0]];
+                // insert the random numbers in the sudoku board
     for (let i = 0; i < 9; i++) {
         sudoku[i][i] = randomSeed[i];
     }
+    return sudoku;
     
 }
+console.log(populateGrid(sudoku));
 
+//  testoteso = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]];
+// console.log(testoteso);
+// for (let i = 0; i < 4; i++)
+//     testoteso[i][i] = i;
+// console.log(testoteso);
 
 
 
@@ -247,12 +275,14 @@ console.log(sudoku);
 
 // display the grid values in html input
 function displayGridValues(sudoku) {
-
+    sudoku = populateGrid(sudoku);
     let n = 0; //this is associated to the input element ids
 
     for (let i = 0; i < columnSize; i++) {
+        console.log(sudoku[i]);
         // inserte the value in the input
         for (let j = 0; j < rowSize; j++) {
+            
             document.getElementById(`input-${n++}`).value = sudoku[i][j];
         }
     }
