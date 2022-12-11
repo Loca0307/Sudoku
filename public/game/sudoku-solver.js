@@ -74,25 +74,29 @@ createGrid();
 // sudoku.push(1);
 
 //let sudoku = [];
-
+// let test1D = [ 3, 0, 6, 5, 0, 8, 4, 0, 0, 3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0,3, 0, 6, 5, 0, 8, 4, 0, 0 ];
 // takes 1D array representing sudoku board, converts to 2D array needed for algo
-function arrayto2D() {
-    while (gridValues.length-1)
+function arrayto2D(gridValues) {
+    let sudoku = [];
+    while (gridValues.length)
         sudoku.push(gridValues.splice(0,9));
     return sudoku; 
 }
 
+// console.log(arrayto2D(test1D));
+
 // takes 2D array representing sudoku board, converts to 1D array needed for display
-function arrayto1D() {
+function arrayto1D(sudoku) {
     gridValues = [].concat(...sudoku);
     return gridValues;
 }
+// console.log(arrayto1D(test));
 
 
-// assign to the 3 const a random number between 1 and 9 different from each other
 
 
 // @return {Array} with 3 random numbers
+// prototype will be changed after
 function getRandomNumbers() {
     let first, second, third, fourth, fifth, sixth, seventh, eighth, ninth;; 
     while (first === second || second === third || third === fourth || fourth === fifth 
@@ -129,18 +133,15 @@ function getRandomNumbers() {
 
 //let sudoku = []; // this is the actual playing board
 
+// populate the sudoku board with the 9 random numbers
+
+
 
 function populateGrid(sudoku) {
     let randomSeed = getRandomNumbers(); // array of random numbers
-    let row1 = [];
     let zeroRow = [];
     // generate row with 3 random values; 
-    for (let i = 0; i < 9; i++) {
-        if (i < 3)
-            row1.push(randomSeed[i]);
-        else
-            row1.push(0);
-    }
+    
     // make an array of 0's 
     for (let i = 0; i < 9; i++)
         zeroRow.push(0);
@@ -148,13 +149,12 @@ function populateGrid(sudoku) {
     
     // generate initial sudoku board
     for (let i = 0; i < 9; i++) {
-        if (i == 0)
-            sudoku.push(row1);
-        else
-            sudoku.push(zeroRow);
-            
+            sudoku.push(zeroRow);       
     }
-    // rest of grid values to 0
+    // insert the random numbers in the sudoku board
+    for (let i = 0; i < 9; i++) {
+        sudoku[i][i] = randomSeed[i];
+    }
     
 }
 
@@ -387,7 +387,31 @@ function solveSudoku(sudoku, row, column, size)
 	return false;
 }
 
+// function testSudokuSOlver(sudoku){
+//     for (let row = 0; row < 9; row++) {
+//         for (let col = 0; col < 9; col++) {
+//             if (sudoku[row][col] == 0) {
+//                 for (let number = 1; number <= 9; number++) {
+//                     if (checkNumber(sudoku, row, col, number)) {
+//                         sudoku[row][col] = number;
+//                         if (testSudokuSOlver(sudoku)[0]) {
+//                             return [true, sudoku];
+//                         } else {
+//                             sudoku[row][col] = 0;
+//                         }
+//                     }
+//                 }
+//                 return [false, sudoku];
+//             }
+//         }
 
+//     }
+//     return [true, sudoku];
+// }
+// testSudokuSOlver(sudoku);
+// displayGridValues();
+
+// console.log(sudoku);
 
 
 
