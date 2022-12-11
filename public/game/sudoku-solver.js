@@ -71,11 +71,10 @@ function init() {
 
     console.log(x);
     displayGridValues(x);
-
+    return x;
 }
 
 
-init();
 
 
 function createGrid() {
@@ -283,4 +282,110 @@ function solveSudoku(sudoku, row, column)
 	}
 	return false;
 }
+
+/**
+ * 3d part of the code is to creat 3 different levels of difficulty
+ * that a single player can choose from
+ * and play and solve the sudoku
+ * 
+ * for this we store the initial sudoku board in a variable
+ * and then we remove a certain number of numbers from the board
+ * depending on the level of difficulty
+ * 
+ * 
+ */
+
+
+
+// take the init() return value and store it in a variable
+let sudokulevels = init();
+
+// create the easy level
+console.log("easy level");
+let easyLevel = removeNumbersFromBoard(sudokulevels, 1);
+console.log(easyLevel);
+
+// create the medium level
+console.log("medium level");
+let mediumLevel = removeNumbersFromBoard(sudokulevels, 2);
+console.log(mediumLevel);
+
+// create the hard level
+console.log("hard level");
+let hardLevel = removeNumbersFromBoard(sudokulevels, 3);
+console.log(hardLevel);
+
+// remove a certain number of numbers from the board depending on the level of difficulty
+function removeNumbers(sudoku, level) {
+    let n = 0;
+    let removedNumbers = 0;
+    // easy level
+    if (level === 1) {
+        removedNumbers = 10;
+    }
+    // medium level
+    else if (level === 2) {
+        removedNumbers = 20;
+    }
+    // hard level
+    else if (level === 3) {
+        removedNumbers = 30;
+    }
+    // remove the numbers from the board
+    while (n < removedNumbers) {
+        let row = Math.floor(Math.random() * 9);
+        let column = Math.floor(Math.random() * 9);
+        if (sudoku[row][column] !== 0) {
+            sudoku[row][column] = 0;
+            n++;
+        }
+    }
+    return sudoku;
+}
+
+// remove the numbers from the board
+function removeNumbersFromBoard(sudoku, level) {
+    let removedSudoku = removeNumbers(sudoku, level);
+    return removedSudoku;
+}
+
+
+
+
+// go over the sudoku of the player and store the coordinates of the empty cells
+function getEmptyCells(sudoku) {
+    let emptyCells = [];
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (sudoku[i][j] === 0) {
+                emptyCells.push([i, j]);
+            }
+        }
+    }
+    return emptyCells;
+}
+
+// if the coordinates of the empty cells are the same as the coordinates of the cell that the player clicked on
+// then the player can enter a number in that cell
+// this should be used for the event listener
+function checkIfCellIsEmpty(sudoku, row, column) {
+    let emptyCells = getEmptyCells(sudoku);
+    for (let i = 0; i < emptyCells.length; i++) {
+        if (emptyCells[i][0] === row && emptyCells[i][1] === column) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// check if the player has entered a number in the cell
+function checkIfCellIsFilled(sudoku, row, column) {
+    if (sudoku[row][column] !== 0) {
+        return true;
+    }
+    return false;
+}
+
+
+
 
