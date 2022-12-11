@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 module.exports = router;
 
-let {model} = require("../model");
+
+
+let db = require("../model").model;
+const ObjectId = require('mongodb').ObjectId;
 const sudokumodel = require('../model/sudoku');
 
 router.post("/sudoku/new_game", function(req,res) {
@@ -14,15 +17,15 @@ router.post("/sudoku/new_game", function(req,res) {
 
     //TODO: Call sudokumodel (model/sudoku.js) to set up the game
 
-    /*
-    db.name_coll.insertOne(data).then(n => {
+    
+    db.names.insertOne(data).then(n => {
         res.format({
             'json': function () {
                 res.status(201).json(data);
             }
         })
     });
-    */
+    
     
     res.render("sudoku");
 });
