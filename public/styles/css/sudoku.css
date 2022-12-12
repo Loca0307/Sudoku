@@ -98,3 +98,7 @@ hr {
     border-spacing: 0;
 
   }
+
+  input[readonly]{
+    background-color: #00FF89;
+  }
