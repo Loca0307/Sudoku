@@ -29,8 +29,7 @@ const sudokumodel = require('../model/sudoku').model;
 
 
 router.post("/sudoku/new_game", function(req,res) {
-    let data = {
-        username: req.body.username, diff: req.body.diff};
+    let data = {username: req.body.username, diff: req.body.diff};
 
     //TODO: Login verification
     //get information from the 
@@ -41,24 +40,15 @@ router.post("/sudoku/new_game", function(req,res) {
     model.usernames.insertOne(data).then(n => {
 
         res.format({
-            'text/html' : () => {
-                res.render("sudoku")
-            },
-            'application/json' : () => {
-                res.status(201).json(data);
-            }
-        })
-
-        /* res.format({
             'json': function () {
                 res.status(201).json(data);
             }
-        }) */
+        })
         
     }); 
     
     
-   
+    res.render("sudoku");
 });
 
 
