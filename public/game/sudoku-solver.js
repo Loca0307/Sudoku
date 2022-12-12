@@ -475,7 +475,9 @@ function removeNumbers(solvedsudoku, level) {
 }
 
 /**
- * 
+ * TODO when user presses on easy button this needs to be called with params solvedsudoku and 1
+ *      when user presses on medium button this needs to be called with params solvedsudoku and 2
+ *      when user presses on hard button this needs to be called with params solvedsudoku and 3
  * @param {*} solvedsudoku 
  * @param {*} level 
  * @returns 
@@ -483,12 +485,14 @@ function removeNumbers(solvedsudoku, level) {
 // remove the numbers from the board
 function removeNumbersFromBoard(solvedsudoku, level) {
     let removedSudoku = removeNumbers(solvedsudoku, level);
+    // makeNonEmptyCellsReadonly();
     return removedSudoku;
 }
 
 removeNumbersFromBoard(solvedsudoku, 1);
 console.log(removeNumbersFromBoard(solvedsudoku, 1));
 displayGridValues(removeNumbersFromBoard(solvedsudoku, 1));
+makeNonEmptyCellsReadonly();
 console.log("aljdf;lajfl;kad");
 // console.log(displayGridValues(removeNumbersFromBoard(solvedsudoku, 1)));
 
@@ -579,7 +583,7 @@ function getNonEmptyCells(sudoku) {
  */
 // loop over the sudocu and make the cells that have the same coordinates of the nonEmptyCells readonly
 function makeNonEmptyCellsReadonly() {
-    let nonEmptyCells = getNonEmptyCells(sudoku);
+    let nonEmptyCells = getNonEmptyCells(solvedsudoku);
     for (let i = 0; i < nonEmptyCells.length; i++) {
         let x = nonEmptyCells[i];
         id = x[0] * 9 + x[1];
