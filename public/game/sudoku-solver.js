@@ -617,7 +617,7 @@ function addGreenClassToBoxes() {
     b[i][8] = a;
     }
 }
-addGreenClassToBoxes();
+
 
    
 
