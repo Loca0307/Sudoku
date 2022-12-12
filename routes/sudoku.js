@@ -74,3 +74,21 @@ router.post("sudoku/new_game", function(req, res) {
 
   
 });
+
+//add highscore to player
+router.post("sudoku/new_game", function(req, res) {
+    let data = {username: req.body.username, diff: req.body.diff, score: req.body.score};
+
+
+    model.username.findOne({username: req.body.username}).insertOne(data).then(n => {
+
+        res.format({
+            'json': function () {
+                res.status(201).json(data);
+            }
+        });
+    });
+
+
+  
+});

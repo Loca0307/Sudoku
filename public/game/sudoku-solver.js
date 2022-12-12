@@ -591,6 +591,37 @@ function makeNonEmptyCellsReadonly() {
     }
 }
 
+// add the class green to the input fields of alterning 3x3 boxes
+function addGreenClassToBoxes() {
+    b = solvedsudoku
+    a = document.getElementById('input-'+i).className = "color";
+    for (let i = 0; i<3; i++) {
+    b[i][0] = a;
+    b[i][1] = a;
+    b[i][2] = a;
+    b[i][6] = a;
+    b[i][7] = a;
+    b[i][8] = a;
+    }
+    for (let i = 3; i<6; i++) {
+    b[i][3] = a;
+    b[i][4] = a;
+    b[i][5] = a;
+    }
+    for (let i = 6; i<9; i++) {
+    b[i][0] = a;
+    b[i][1] = a;
+    b[i][2] = a;
+    b[i][6] = a;
+    b[i][7] = a;
+    b[i][8] = a;
+    }
+}
+
+   
+
+
+
 
 
 
