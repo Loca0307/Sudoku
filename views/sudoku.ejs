@@ -2,6 +2,7 @@
     <%- include("includes/head") %>
     <head>
         <link rel = "stylesheet" href = "/styles/css/sudoku.css">
+        <script src = "/sudoku.js"></script>
     </head>
     <body>
       <%- include("includes/header") %>
@@ -9,14 +10,14 @@
       <section class="main-section">
         <main>
             <h1>Sudoku</h1>
-            <!-- <hr>
-            <h2 id = "errors">0</h2> -->
+            <hr>
+            <h3><%- message %> <%- pagedata.username %></h3>
+            <p>Currently playing a game of <%- pagedata.diff %> difficulty</p>
+            <h2 id = "errors">Score: <%- pagedata.score %></h2>
 
             <!-- 9X9 board -->
             <div id="grid">
-
             </div>
-            <button id="solve">Solve the sudoku</button>
             
             <!-- 
             <div id = "board"></div>
@@ -27,6 +28,5 @@
       </section>
       <%- include("includes/footer") %>
     </body>
-
-    <script src = "/game/sudoku-solver.js"></script>
+    <script src="/client_scripts/client_socket.js"></script>
 </html>

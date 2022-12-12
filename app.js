@@ -6,6 +6,8 @@ const methodOverride = require('method-override');
 
 const fs = require('fs-extra');
 
+const server_socket = require('./server_scripts/server_socket')
+
 
 
 //init framework
@@ -75,3 +77,7 @@ server.on('listening', function() {
 });
 
 server.listen(app.get('port'));
+
+exports = {
+  server : server
+}
