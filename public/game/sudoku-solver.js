@@ -594,29 +594,30 @@ function makeNonEmptyCellsReadonly() {
 // add the class green to the input fields of alterning 3x3 boxes
 function addGreenClassToBoxes() {
     b = solvedsudoku
-    a = document.getElementById('input-'+i).className = "color";
+    document.getElementById('input-'+i).className = "color";
     for (let i = 0; i<3; i++) {
-    b[i][0] = a;
-    b[i][1] = a;
-    b[i][2] = a;
-    b[i][6] = a;
-    b[i][7] = a;
-    b[i][8] = a;
+    b[i][0] = document.getElementById('input-'+i*9+0).className = "color";
+    b[i][1] = document.getElementById('input-'+i*9+1).className = "color";
+    b[i][2] = document.getElementById('input-'+i*9+2).className = "color";
+    b[i][6] = document.getElementById('input-'+i*9+6).className = "color";
+    b[i][7] = document.getElementById('input-'+i*9+7).className = "color";
+    b[i][8] = document.getElementById('input-'+i*9+8).className = "color";
     }
     for (let i = 3; i<6; i++) {
-    b[i][3] = a;
-    b[i][4] = a;
-    b[i][5] = a;
+    b[i][3] = document.getElementById('input-'+i*9+3).className = "color";
+    b[i][4] = document.getElementById('input-'+i*9+4).className = "color";
+    b[i][5] = document.getElementById('input-'+i*9+5).className = "color";
     }
     for (let i = 6; i<9; i++) {
-    b[i][0] = a;
-    b[i][1] = a;
-    b[i][2] = a;
-    b[i][6] = a;
-    b[i][7] = a;
-    b[i][8] = a;
+    b[i][0] = document.getElementById('input-'+i*9+0).className = "color";
+    b[i][1] = document.getElementById('input-'+i*9+1).className = "color";
+    b[i][2] = document.getElementById('input-'+i*9+2).className = "color";
+    b[i][6] = document.getElementById('input-'+i*9+6).className = "color";
+    b[i][7] = document.getElementById('input-'+i*9+7).className = "color";
+    b[i][8] = document.getElementById('input-'+i*9+8).className = "color";
     }
 }
+addGreenClassToBoxes();
 
 
    
