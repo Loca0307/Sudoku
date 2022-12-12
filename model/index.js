@@ -36,6 +36,5 @@ client
 
 
  
-model.Id = mongodb.ObjectId;    //creating the id of the database
 exports.model = model;
 

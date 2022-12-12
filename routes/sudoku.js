@@ -29,7 +29,8 @@ const sudokumodel = require('../model/sudoku').model;
 
 
 router.post("/sudoku/new_game", function(req,res) {
-    let data = {username: req.body.username, diff: req.body.diff};
+    let data = {
+        username: req.body.username, diff: req.body.diff};
 
     //TODO: Login verification
     //get information from the 
