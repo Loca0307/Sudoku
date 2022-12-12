@@ -100,12 +100,14 @@ function init() {
     x = populateGrid(sudoku);
     
     solveSudoku(x, 0, 0);
+    forCheckingPurposes = x;
     console.log(x);
-    
+    let arrOfSolvedSudoku = [x, forCheckingPurposes];
+    console.log(arrOfSolvedSudoku);
     // displayGridValues(x);
     // let asb = removeNumbersFromBoard(x, 3);
 
-    return x;
+    return arrOfSolvedSudoku;
 }
 // init();
 
@@ -351,7 +353,16 @@ function solveSudoku(sudoku, row, column)
 
 
 // take the init() return value and store it in a variable
-let solvedsudoku = init();
+let passagio = init();
+let solvedsudoku = passagio[0];
+// console.log("test111111111111");
+// console.log(solvedsudoku);
+const solvedsudocuforcheck = passagio[1];
+// console.log("test222222222222");
+// console.log(solvedsudocuforcheck);
+
+
+// let solvedsudocuforcheck = init()[1];
 
 
 
@@ -409,6 +420,8 @@ function removeNumbers(solvedsudoku, level) {
 // remove the numbers from the board
 function removeNumbersFromBoard(solvedsudoku, level) {
     let removedSudoku = removeNumbers(solvedsudoku, level);
+    console.log("aljdf;lajfl;kad");
+    console.log(removedSudoku);
     return removedSudoku;
 }
 
@@ -416,6 +429,7 @@ removeNumbersFromBoard(solvedsudoku, 1);
 console.log(removeNumbersFromBoard(solvedsudoku, 1));
 displayGridValues(removeNumbersFromBoard(solvedsudoku, 1));
 console.log("aljdf;lajfl;kad");
+console.log(solvedsudocuforcheck);
 // console.log(displayGridValues(removeNumbersFromBoard(solvedsudoku, 1)));
 
 
