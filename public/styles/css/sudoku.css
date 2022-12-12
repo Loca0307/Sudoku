@@ -99,6 +99,10 @@ hr {
 
   }
 
-  input[readonly]{
+  /*input[readonly]{
+    background-color: #00FF89;
+  }*/
+
+  .color{
     background-color: #00FF89;
   }
