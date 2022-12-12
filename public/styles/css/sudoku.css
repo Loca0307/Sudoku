@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     
@@ -26,7 +26,6 @@ hr {
     height: 48px;
     border: 1px solid lightgray;
 
-    /* Text */
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -49,7 +48,6 @@ hr {
     border: 1px solid black;
     margin: 2px;
 
-    /* Text */
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -71,4 +69,40 @@ hr {
 
 .vertical-line {
     border-right: 1px solid black;
+} */
+
+:root {
+    --maxGridWidth: 480px;
+    --maxGridHeight: 450px;
+    --cellWidth: 50px;
+    --cellHeight: 50px;
+    --cellBorder: 1px #ccc solid;
 }
+
+
+#grid {
+    /* to creat the grid as 1 cell is 50x50 if max with is 480 only 9 cells fit in it */
+    width: var(--maxGridWidth);
+    height: var(--maxGridHeight);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  #grid input {
+    width: var(--cellWidth);
+    height: var(--cellHeight);
+    text-align: center;
+    border: var(--cellBorder);
+    box-sizing: border-box;
+    border-spacing: 0;
+
+  }
+
+  /*input[readonly]{
+    background-color: #00FF89;
+  }*/
+
+  .color{
+    background-color: #00FF89;
+  }
