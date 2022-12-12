@@ -142,6 +142,7 @@ for (let i = 0; i < gridSize; i++) {
   input.setAttribute('min', '1');
   input.setAttribute('max', '9');
   input.setAttribute('maxlength', '1');
+  input.setAttribute('class', '');
   grid.appendChild(input);
 }
 
@@ -594,7 +595,7 @@ function makeNonEmptyCellsReadonly() {
 // add the class green to the input fields of alterning 3x3 boxes
 function addGreenClassToBoxes() {
     b = solvedsudoku
-    document.getElementById('input-'+i).className = "color";
+    //document.getElementById('input-'+i).className = "color";
     for (let i = 0; i<3; i++) {
     b[i][0] = document.getElementById('input-'+i*9+0).className = "color";
     b[i][1] = document.getElementById('input-'+i*9+1).className = "color";
