@@ -92,10 +92,6 @@ gridValues represents a 1D array
 
 
 
-/**
- * 
- * @returns 
- */
 function init() {
     let sudoku = [];
 
@@ -104,12 +100,14 @@ function init() {
     x = populateGrid(sudoku);
     
     solveSudoku(x, 0, 0);
+    forCheckingPurposes = x;
     console.log(x);
-    
+    let arrOfSolvedSudoku = [x, forCheckingPurposes];
+    console.log(arrOfSolvedSudoku);
     // displayGridValues(x);
     // let asb = removeNumbersFromBoard(x, 3);
 
-    return x;
+    return arrOfSolvedSudoku;
 }
 // init();
 
@@ -147,11 +145,7 @@ for (let i = 0; i < gridSize; i++) {
 
 };
 
-/**
- * 
- * @param {*} gridValues 
- * @returns 
- */
+
 // takes 1D array representing sudoku board, converts to 2D array needed for algo
 function arrayto2D(gridValues) {
     let sudoku = [];
@@ -160,21 +154,14 @@ function arrayto2D(gridValues) {
     return sudoku; 
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @returns 
- */
+
 // takes 2D array representing sudoku board, converts to 1D array needed for display
 function arrayto1D(sudoku) {
     gridValues = [].concat(...sudoku);
     return gridValues;
 }
 
-/**
- * 
- * @returns 
- */
+
 function getRandomNumbers() {
     let init = [1,2,3,4,5,6,7,8,9];
     let out = [];
@@ -187,11 +174,7 @@ function getRandomNumbers() {
 
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @returns 
- */
+
 function populateGrid(sudoku) {
     let randomSeed = getRandomNumbers(); // array of random numbers
     // console.log(randomSeed);
@@ -228,10 +211,7 @@ function populateGrid(sudoku) {
     
 }
 
-/**
- * 
- * @param {*} sudoku 
- */
+
 // display the grid values in html input
 function displayGridValues(sudoku) {
     
@@ -263,23 +243,14 @@ function displayGridValues(sudoku) {
  * 
  */
 
-/**
- * 
- * @returns 
- */
+
 // get all the input values from the grid, NOT IN USE AT THE MOMENT
 function getGridValues() {
     gridValues = gridArray.map(input => input.value);
     return gridValues;
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} number 
- * @returns 
- */
+
 // check if the number is already in the same row
 function checkRow(sudoku, row, number) {
 
@@ -290,13 +261,6 @@ function checkRow(sudoku, row, number) {
 
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
 // check if the number is already in the same column
 function checkColumn(sudoku, column, number) {
     // calculate the column
@@ -309,14 +273,7 @@ function checkColumn(sudoku, column, number) {
     return true;
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
+
 function checkSquare(sudoku, row, column, number) {
 
     let indexR = row - row % 3;
@@ -332,14 +289,7 @@ function checkSquare(sudoku, row, column, number) {
     return true; 
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
+
 function checkNumber(sudoku, row, column, number) {
 
     if (checkRow(sudoku, row, number) 
@@ -350,13 +300,7 @@ function checkNumber(sudoku, row, column, number) {
     return false;
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @returns 
- */
+
 function solveSudoku(sudoku, row, column)
 {   
 	 let N = 9;
@@ -409,14 +353,19 @@ function solveSudoku(sudoku, row, column)
 
 
 // take the init() return value and store it in a variable
-let solvedsudoku = init();
-// Create copy of solvedsudoku array, not reference
-let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku));
+let passagio = init();
+let solvedsudoku = passagio[0];
+// console.log("test111111111111");
+// console.log(solvedsudoku);
+const solvedsudocuforcheck = passagio[1];
+// console.log("test222222222222");
+// console.log(solvedsudocuforcheck);
 
 
-/**
- * 
- */
+// let solvedsudocuforcheck = init()[1];
+
+
+
 // create the easy level
 console.log("easy level");
 function gameLevel(difficulty){
@@ -432,12 +381,6 @@ function gameLevel(difficulty){
 }
 
 
-/**
- * 
- * @param {*} solvedsudoku 
- * @param {*} level 
- * @returns 
- */
 // remove a certain number of numbers from the board depending on the level of difficulty
 function removeNumbers(solvedsudoku, level) {
     let n = 0;
@@ -474,26 +417,19 @@ function removeNumbers(solvedsudoku, level) {
     return solvedsudoku;
 }
 
-/**
- * TODO when user presses on easy button this needs to be called with params solvedsudoku and 1
- *      when user presses on medium button this needs to be called with params solvedsudoku and 2
- *      when user presses on hard button this needs to be called with params solvedsudoku and 3
- * @param {*} solvedsudoku 
- * @param {*} level 
- * @returns 
- */
 // remove the numbers from the board
 function removeNumbersFromBoard(solvedsudoku, level) {
     let removedSudoku = removeNumbers(solvedsudoku, level);
-    // makeNonEmptyCellsReadonly();
+    console.log("aljdf;lajfl;kad");
+    console.log(removedSudoku);
     return removedSudoku;
 }
 
 removeNumbersFromBoard(solvedsudoku, 1);
 console.log(removeNumbersFromBoard(solvedsudoku, 1));
 displayGridValues(removeNumbersFromBoard(solvedsudoku, 1));
-makeNonEmptyCellsReadonly();
 console.log("aljdf;lajfl;kad");
+console.log(solvedsudocuforcheck);
 // console.log(displayGridValues(removeNumbersFromBoard(solvedsudoku, 1)));
 
 
@@ -507,11 +443,6 @@ console.log("aljdf;lajfl;kad");
 // and choose a new level
 // and then the board is displayed
 
-/**
- * 
- * @param {*} sudoku 
- * @returns 
- */
 // go over the sudoku of the player and store the coordinates of the empty cells
 function getEmptyCells(sudoku) {
     let emptyCells = [];
@@ -525,13 +456,7 @@ function getEmptyCells(sudoku) {
     return emptyCells;
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @returns 
- */
+
 // if the coordinates of the empty cells are the same as the coordinates of the cell that the player clicked on
 // then the player can enter a number in that cell
 // this should be used for the event listener
@@ -546,13 +471,7 @@ function checkIfCellIsEmpty(sudoku, row, column) {
 }
 
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- */
+
 // if checkIfCellIsEmpty returns true then the player can enter a number in the cell
 function enterNumber(sudoku, row, column, number) {
     if (checkIfCellIsEmpty(sudoku, row, column)) {
@@ -560,11 +479,7 @@ function enterNumber(sudoku, row, column, number) {
     }
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @returns 
- */
+
 // go over the sudoku of the player and store the coordinates of the non empty cells
 function getNonEmptyCells(sudoku) {
     let nonEmptyCells = [];
@@ -578,12 +493,13 @@ function getNonEmptyCells(sudoku) {
     return nonEmptyCells;
 }
 
-/**
- * 
- */
+// save the coordinates of the non empty cells in a variable
+
+// convert sudoku to a 1d array
+
 // loop over the sudocu and make the cells that have the same coordinates of the nonEmptyCells readonly
 function makeNonEmptyCellsReadonly() {
-    let nonEmptyCells = getNonEmptyCells(solvedsudoku);
+    let nonEmptyCells = getNonEmptyCells(sudoku);
     for (let i = 0; i < nonEmptyCells.length; i++) {
         let x = nonEmptyCells[i];
         id = x[0] * 9 + x[1];
@@ -593,23 +509,17 @@ function makeNonEmptyCellsReadonly() {
 
 
 
+// if the player enters a number in the cell
+// then the player can check if the number is correct
+// if it is correct a hiscore is increased
+// if it is not correct the hiscore is decreased
+
+// creat eventlistener for the cells that 
 
 
-/**
- * 4th part of the project
- * this part updates the highscore based on the progress of the player
- */
 
-
-
-
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @returns 
- */
+// and then the player can check if the sudoku is solved
+// and if it is solved the player can start a new game
 
 // check if the player has entered a number in the cell
 function checkIfCellIsFilled(sudoku, row, column) {
@@ -619,45 +529,14 @@ function checkIfCellIsFilled(sudoku, row, column) {
     return false;
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
+
 // check if the player has entered the correct number in the cell
 function checkIfCellIsCorrect(sudoku, row, column, number) {
     if (checkIfCellIsFilled(sudoku, row, column)) {
-        if (CorrectSudokuForChecking[row][column] === number) {
+        if (sudoku[row][column] === number) {
             return true;
         }
     }
     return false;
-}
-
-
-
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
-// creat a function called highscore that keeps track of the progres of the player
-// if the player enters a correct number in the cell the highscore is increased
-// if the player enters an incorrect number in the cell the highscore is decreased
-function highscore(sudoku, row, column, number) {
-    highscore = 0;
-    if (checkIfCellIsCorrect(sudoku, row, column, number)) {
-        highscore++;
-    }
-    else {
-        highscore--;
-    }
-    return highscore;
 }
 

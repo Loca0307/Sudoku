@@ -41,15 +41,24 @@ router.post("/sudoku/new_game", function(req,res) {
     model.usernames.insertOne(data).then(n => {
 
         res.format({
-            'json': function () {
+            'text/html' : () => {
+                res.render("sudoku")
+            },
+            'application/json' : () => {
                 res.status(201).json(data);
             }
         })
+
+        /* res.format({
+            'json': function () {
+                res.status(201).json(data);
+            }
+        }) */
         
     }); 
     
     
-    res.render("sudoku");
+   
 });
 
 
