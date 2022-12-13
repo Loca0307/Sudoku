@@ -415,6 +415,8 @@ let solvedsudoku = init();
 let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku));
 
 
+
+
 /**
  * 
  */
@@ -444,15 +446,15 @@ function removeNumbers(solvedsudoku, level) {
     let n = 0;
     let removedNumbers = 0;
     // easy level
-    if (level === 1) {
+    if (level == 1) {
         removedNumbers = 10;
     }
     // medium level
-    else if (level === 2) {
+    else if (level == 2) {
         removedNumbers = 20;
     }
     // hard level
-    else if (level === 3) {
+    else if (level == 3) {
         removedNumbers = 30;
     }
     // remove the numbers from the board
@@ -464,16 +466,27 @@ function removeNumbers(solvedsudoku, level) {
             n++;
         }
     }
-    console.log("removed numbers");
-    console.log(solvedsudoku);
-    console.log("removed shadflksahdfkshdfk");
-    console.log("removed shadflksahdfkshdfk");
-    // makeNonEmptyCellsReadonly();
-    console.log("removed shadflksahdfkshdfk");
-    console.log("removed shadflksahdfkshdfk");
 
     return solvedsudoku;
 }
+
+
+
+
+
+
+// todo this links the difficulty level to the removeNumbersFromBoard function
+// but as we are in a test js to see that it works we have to move all the needed code to sudoku.js
+// let level = document.getElementById("diff").value;
+
+// if the code above doesn't work we can use instead
+// let value = document.getElementById("diff");
+// value.addEventListener('click', event => {
+//     level = document.getElementById("diff").value;
+//     removeNumbersFromBoard(solvedsudoku, level)
+
+// });
+
 
 /**
  * TODO when user presses on easy button this needs to be called with params solvedsudoku and 1
@@ -491,7 +504,7 @@ function removeNumbersFromBoard(solvedsudoku, level) {
 }
 
 removeNumbersFromBoard(solvedsudoku, 1);
-console.log(removeNumbersFromBoard(solvedsudoku, 1));
+// console.log(removeNumbersFromBoard(solvedsudoku, 1));
 displayGridValues(removeNumbersFromBoard(solvedsudoku, 1));
 makeNonEmptyCellsReadonly();
 console.log("aljdf;lajfl;kad");
@@ -526,6 +539,27 @@ function getEmptyCells(sudoku) {
     return emptyCells;
 }
 
+// loop over the sudocu and add to the cells that have the same coordinates of the emptyCells a focusout event listener
+function ofFocus(){
+    let emptyCells = getEmptyCells(solvedsudoku);
+    for (let i = 0; i < emptyCells.length; i++) {
+        let x = emptyCells[i];
+        let row = x[0];
+        let column = x[1];
+        id = x[0] * 9 + x[1];
+        const cell = document.getElementById('input-'+id)
+        cell.addEventListener('focusout', (event) => {
+            // get value of the cell
+            let number = event.target.value;
+            // get coordinates of the cell
+            highscore(solvedsudoku, row, column, number) 
+            console.log(highscore(solvedsudoku, row, column, number));
+
+        })
+    }
+
+} 
+ofFocus();
 /**
  * 
  * @param {*} sudoku 
@@ -686,13 +720,15 @@ function checkIfCellIsCorrect(sudoku, row, column, number) {
 // if the player enters a correct number in the cell the highscore is increased
 // if the player enters an incorrect number in the cell the highscore is decreased
 function highscore(sudoku, row, column, number) {
-    highscore = 0;
+    highscores = 0;
     if (checkIfCellIsCorrect(sudoku, row, column, number)) {
-        highscore++;
+        highscores++;
     }
     else {
-        highscore--;
+        highscores--;
     }
-    return highscore;
+    return highscores;
 }
 
+let highscores = 0;
+console.log(highscores);
