@@ -72,12 +72,12 @@ hr {
 } */
 
 :root {
-    --maxGridWidth: 480px;
-    --maxGridHeight: 450px;
-    --smallgridWidth: 156px;
-    --smallgridHeight: 156px;
-    --cellWidth: 50px;
-    --cellHeight: 50px;
+    --maxGridWidth: 672px;
+    --maxGridHeight: 630px;
+    --smallgridWidth: 218.4px;
+    --smallgridHeight: 218.4px;
+    --cellWidth: 70px;
+    --cellHeight: 70px;
     --cellBorder: 1px #ccc solid;
 }
 
@@ -151,4 +151,3 @@ hr {
     margin-bottom: 1em;
   }
 
-  
