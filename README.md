@@ -22,4 +22,26 @@ Hoormazd : Node server and Routing
 
 Luca : Implementing the Database model, validating player usernames against the database
 
-Alberto : working on db and halping with routs server and creating the multiplayer expreience
+Alberto : -
+
+
+
+Tasks after 1st milstone
+
+Valentino : Modular CSS for all pages
+
+Kirustika : implementation of the multiplayer + highscores routing part
+
+Eduardo : add  missing game logic 
+
+Eduardo & Hoormazd : extra singelplayer features + refactoring game logic for multiplayer games
+
+Hoormazd: routing singelplayer Highscores 
+
+Philip:
+
+Luca : singelplayer Highscores + password 
+
+Alberto : implementation of the multiplayer + halped with password
+
+
