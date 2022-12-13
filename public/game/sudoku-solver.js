@@ -136,14 +136,16 @@ function init() {
 
 function createGrid() {
 for (let i = 0; i < gridSize; i++) {
-  let input = document.createElement('input');
-  input.setAttribute('id', `input-${i}`);
-  input.setAttribute('type', 'number');
-  input.setAttribute('min', '1');
-  input.setAttribute('max', '9');
-  input.setAttribute('maxlength', '1');
-  input.setAttribute('class', '');
-  grid.appendChild(input);
+    var smallgridrow = Math.floor((Math.floor(i/9))/3);
+    var smallgridcol = Math.floor((i%9)/3);
+    let input = document.createElement('input');
+    input.setAttribute('id', `input-${i}`);
+    input.setAttribute('type', 'number');
+    input.setAttribute('min', '1');
+    input.setAttribute('max', '9');
+    input.setAttribute('maxlength', '1');
+    input.setAttribute('class', '');
+    document.getElementById(`grid-${smallgridcol}-${smallgridrow}`).appendChild(input);
 }
 
 };
@@ -242,7 +244,7 @@ function displayGridValues(sudoku) {
         // inserte the value in the input
         for (let j = 0; j < rowSize; j++) {
             
-            document.getElementById(`input-${n++}`).value = sudoku[i][j];
+            sudoku[i][j] == 0 ? document.getElementById(`input-${n++}`).value = "" : document.getElementById(`input-${n++}`).value = sudoku[i][j];
         }
     }
 
@@ -622,7 +624,10 @@ function makeNonEmptyCellsReadonly() {
     for (let i = 0; i < nonEmptyCells.length; i++) {
         let x = nonEmptyCells[i];
         id = x[0] * 9 + x[1];
-        document.getElementById('input-'+id).readOnly = true;
+        var element = document.getElementById('input-'+id);
+        element.readOnly = true;
+        element.disabled = true;
+        element.classList.add("givennumber");
     }
 }
 

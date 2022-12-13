@@ -74,6 +74,8 @@ hr {
 :root {
     --maxGridWidth: 480px;
     --maxGridHeight: 450px;
+    --smallgridWidth: 156px;
+    --smallgridHeight: 156px;
     --cellWidth: 50px;
     --cellHeight: 50px;
     --cellBorder: 1px #ccc solid;
@@ -88,6 +90,16 @@ hr {
     flex-wrap: wrap;
     align-items: center;
   }
+
+.smallgrid {
+        
+        width: var(--smallgridWidth);
+        height: var(--smallgridHeight);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        border: 3px #000 solid;
+}
   
   #grid input {
     width: var(--cellWidth);
@@ -96,12 +108,16 @@ hr {
     border: var(--cellBorder);
     box-sizing: border-box;
     border-spacing: 0;
+    background-color: white;
+    color: dimgray;
 
   }
 
-  /*input[readonly]{
-    background-color: #00FF89;
-  }*/
+  .givennumber{
+    font-size: medium;
+    color: black !important;
+    font-weight: bold !important;
+  }
 
   .color{
     background-color: #00FF89;
