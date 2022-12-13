@@ -1,17 +1,21 @@
 .boxes{
-    background:brown;
+    background:#28292d;
     border-radius: 5px;
-  
-  
-    width:100vw;
-    height: 50vh;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: 2em;
-    padding-right: 2em;
-    margin-left: 1em;
-    margin-right: 1em;
+
+    width: 30%;
+
+    padding: 2em;
+    margin: 2em;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px #00FF89 solid;
   }
+  
+.boxes p {
+  text-justify: newspaper;
+}
   
   
   img {
@@ -19,20 +23,8 @@
   }
   
   
-  body
-  {
-    font-size: 1em;
-    color: white;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;/*using the flex layout*/
-  }
-  
-  
   .main-section
   {
     display: flex;
-    flex: 1;
-    margin-top: 3rem;
   }
   

@@ -9,7 +9,7 @@
 .box{
   position: relative;
   width: 380px;
-  height: 650px;
+  height: 480px;
   background: #1c1c1c;
   border-radius: 8px;
   overflow: hidden;
@@ -76,7 +76,7 @@
   display: block;
 }
 
-.inputBox input{
+input{
   position:relative;
   width: 100%;
   padding: 20px 10px 10px;
@@ -93,7 +93,7 @@
   border: 1px solid #00FF89;
 }
 
-.inputBox input:hover{
+input:hover{
   border: 1px solid #8DFFCA;
   transition: 1s;
 }

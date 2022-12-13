@@ -1,0 +1,72 @@
+<html>
+    <%- include("includes/head") %>
+    <head>
+        <link rel="stylesheet"  href="/styles/css/middle.css">
+        <link rel="stylesheet"  href="/styles/css/home.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="icon" href="icons/joystick.png" type="image/icon type">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body>
+      <%- include("includes/header") %>
+      <%- message %>
+      <section class="main-section">
+
+        <div class="boxes">
+          <img src = "img.png">
+          <h1>Play solo</h1>
+          <p>Here you can practice to improve your sudoku solving skill.</p>
+          <br>
+          <p>Simply start a game of your chosen difficulty, and play away!</p>
+          <br>
+          <p>Single-player games are not timed, so don't stress. But remember that your moves are recorded, and wrong inputs are penalized. After each game, make sure to review your mistakes by checking your personal single-player games history.</p>
+      
+          <br><hr><br>
+          <form method="POST" action="/sudoku/solo_game">
+            <input type="hidden" value="<%- userprofiledata.username %>" id="username" name="username">
+            <input type="hidden" value="<%- userprofiledata.password %>" id="password" name="password">
+            <label>Difficulty:</label>
+            <input type="range" min="1" max="3" value="2" id="diff" name="diff">
+            <br>
+            <button type="submit">Play Solo</button>
+          </form>
+
+        </div>
+
+        <div class="boxes">
+          <img src = "img.png">
+          <h1>High Scores</h1>
+          <p>Here you can see a complete history of your single-player and multi-player games, as well as the global highscores to compare your scores with the world!</p>
+          <br>
+          <p>If you can't find your scores on the global highscores list, dont worry! remember that practice makes perfect!</p>
+          <br><hr><br>
+          <button type="submit">Your single-player games</button>
+          <button type="submit">Your multi-player games</button>
+          <br><br><hr><br>
+          <button type="submit">Global single-player highscores</button>
+          <button type="submit">Global multi-player highscores</button>
+        </div>
+
+        <div class="boxes">
+          <img src = "img.png">
+          <h1>Play with friends</h1>
+          <p>Join a game, or create a game to play with your friends!</p>
+          <br><hr><br>
+          <form class="" action="index.html" method="post">
+            <label>Difficulty:</label>
+            <input type="range" min="1" max="3" value="2" id="diff" name="diff">
+            <label>Lobby Size:</label>
+            <input type="range" min="1" max="3" value="2" id="diff" name="diff">
+            <button type="submit">Create lobby</button>
+            <br><br><hr><br>
+            <label>Lobby Key</label>
+            <input type="text" id="key" name="key">
+            <button type="submit">Join lobby</button>
+          </form>
+        </div>
+      </section>
+
+      <%- include("includes/footer") %>
+    </body>
+</html>

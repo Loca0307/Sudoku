@@ -15,7 +15,7 @@ router.get("/", function(req,res) {
 
 router.get(["/","/index.html","/index"], function(req, res) {
     console.log(req.query);
-    res.render("index", {msg:'Enter the game!'});
+    res.render("index", {msg:'Login to enter the game!'});
 });
 
 
