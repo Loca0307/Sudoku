@@ -82,6 +82,7 @@ hr {
 }
 
 
+
 #grid {
     /* to creat the grid as 1 cell is 50x50 if max with is 480 only 9 cells fit in it */
     width: var(--maxGridWidth);

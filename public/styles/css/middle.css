@@ -48,6 +48,8 @@ h1{
 	}
   .boxes{
     width: 90vw;
+    margin-left: 0;
+    margin-right: 0;
   }
 
 
