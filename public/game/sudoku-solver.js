@@ -11,6 +11,8 @@ const gridArray = Array.from(grid.children); //maybe we need to acces .value of 
 let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
+let correctIndexes = [];
+
 
 
 let test = [ [ 3, 0, 6, 5, 0, 8, 4, 0, 0 ],
@@ -146,7 +148,7 @@ for (let i = 0; i < gridSize; i++) {
     input.setAttribute('maxlength', '1');
     input.classList.add('sudoku-input');
 
-    input.addEventListener('change', (event) => {inputChange(input, event);});
+    input.addEventListener('change', () => {inputChange();});
 
     document.getElementById(`grid-${smallgridcol}-${smallgridrow}`).appendChild(input);
 }
@@ -452,7 +454,7 @@ function removeNumbers(solvedsudoku, level) {
     let removedNumbers = 0;
     // easy level
     if (level == 1) {
-        removedNumbers = 5;
+        removedNumbers = 1;
     }
     // medium level
     else if (level == 2) {
@@ -782,10 +784,24 @@ function showHint() {
     let randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
     let x = randomCell;
     id = x[0] * 9 + x[1];
-    // get the correct number for the cell
-    let number = CorrectSudokuForChecking[x[0]][x[1]];
-    // show the correct number in the cell
-    document.getElementById('input-' + id).value = number;
+
+    var wrong = false;
+    correctIndexes.forEach(i => {
+        if (i == id) wrong = true;
+    });
+
+    if (wrong){
+        showHint();
+    } else {
+        // get the correct number for the cell
+        let number = CorrectSudokuForChecking[x[0]][x[1]];
+        // show the correct number in the cell
+        document.getElementById('input-' + id).value = number;
+        document.getElementById('input-' + id).classList.add('hint-cell');
+        document.getElementById('input-' + id).readOnly = true;
+        console.log(id);
+        inputChange();
+    }
 }
 
 // reset the game
@@ -803,17 +819,6 @@ function checkIfSudokuIsCorrect(solvedsudoku) {
     if (CorrectSudokuForChecking == solvedsudoku)
         return true;
     return false;
-}
-// check if the player has won
-function checkIfPlayerHasWon(){
-    // call the function checkIfSudokuIsCorrect
-    if (checkIfSudokuIsCorrect(solvedsudoku)) {
-        // player has won
-        alert("Congratulations! You have won!");
-    }
-    else {
-        alert("You have not won yet!");
-    }
 }
 
 // highlight all the cells with the same number as the cell the player has clicked on
@@ -855,7 +860,8 @@ function highlightSameRowColumnBoxCells() {
 }
 
 //returns an array of numbers currently on the board
-function inputChange(input, event) {
+function inputChange() {
+    var playablespots = 0;
     var boardstate = [];
     for (let i = 0; i < gridSize; i++) {
         var celltag = document.getElementById(`input-${i}`)
@@ -863,9 +869,11 @@ function inputChange(input, event) {
         if (!celltag.disabled) {
             if (cellvalue) {
                 boardstate.push(+cellvalue);
+                playablespots++;
             }
             else {
                 boardstate.push(0);
+                playablespots++;
             }
         }
         else {
@@ -873,12 +881,13 @@ function inputChange(input, event) {
         }
         
     }
-    updateCorrectedIndexes(boardstate);
+    updateCorrectedIndexes(boardstate, playablespots);
+
     
 }
 
-function updateCorrectedIndexes(boardstate) {
-    var correctIndexes = [];
+function updateCorrectedIndexes(boardstate,playablespots) {
+    correctIndexes = [];
     var wrongIndexes = [];
 
     var correctArray = arrayto1D(CorrectSudokuForChecking);
@@ -894,9 +903,21 @@ function updateCorrectedIndexes(boardstate) {
     }
 
     updateCellStyles(correctIndexes, 'correct-cell');
-    console.log(correctIndexes,wrongIndexes);
     updateCellStyles(wrongIndexes, 'wrong-cell');
+    updateScore(correctIndexes,wrongIndexes);
+    checkIfPlayerHasWon(correctIndexes,boardstate,playablespots);
 
+}
+
+function updateScore(correctIndexes, wrongIndexes) {
+    var score = 0;
+    correctIndexes.forEach(() => {
+        score+= 5;
+    });
+    wrongIndexes.forEach(() => {
+        score-= 1;
+    });
+    document.getElementById('score').innerHTML = score;
 }
 
 function updateCellStyles(indexArray, Class) {
@@ -907,5 +928,20 @@ function updateCellStyles(indexArray, Class) {
         document.getElementById(`input-${element}`).classList.add(Class);
     });
 
+}
+
+function checkIfPlayerHasWon(correctIndexes,boardstate,playablespots){
+    if(correctIndexes.length == playablespots){
+        console.log('YouHaveWon');
+
+        for(let i =0; i < gridSize; i++){
+            document.getElementById(`input-${i}`).disabled = true;
+        }
+
+        document.getElementById('msg').innerHTML = "You Have Won, ";
+
+        document.getElementById('score').innerHTML += " (You can start a new game!)";
+
+    }
 }
 
