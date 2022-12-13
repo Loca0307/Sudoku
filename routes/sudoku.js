@@ -100,7 +100,8 @@ router.post("/sudoku/solo_game", function(req,res) {
 
 //add highscore to player
 router.post("sudoku/new_game", function(req, res) {
-    let data = {username: req.body.username, diff: req.body.diff, score: req.body.score, password: req.body.password};
+    let data = {username: req.body.username, diff: req.body.diff, score: req.body.score} 
+        //password: req.body.password};
 
 
     model.username.findOne({username: req.body.username}).insertOne(data).then(n => {
