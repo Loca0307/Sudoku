@@ -29,10 +29,40 @@ function init(server) {
         let key = getId(players, socket.id)
         players[key] = "";
       });
+      
+      let players_ready = playernames(map_user_socket);
+      socket.on('multiplayer_connected', (player) => {
+        Object.keys(map_user_socket).forEach((a) => {
+            io.to(a).emit('multiplayer_connected', [players_ready]);
+        });
 
 
     });
+
+});
 }
+
+function getPlayers(playerId) {
+    for (const i in players) {
+      let curr = players[i];
+      if (curr == "") {
+        players[i] = playerId;
+        console.log(players)
+        return;
+      }
+    }
+  }
+
+function playernames(val) {
+    let a = Object.keys(val).map(function (key) {
+        return val[key];
+    });
+    return a;
+}
+  
+  function getId(obj, value) {
+    return Object.keys(obj).find(key => obj[key] === value);
+  }
+  
+  module.exports.init = init;
     
-
-
