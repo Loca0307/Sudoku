@@ -317,9 +317,11 @@ function solveSudoku(sudoku, row, column) {
 let solvedsudoku = init(); // take the init() return value and store it in a variable
 let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku)); // Create copy of solvedsudoku array, not reference
 let level = document.getElementById("level").innerHTML; //get the level of difficulty from the html
+let resetSudoku;
+let hintsReceived = 0;
+
 
 function init2(){
-    // removeNumbersFromBoard(solvedsudoku, level);
     displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
     makeNonEmptyCellsReadonly();
 
@@ -330,7 +332,6 @@ function init2(){
 
 
 
-let resetSudoku;
 /**
  * 
  * @param {*} solvedsudoku 
@@ -343,7 +344,7 @@ function removeNumbers(solvedsudoku, level) {
     let removedNumbers = 0;
     // easy level
     if (level == 1) {
-        removedNumbers = 2;
+        removedNumbers = 10;
     }
     // medium level
     else if (level == 2) {
@@ -432,10 +433,7 @@ function makeNonEmptyCellsReadonly() {
 }
 
 
-
-
 /**
- * 
  * 
  * 
  * 
@@ -445,51 +443,8 @@ function makeNonEmptyCellsReadonly() {
  * 
  * 
  * 4th part of the project
- * this part updates the highscore based on the progress of the player
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
-
-
-function updateScore(correctIndexes, wrongIndexes) {
-    var score = 0;
-    correctIndexes.forEach(() => {
-        score += 5;
-    });
-    wrongIndexes.forEach(() => {
-        score -= 1;
-    });
-    score -= (hintsReceived * 10);
-    // creat a variabol who many hints the player has used and then subtract that from the score
-
-    document.getElementById('score').innerHTML = score;
-
-
-
-    // if (showHint){}
-}
-
-
-
-
-/**
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 5th part of the project
  * impruve cliants sudoku experience
+ * updates the highscore based on the progress of the player
  * add a timer
  * add a button to show a hint
  * add a button to reset the game
@@ -523,8 +478,25 @@ function updateScore(correctIndexes, wrongIndexes) {
 //     return time;
 // }
 
+
+// viene chiamata in updateCorrectedIndexes((showHint(selfreferenc)) e (createGrid(init)))
+function updateScore(correctIndexes, wrongIndexes) {
+    var score = 0;
+    correctIndexes.forEach(() => {
+        score += 5;
+    });
+    wrongIndexes.forEach(() => {
+        score -= 1;
+    });
+    score -= (hintsReceived * 10);
+    // creat a variabol who many hints the player has used and then subtract that from the score
+
+    document.getElementById('score').innerHTML = score;
+
+}
+
+// selfcalling function
 // show a hint to the player
-let hintsReceived = 0;
 function showHint() {
     hintsReceived++;
     // highscores = highscores - 10;
@@ -553,61 +525,7 @@ function showHint() {
     }
 }
 
-// reset the game
-function resetGame() {
-    displayGridValues(resetSudoku);
-}
-
-// start a new game with same level of difficulty
-function newGame() {
-    location.reload();
-}
-
-// check if sudoku is correct
-function checkIfSudokuIsCorrect(solvedsudoku) {
-    if (CorrectSudokuForChecking == solvedsudoku)
-        return true;
-    return false;
-}
-
-// highlight all the cells with the same number as the cell the player has clicked on
-function highlightSameNumberCells() {
-    // get coordunates of the cell the plater has clicked on
-    let x = addEventListener('click', function (event) {
-        let id = event.target.id;
-        let x = id.split('-');
-        x = x[1];
-        y = Math.floor(x / 9);
-        z = x % 9
-    });
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (solvedsudoku[i][j] === solvedsudoku[y][z]) {
-                document.getElementById('input-' + (i * 9 + j)).className = "highlightNumber";
-            }
-        }
-    }
-}
-
-// highlight all the cells in the same row, column and box as the cell the player has clicked on
-function highlightSameRowColumnBoxCells() {
-    // get the coordinates of the cell the player has clicked on
-    let x = addEventListener('click', function (event) {
-        let id = event.target.id;
-        let x = id.split('-');
-        x = x[1];
-        y = Math.floor(x / 9);
-        z = x % 9
-    });
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (i === y || j === z || (Math.floor(i / 3) === Math.floor(y / 3) && Math.floor(j / 3) === Math.floor(z / 3))) {
-                document.getElementById('input-' + (i * 9 + j)).className = "highlightCoordinates";
-            }
-        }
-    }
-}
-
+// viene chiamata in createGrid(init)
 function highlightSame(event) {
     var num = event.target.value;
     var similarArray = [];
@@ -621,6 +539,7 @@ function highlightSame(event) {
     updateCellStyles(similarArray, 'cell-highlight');
 }
 
+// viene chiamata in showHint (che viene chiamata dentro di se) e createGrid(che viene chiamata nell init)
 //returns an array of numbers currently on the board
 function inputChange() {
     var playablespots = 0;
@@ -648,6 +567,7 @@ function inputChange() {
 
 }
 
+// viene chiamata in inputChange ( (showHint()selfreferenc) e (createGrid(init))
 function updateCorrectedIndexes(boardstate, playablespots) {
     correctIndexes = [];
     var wrongIndexes = [];
@@ -672,13 +592,14 @@ function updateCorrectedIndexes(boardstate, playablespots) {
 }
 
 
-
+// chiamata in createGrid( in init) e updateCellStyles(highlightSame (createGrid( in init)) e updateCorrectedIndexes((showHint()selfreferenc) e (createGrid(init)))
 function removeCellStyles(className) {
     for (let i = 0; i < gridSize; i++) {
         document.getElementById(`input-${i}`).classList.remove(className);
     }
 }
 
+// highlightSame (createGrid( in init)) e updateCorrectedIndexes((showHint()selfreferenc) e (createGrid(init))
 function updateCellStyles(indexArray, className) {
 
     removeCellStyles(className);
@@ -689,6 +610,7 @@ function updateCellStyles(indexArray, className) {
 
 }
 
+//updateCorrectedIndexes((showHint()selfreferenc) e (createGrid(init))
 function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
     if (correctIndexes.length == playablespots) {
         console.log('YouHaveWon');
@@ -706,3 +628,27 @@ function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
 
 
 init2();
+
+
+
+
+// possible fearutes to add in the future if needed
+
+// highlight all the cells in the same row, column and box as the cell the player has clicked on
+// function highlightSameRowColumnBoxCells() {
+//     // get the coordinates of the cell the player has clicked on
+//     let x = addEventListener('click', function (event) {
+//         let id = event.target.id;
+//         let x = id.split('-');
+//         x = x[1];
+//         y = Math.floor(x / 9);
+//         z = x % 9
+//     });
+//     for (let i = 0; i < 9; i++) {
+//         for (let j = 0; j < 9; j++) {
+//             if (i === y || j === z || (Math.floor(i / 3) === Math.floor(y / 3) && Math.floor(j / 3) === Math.floor(z / 3))) {
+//                 document.getElementById('input-' + (i * 9 + j)).className = "highlightCoordinates";
+//             }
+//         }
+//     }
+// }
