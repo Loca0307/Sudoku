@@ -14,7 +14,7 @@ Current Tasks:
 
 Valentino : Modular CSS for all pages
 
-Kirustika : Database model and Chat part.
+Kirustika : Database model and multiplayer.
 
 Eduardo and Philip : Game Logic
 
