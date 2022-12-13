@@ -22,4 +22,4 @@ Hoormazd : Node server and Routing
 
 Luca : Implementing the Database model, validating player usernames against the database
 
-Alberto : -
+Alberto : working on db and halping with routs server and creating the multiplayer expreience
