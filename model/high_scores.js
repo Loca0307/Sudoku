@@ -12,7 +12,7 @@ let high_scores = [];
 
 
 try {
-    o = fs.readJSONSync(path.resolve("./model/high_scores.json"));
+    o = fs.readJSONSync(path.resolve("./model/high_scores.json", high_scores));
     high_scores = o.high_scores;
     
 } catch (e) { }
@@ -34,6 +34,7 @@ function add(player_score, player_boards, player_name, player_time) {
 
 function save() {
     //TODO
+    high_scores.sort((first, second) => second.score >= first.score ? 1 : -1);
     fs.writeJSONSync(path.resolve("./model/high_scores.json"), {high_scores});
 }
 
