@@ -64,7 +64,7 @@ router.post("/sudoku/solo_game", function(req,res) {
             if (userdata){
                 res.format({
                     'text/html': function () {
-                        res.render("sodukotest", {message : "Welcome back ", pagedata});
+                        res.render("sodukotest", {message : "Welcome back, ", pagedata});
                     },
                     'application/json': function () {
                         res.status(201).json(pagedata);
@@ -78,7 +78,7 @@ router.post("/sudoku/solo_game", function(req,res) {
 
                     res.format({
                         'text/html': function () {
-                            res.render("sodukotest", {message : "First time? Welcome ", pagedata});
+                            res.render("sodukotest", {message : "First time? Welcome, ", pagedata});
                         },
                         'application/json': function () {
                             res.status(201).json(pagedata);
@@ -92,5 +92,6 @@ router.post("/sudoku/solo_game", function(req,res) {
 
 
 router.get("/sudoku/test_game", function(req,res) {
-    res.render("sodukotest");
+    pagedata = {username: '', diff: 999, score: 'YOU SHOULD NOT BE HERE, LEAVE!'};
+    res.render("sodukotest",{message : "OLD PAGE, PLEASE USE 'PLAY SOLO' FROM HOMEPAGE", pagedata});
 });
