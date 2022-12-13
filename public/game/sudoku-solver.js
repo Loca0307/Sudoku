@@ -1,6 +1,3 @@
-//const { array } = require("fast-check");
-
-
 const grid = document.querySelector('#grid');  
 const solveButton = document.querySelector('#solve-button');
 const gridSize = 81;
@@ -147,6 +144,14 @@ for (let i = 0; i < gridSize; i++) {
     input.setAttribute('max', '9');
     input.setAttribute('maxlength', '1');
     input.classList.add('sudoku-input');
+
+    input.addEventListener('mouseover', (event) => {
+        highlightSame(event);
+      });
+      
+    input.addEventListener('mouseout', (event) => {
+        removeCellStyles('cell-highlight');
+      });
 
     input.addEventListener('change', () => {inputChange();});
 
@@ -454,7 +459,7 @@ function removeNumbers(solvedsudoku, level) {
     let removedNumbers = 0;
     // easy level
     if (level == 1) {
-        removedNumbers = 1;
+        removedNumbers = 5;
     }
     // medium level
     else if (level == 2) {
@@ -633,7 +638,7 @@ function makeNonEmptyCellsReadonly() {
         id = x[0] * 9 + x[1];
         var element = document.getElementById('input-'+id);
         element.readOnly = true;
-        element.disabled = true;
+        // element.disabled = true;
         element.classList.add("givennumber");
     }
 }
@@ -798,7 +803,7 @@ function showHint() {
         // show the correct number in the cell
         document.getElementById('input-' + id).value = number;
         document.getElementById('input-' + id).classList.add('hint-cell');
-        document.getElementById('input-' + id).readOnly = true;
+        document.getElementById('input-' + id).disabled = true;
         console.log(id);
         inputChange();
     }
@@ -859,6 +864,19 @@ function highlightSameRowColumnBoxCells() {
     }
 }
 
+function highlightSame(event) {
+    var num = event.target.value;
+    var similarArray = [];
+    for (let i = 0; i < gridSize; i++) {
+        var element = document.getElementById(`input-${i}`);
+        if (element.value == num) {
+            similarArray.push(i);
+        }
+    }
+    
+    updateCellStyles(similarArray, 'cell-highlight');
+}
+
 //returns an array of numbers currently on the board
 function inputChange() {
     var playablespots = 0;
@@ -866,7 +884,7 @@ function inputChange() {
     for (let i = 0; i < gridSize; i++) {
         var celltag = document.getElementById(`input-${i}`)
         var cellvalue = celltag.value;
-        if (!celltag.disabled) {
+        if (!celltag.readOnly) {
             if (cellvalue) {
                 boardstate.push(+cellvalue);
                 playablespots++;
@@ -920,12 +938,18 @@ function updateScore(correctIndexes, wrongIndexes) {
     document.getElementById('score').innerHTML = score;
 }
 
-function updateCellStyles(indexArray, Class) {
+function removeCellStyles(className) {
     for (let i = 0; i < gridSize; i++) {
-        document.getElementById(`input-${i}`).classList.remove(Class);
+        document.getElementById(`input-${i}`).classList.remove(className);
     }
+}
+
+function updateCellStyles(indexArray, className) {
+
+    removeCellStyles(className);
+
     indexArray.forEach(element => {
-        document.getElementById(`input-${element}`).classList.add(Class);
+        document.getElementById(`input-${element}`).classList.add(className);
     });
 
 }

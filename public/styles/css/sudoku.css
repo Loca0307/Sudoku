@@ -139,8 +139,10 @@ hr {
     font-size: large;
   }
 
-  .color{
-    background-color: #00FF89;
+  .cell-highlight {
+    background: rgb(226, 240, 255) !important;
+    color: rgb(0, 102, 255) !important;
+    font-weight: bold !important;
   }
 
  
