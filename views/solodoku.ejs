@@ -29,9 +29,12 @@
           </div>
           <form class="form" method="POST">
               <input type="hidden" value="<%- pagedata.username %>" id="username" name="username">
-              <input type="range" min="1" max="3" value="<%- pagedata.diff %>" id="diff" name="diff">
-              <button type="submit" formaction="/sudoku/solo_game">New Game</button>
               <button type="button" onclick="showHint();">Show Hint!</button>
+              <div>
+                <label>Difficulty</label>
+                <input type="range" min="1" max="3" value="<%- pagedata.diff %>" id="diff" name="diff">
+                <button type="submit" formaction="/sudoku/solo_game">New Game</button>
+            </div>
             </div>
           </form>
             
