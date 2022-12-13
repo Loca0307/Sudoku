@@ -123,6 +123,16 @@ hr {
     font-style: normal !important;
   }
 
+  .wrong-cell {
+    background-color: rgb(255, 180, 180) !important;
+    color: rgb(50, 50, 50) !important;
+  }
+
+  .correct-cell {
+    background-color: rgb(187, 255, 187) !important;
+    color: rgb(50, 50, 50) !important;
+  }
+
   .color{
     background-color: #00FF89;
   }

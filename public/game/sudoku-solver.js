@@ -144,7 +144,10 @@ for (let i = 0; i < gridSize; i++) {
     input.setAttribute('min', '1');
     input.setAttribute('max', '9');
     input.setAttribute('maxlength', '1');
-    input.setAttribute('class', '');
+    input.classList.add('sudoku-input');
+
+    input.addEventListener('change', (event) => {inputChange(input, event);});
+
     document.getElementById(`grid-${smallgridcol}-${smallgridrow}`).appendChild(input);
 }
 
@@ -850,3 +853,59 @@ function highlightSameRowColumnBoxCells() {
         }
     }
 }
+
+//returns an array of numbers currently on the board
+function inputChange(input, event) {
+    var boardstate = [];
+    for (let i = 0; i < gridSize; i++) {
+        var celltag = document.getElementById(`input-${i}`)
+        var cellvalue = celltag.value;
+        if (!celltag.disabled) {
+            if (cellvalue) {
+                boardstate.push(+cellvalue);
+            }
+            else {
+                boardstate.push(0);
+            }
+        }
+        else {
+            boardstate.push(0);
+        }
+        
+    }
+    updateCorrectedIndexes(boardstate);
+    
+}
+
+function updateCorrectedIndexes(boardstate) {
+    var correctIndexes = [];
+    var wrongIndexes = [];
+
+    var correctArray = arrayto1D(CorrectSudokuForChecking);
+    for (let i = 0; i < gridSize; i++) {
+        if (boardstate[i] != 0) {
+            if (boardstate[i] == correctArray[i]){
+                correctIndexes.push(i);
+            }
+            else {
+                wrongIndexes.push(i);
+            }
+        }
+    }
+
+    updateCellStyles(correctIndexes, 'correct-cell');
+    console.log(correctIndexes,wrongIndexes);
+    updateCellStyles(wrongIndexes, 'wrong-cell');
+
+}
+
+function updateCellStyles(indexArray, Class) {
+    for (let i = 0; i < gridSize; i++) {
+        document.getElementById(`input-${i}`).classList.remove(Class);
+    }
+    indexArray.forEach(element => {
+        document.getElementById(`input-${element}`).classList.add(Class);
+    });
+
+}
+
