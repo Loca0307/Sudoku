@@ -18,6 +18,19 @@ router.get(["/","/index.html","/index"], function(req, res) {
     res.render("index", {msg:'Enter the game!'});
 });
 
+
+//not sure if route should be /waitroom instead
+router.get("/index/waitroom", function(req, res) {
+    //we need to agree on data being passed
+    let data = {
+        users: req.body.users,
+        ready: req.body.ready
+    }
+    res.render("waitroom", data); 
+});
+
+
+
 /*
 router.post('/index.html', function (req, res) {
     let data = {
