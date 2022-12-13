@@ -15,7 +15,6 @@ function init(server) {
         console.log("there are already 2 players so enjoy!");
       }
   
-      // let started = false;
       let currentPlayer = 1;
   
       const playerId = socket.id;
@@ -24,10 +23,6 @@ function init(server) {
       const id = getId(players, playerId);
       console.log("id", {id})
       socket.emit("playerId", id);
-  
-      // if (started) {
-      //   socket.emit('continue', currentPlayer, getString())
-      // }
   
       socket.on('disconnect', function () {
         console.log('player ' + id + ' disconnected');
