@@ -434,7 +434,7 @@ function gameLevel(difficulty){
     }
 }
 
-
+let resetSudoku;
 /**
  * 
  * @param {*} solvedsudoku 
@@ -466,7 +466,7 @@ function removeNumbers(solvedsudoku, level) {
             n++;
         }
     }
-
+    resetSudoku = JSON.parse(JSON.stringify(solvedsudoku));
     return solvedsudoku;
 }
 
@@ -732,3 +732,114 @@ function highscore(sudoku, row, column, number) {
 
 let highscores = 0;
 console.log(highscores);
+
+
+
+/**
+ * 5th part of the project
+ * impruve cliants sudoku experience
+ * add a timer
+ * add a button to show a hint
+ * add a button to reset the game
+ * add a button to check if the player has won
+ * if clicking on a number all the cells with the same number are highlighted
+ * if clicking on a cell all the cells in the same row, column and box are highlighted
+ *
+ */
+
+// // add a timer that starts when the player starts the game
+// function timer() {
+//     let time = 0;
+//     setInterval(function () {
+//         time++;
+//         document.getElementById('time').innerHTML = time;
+//     }, 1000);
+// }
+// // calculate the time it took the player to finish the game
+// function calculateTime() {
+//     let start = Date.now();
+//     let finish = Date.now();
+//     // calculate the time it took the player to finish the game
+//     let time = finish - start;
+//     return time;
+// }
+
+// show a hint to the player
+function showHint() {
+    highscores = highscores - 10;
+    // get a random empty cell
+    let emptyCells = getEmptyCells(solvedsudoku);
+    let randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    let x = randomCell;
+    id = x[0] * 9 + x[1];
+    // get the correct number for the cell
+    let number = CorrectSudokuForChecking[x[0]][x[1]];
+    // show the correct number in the cell
+    document.getElementById('input-' + id).value = number;
+}
+
+// reset the game
+function resetGame(){
+    displayGridValues(resetSudoku);
+}
+
+// start a new game with same level of difficulty
+function newGame(){
+    location.reload();
+}
+
+// check if sudoku is correct
+function checkIfSudokuIsCorrect(solvedsudoku) {
+    if (CorrectSudokuForChecking == solvedsudoku)
+        return true;
+    return false;
+}
+// check if the player has won
+function checkIfPlayerHasWon(){
+    // call the function checkIfSudokuIsCorrect
+    if (checkIfSudokuIsCorrect(solvedsudoku)) {
+        // player has won
+        alert("Congratulations! You have won!");
+    }
+    else {
+        alert("You have not won yet!");
+    }
+}
+
+// highlight all the cells with the same number as the cell the player has clicked on
+function highlightSameNumberCells() {
+    // get coordunates of the cell the plater has clicked on
+    let x = addEventListener('click', function (event) {
+        let id = event.target.id;
+        let x = id.split('-');
+        x = x[1];
+        y = Math.floor(x/9);
+        z = x%9
+    });
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (solvedsudoku[i][j] === solvedsudoku[y][z]) {
+                document.getElementById('input-' + (i * 9 + j)).className = "highlightNumber";
+            }
+        }
+    }
+}
+
+// highlight all the cells in the same row, column and box as the cell the player has clicked on
+function highlightSameRowColumnBoxCells() {
+    // get the coordinates of the cell the player has clicked on
+    let x = addEventListener('click', function (event) {
+        let id = event.target.id;
+        let x = id.split('-');
+        x = x[1];
+        y = Math.floor(x/9);
+        z = x%9
+    });
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (i === y || j === z || (Math.floor(i / 3) === Math.floor(y / 3) && Math.floor(j / 3) === Math.floor(z / 3))) {
+                document.getElementById('input-' + (i * 9 + j)).className = "highlightCoordinates";
+            }
+        }
+    }
+}
