@@ -319,7 +319,7 @@ let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku)); // Crea
 let level = document.getElementById("level").innerHTML; //get the level of difficulty from the html
 
 function init2(){
-    removeNumbersFromBoard(solvedsudoku, level);
+    // removeNumbersFromBoard(solvedsudoku, level);
     displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
     makeNonEmptyCellsReadonly();
 
@@ -343,15 +343,15 @@ function removeNumbers(solvedsudoku, level) {
     let removedNumbers = 0;
     // easy level
     if (level == 1) {
-        removedNumbers = 5;
+        removedNumbers = 10;
     }
     // medium level
     else if (level == 2) {
-        removedNumbers = 10;
+        removedNumbers = 20;
     }
     // hard level
     else if (level == 3) {
-        removedNumbers = 15;
+        removedNumbers = 30;
     }
     // remove the numbers from the board
     while (n < removedNumbers) {
