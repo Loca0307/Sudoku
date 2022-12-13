@@ -1,0 +1,36 @@
+<html>
+    <%- include("includes/head") %>
+    <head>
+        <link rel = "stylesheet" href = "/styles/css/sudoku.css">
+    </head>
+    <body>
+      <%- include("includes/header") %>
+
+      <section class="main-section">
+
+        <%- include("includes/aside") %>
+       
+        <main>
+            <h1>Sudoku</h1>
+            <hr>
+            
+                <ul>
+                    <li><h4>Connection Successful</h4></li>
+                    <%users.forEach((a) => { %>
+                        <li><%=a%></li>
+                    <% }); %>
+                    <li> 
+                        <h4> Connected: <%=users.length%></h4>
+                        <h4> Ready: <%=ready.length%></h4>
+                    </li>
+                </ul>
+                <button id = "start">Start</button> 
+        </main>
+       
+       
+      </section>
+      <%- include("includes/footer") %>
+    </body>
+
+    <script src = "/game/sudoku-solver.js"></script>
+</html>

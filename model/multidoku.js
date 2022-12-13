@@ -46,8 +46,7 @@ function createGrid() {
 
 
 function newGame(){
-    //TODO Set up the board and start a new game
-    //return the board
+    init();
 }
 
 
@@ -69,5 +68,6 @@ module.exports = {
     arrayto2D,
     gridValues,
     createGrid,
-    sudoku
+    sudoku,
+    init
 }
