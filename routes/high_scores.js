@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
         player: req.body.player,
         score: Number.parseInt(req.body.score)
     }
-    model.high_scores.inserOne(obj).then(high_scores => {
+    model.high_scores.insertOne(obj).then(high_scores => {
         res.format({'text/html' : () => {
             res.redirect("/index.html");
         },
