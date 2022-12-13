@@ -424,21 +424,21 @@ let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku));
  */
 // create the easy level
 console.log("easy level");
-function gameLevel(difficulty){
-    if (difficulty === "easy") {
-        return removeNumbersFromBoard(sudokulevels, 1);
-    }
-    else if (difficulty === "medium") {
-        return removeNumbersFromBoard(sudokulevels, 2);
-    }
-    else if (difficulty === "hard") {
-        return removeNumbersFromBoard(sudokulevels, 3);
-    }
-}
+// function gameLevel(difficulty){
+//     if (difficulty === "easy") {
+//         return removeNumbersFromBoard(sudokulevels, 1);
+//     }
+//     else if (difficulty === "medium") {
+//         return removeNumbersFromBoard(sudokulevels, 2);
+//     }
+//     else if (difficulty === "hard") {
+//         return removeNumbersFromBoard(sudokulevels, 3);
+//     }
+// }
 
 let resetSudoku;
 /**
- * 
+ * // find where this is called 2ce
  * @param {*} solvedsudoku 
  * @param {*} level 
  * @returns 
@@ -449,15 +449,15 @@ function removeNumbers(solvedsudoku, level) {
     let removedNumbers = 0;
     // easy level
     if (level == 1) {
-        removedNumbers = 10;
+        removedNumbers = 5;
     }
     // medium level
     else if (level == 2) {
-        removedNumbers = 20;
+        removedNumbers = 10;
     }
     // hard level
     else if (level == 3) {
-        removedNumbers = 30;
+        removedNumbers = 15;
     }
     // remove the numbers from the board
     while (n < removedNumbers) {
@@ -489,6 +489,8 @@ function removeNumbers(solvedsudoku, level) {
 
 // });
 
+ let level = document.getElementById("level").innerHTML;
+
 
 /**
  * TODO when user presses on easy button this needs to be called with params solvedsudoku and 1
@@ -505,9 +507,9 @@ function removeNumbersFromBoard(solvedsudoku, level) {
     return removedSudoku;
 }
 
-removeNumbersFromBoard(solvedsudoku, 1);
+removeNumbersFromBoard(solvedsudoku, level);
 // console.log(removeNumbersFromBoard(solvedsudoku, 1));
-displayGridValues(removeNumbersFromBoard(solvedsudoku, 1));
+displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
 makeNonEmptyCellsReadonly();
 console.log("aljdf;lajfl;kad");
 // console.log(displayGridValues(removeNumbersFromBoard(solvedsudoku, 1)));
