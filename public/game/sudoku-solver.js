@@ -332,7 +332,7 @@ function init2(){
 
 let resetSudoku;
 /**
- * // find where this is called 2ce
+ * 
  * @param {*} solvedsudoku 
  * @param {*} level 
  * @returns 
@@ -343,7 +343,7 @@ function removeNumbers(solvedsudoku, level) {
     let removedNumbers = 0;
     // easy level
     if (level == 1) {
-        removedNumbers = 10;
+        removedNumbers = 2;
     }
     // medium level
     else if (level == 2) {
@@ -367,14 +367,6 @@ function removeNumbers(solvedsudoku, level) {
 }
 
 
-
-
-
-
-
-// let level = document.getElementById("level").innerHTML;
-
-
 /**
  * @param {*} solvedsudoku 
  * @param {*} level 
@@ -383,14 +375,8 @@ function removeNumbers(solvedsudoku, level) {
 // remove the numbers from the board
 function removeNumbersFromBoard(solvedsudoku, level) {
     let removedSudoku = removeNumbers(solvedsudoku, level);
-    // makeNonEmptyCellsReadonly();
     return removedSudoku;
 }
-
-// removeNumbersFromBoard(solvedsudoku, level);
-// displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
-// makeNonEmptyCellsReadonly();
-
 
 
 /**
@@ -409,62 +395,6 @@ function getEmptyCells(sudoku) {
         }
     }
     return emptyCells;
-}
-
-// loop over the sudocu and add to the cells that have the same coordinates of the emptyCells a focusout event listener
-function ofFocus() {
-    let emptyCells = getEmptyCells(solvedsudoku);
-    for (let i = 0; i < emptyCells.length; i++) {
-        let x = emptyCells[i];
-        let row = x[0];
-        let column = x[1];
-        id = x[0] * 9 + x[1];
-        const cell = document.getElementById('input-' + id)
-        cell.addEventListener('focusout', (event) => {
-            // get value of the cell
-            let number = event.target.value;
-            // get coordinates of the cell
-            highscore(solvedsudoku, row, column, number)
-            console.log(highscore(solvedsudoku, row, column, number));
-
-        })
-    }
-
-}
-ofFocus();
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @returns 
- */
-// if the coordinates of the empty cells are the same as the coordinates of the cell that the player clicked on
-// then the player can enter a number in that cell
-// this should be used for the event listener
-function checkIfCellIsEmpty(sudoku, row, column) {
-    let emptyCells = getEmptyCells(sudoku);
-    for (let i = 0; i < emptyCells.length; i++) {
-        if (emptyCells[i][0] === row && emptyCells[i][1] === column) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- */
-// if checkIfCellIsEmpty returns true then the player can enter a number in the cell
-function enterNumber(sudoku, row, column, number) {
-    if (checkIfCellIsEmpty(sudoku, row, column)) {
-        sudoku[row][column] = number;
-    }
 }
 
 /**
@@ -528,68 +458,24 @@ function makeNonEmptyCellsReadonly() {
  */
 
 
+function updateScore(correctIndexes, wrongIndexes) {
+    var score = 0;
+    correctIndexes.forEach(() => {
+        score += 5;
+    });
+    wrongIndexes.forEach(() => {
+        score -= 1;
+    });
+    score -= (hintsReceived * 10);
+    // creat a variabol who many hints the player has used and then subtract that from the score
+
+    document.getElementById('score').innerHTML = score;
 
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @returns 
- */
 
-// check if the player has entered a number in the cell
-function checkIfCellIsFilled(sudoku, row, column) {
-    if (sudoku[row][column] !== 0) {
-        return true;
-    }
-    return false;
+    // if (showHint){}
 }
 
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
-// check if the player has entered the correct number in the cell
-function checkIfCellIsCorrect(sudoku, row, column, number) {
-    if (checkIfCellIsFilled(sudoku, row, column)) {
-        if (CorrectSudokuForChecking[row][column] === number) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-
-/**
- * 
- * @param {*} sudoku 
- * @param {*} row 
- * @param {*} column 
- * @param {*} number 
- * @returns 
- */
-// creat a function called highscore that keeps track of the progres of the player
-// if the player enters a correct number in the cell the highscore is increased
-// if the player enters an incorrect number in the cell the highscore is decreased
-function highscore(sudoku, row, column, number) {
-    highscores = 0;
-    if (checkIfCellIsCorrect(sudoku, row, column, number)) {
-        highscores++;
-    }
-    else {
-        highscores--;
-    }
-    return highscores;
-}
-
-let highscores = 0;
-console.log(highscores);
 
 
 
@@ -640,8 +526,6 @@ console.log(highscores);
 // show a hint to the player
 let hintsReceived = 0;
 function showHint() {
-
-
     hintsReceived++;
     // highscores = highscores - 10;
     // get a random empty cell
@@ -787,23 +671,7 @@ function updateCorrectedIndexes(boardstate, playablespots) {
 
 }
 
-function updateScore(correctIndexes, wrongIndexes) {
-    var score = 0;
-    correctIndexes.forEach(() => {
-        score += 5;
-    });
-    wrongIndexes.forEach(() => {
-        score -= 1;
-    });
-    score -= (hintsReceived * 10);
-    // creat a variabol who many hints the player has used and then subtract that from the score
 
-    document.getElementById('score').innerHTML = score;
-
-
-
-    // if (showHint){}
-}
 
 function removeCellStyles(className) {
     for (let i = 0; i < gridSize; i++) {
