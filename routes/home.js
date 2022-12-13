@@ -11,9 +11,9 @@ const ObjectId = require('mongodb').ObjectId;
 
 router.get("/", function(req,res) {
     res.redirect("/index.html");
-});
+}); 
 
-router.get("/index.html", function(req, res) {
+router.get(["/","/index.html","/index"], function(req, res) {
     console.log(req.query);
     res.render("index");
 });
