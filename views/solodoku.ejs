@@ -13,7 +13,7 @@
         <main>
           <h1>Sudoku</h1>
           <hr>
-          <h3><%- message %> <%- pagedata.username %>!</h3>
+          <h3><span id="msg"><%- message %></span> <%- pagedata.username %>!</h3>
           <p>Currently playing a game of difficulty: <span id="level"><%- pagedata.diff %></span></p>
           <h2 id = "errors">Score: <span id="score"><%- pagedata.score %></span></h2>
 
@@ -28,7 +28,13 @@
             <div class="smallgrid" id="grid-1-2"></div>
             <div class="smallgrid" id="grid-2-2"></div>
           </div>
-          <button id="solve">Check the sudoku</button>
+          <form class="form" method="POST">
+              <input type="hidden" value="<%- pagedata.username %>" id="username" name="username">
+              <input type="range" min="1" max="3" value="<%- pagedata.diff %>" id="diff" name="diff">
+              <button type="submit" formaction="/sudoku/solo_game">New Game</button>
+              <button type="button" onclick="showHint();">Show Hint!</button>
+            </div>
+          </form>
             
         </main>
         <%- include("includes/high_scores") %>

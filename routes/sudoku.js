@@ -12,7 +12,7 @@ let {model} = require("../model");
 
 router.post("/sudoku/new_game", function(req,res) {
 
-    let pagedata = {username: req.body.username, diff: req.body.diff, score:0};
+    let pagedata = {username: req.body.username, diff: req.body.diff, score:0}; 
 
     //TODO: Login verification
     //get information from the 
@@ -21,7 +21,7 @@ router.post("/sudoku/new_game", function(req,res) {
     //TODO: Call sudokumodel (model/sudoku.js) to set up the game
 
         model.usernames.findOne({username : pagedata.username}).then(userdata => {
-            if (userdata){
+            if (userdata) {
                 res.format({
                     'text/html': function () {
                         res.render("sudoku", {message : "Welcome back ", pagedata});
@@ -52,7 +52,7 @@ router.post("/sudoku/new_game", function(req,res) {
 
 router.post("/sudoku/solo_game", function(req,res) {
 
-    let pagedata = {username: req.body.username, diff: req.body.diff, score:0};
+    let pagedata = {username: req.body.username, diff: req.body.diff, score:0, password: req.body.password};
 
     //TODO: Login verification
     //get information from the 
@@ -61,7 +61,7 @@ router.post("/sudoku/solo_game", function(req,res) {
     //TODO: Call sudokumodel (model/sudoku.js) to set up the game
 
         model.usernames.findOne({username : pagedata.username}).then(userdata => {
-            if (userdata){
+            if (userdata  && userdata.password == req.body.password) {
                 res.format({
                     'text/html': function () {
                         res.render("solodoku", {message : "Welcome back, ", pagedata});
@@ -71,7 +71,7 @@ router.post("/sudoku/solo_game", function(req,res) {
                     }
                 });
             }
-            else {
+            else if (!userdata) {
                 //TODO: First time login, Create user data table 
                 // var user = 
                 model.usernames.insertOne(pagedata).then(userdata => {
@@ -86,6 +86,9 @@ router.post("/sudoku/solo_game", function(req,res) {
                     });
                 
                 }); 
+            }
+            else {
+                
             }
         });
 });
