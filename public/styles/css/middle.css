@@ -36,3 +36,19 @@ h1{
     display: flex;
   }
   
+  h4{
+    padding-left: 2em;
+  }
+
+  @media all and (max-width: 1200px)
+{
+  .main-section/*changing the flex direction of all the sections in the different pages*/
+  {
+	   flex-direction: column;
+	}
+  .boxes{
+    width: 90vw;
+  }
+
+
+}

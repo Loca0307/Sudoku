@@ -8,7 +8,7 @@
 */
 .box{
   position: relative;
-  width: 380px;
+  width: 375px;
   height: 480px;
   background: #1c1c1c;
   border-radius: 8px;
@@ -18,7 +18,7 @@
 .box::before{
   content: '';
   position: absolute;
-  width: 380px;
+  width: 375px;
   height: 650px;
   background: linear-gradient(0deg,transparent,#00FF89,#00FF89);
   transform-origin: bottom right;
@@ -28,7 +28,7 @@
 .box::after{
   content: '';
   position: absolute;
-  width: 380px;
+  width: 375px;
   height: 650px;
   background: linear-gradient(0deg,transparent,#00FF89,#00FF89);
   transform-origin: bottom right;
