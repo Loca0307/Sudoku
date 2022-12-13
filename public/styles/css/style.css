@@ -42,11 +42,6 @@ h1, h2
 }
 
 
-aside{
-  display: flex;
-  flex: 1 1 0rem;
-}
-
 .main-section
 {
   display: flex;
