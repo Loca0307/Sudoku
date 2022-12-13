@@ -429,22 +429,6 @@ let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku));
 
 
 
-/**
- * 
- */
-// create the easy level
-console.log("easy level");
-// function gameLevel(difficulty){
-//     if (difficulty === "easy") {
-//         return removeNumbersFromBoard(sudokulevels, 1);
-//     }
-//     else if (difficulty === "medium") {
-//         return removeNumbersFromBoard(sudokulevels, 2);
-//     }
-//     else if (difficulty === "hard") {
-//         return removeNumbersFromBoard(sudokulevels, 3);
-//     }
-// }
 
 let resetSudoku;
 /**
@@ -487,25 +471,11 @@ function removeNumbers(solvedsudoku, level) {
 
 
 
-// todo this links the difficulty level to the removeNumbersFromBoard function
-// but as we are in a test js to see that it works we have to move all the needed code to sudoku.js
-// let level = document.getElementById("diff").value;
-
-// if the code above doesn't work we can use instead
-// let value = document.getElementById("diff");
-// value.addEventListener('click', event => {
-//     level = document.getElementById("diff").value;
-//     removeNumbersFromBoard(solvedsudoku, level)
-
-// });
 
  let level = document.getElementById("level").innerHTML;
 
 
 /**
- * TODO when user presses on easy button this needs to be called with params solvedsudoku and 1
- *      when user presses on medium button this needs to be called with params solvedsudoku and 2
- *      when user presses on hard button this needs to be called with params solvedsudoku and 3
  * @param {*} solvedsudoku 
  * @param {*} level 
  * @returns 
@@ -518,22 +488,10 @@ function removeNumbersFromBoard(solvedsudoku, level) {
 }
 
 removeNumbersFromBoard(solvedsudoku, level);
-// console.log(removeNumbersFromBoard(solvedsudoku, 1));
 displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
 makeNonEmptyCellsReadonly();
-console.log("aljdf;lajfl;kad");
-// console.log(displayGridValues(removeNumbersFromBoard(solvedsudoku, 1)));
 
 
-
-// player needs to be able to choose a level
-// and then the board is displayed
-// and the player can start playing
-// and solve the sudoku
-// and then the player can check if the sudoku is solved
-// and if it is solved the player can start a new game
-// and choose a new level
-// and then the board is displayed
 
 /**
  * 
@@ -643,47 +601,30 @@ function makeNonEmptyCellsReadonly() {
     }
 }
 
-// add the class green to the input fields of alterning 3x3 boxes
-
-function addGreenClassToBoxes() {
-    b = solvedsudoku
-    //document.getElementById('input-'+i).className = "color";
-    for (let i = 0; i<3; i++) {
-    b[i][0] = document.getElementById('input-'+i*9+0).className = "color";
-    b[i][1] = document.getElementById('input-'+i*9+1).className = "color";
-    b[i][2] = document.getElementById('input-'+i*9+2).className = "color";
-    b[i][6] = document.getElementById('input-'+i*9+6).className = "color";
-    b[i][7] = document.getElementById('input-'+i*9+7).className = "color";
-    b[i][8] = document.getElementById('input-'+i*9+8).className = "color";
-    }
-    for (let i = 3; i<6; i++) {
-    b[i][3] = document.getElementById('input-'+i*9+3).className = "color";
-    b[i][4] = document.getElementById('input-'+i*9+4).className = "color";
-    b[i][5] = document.getElementById('input-'+i*9+5).className = "color";
-    }
-    for (let i = 6; i<9; i++) {
-    b[i][0] = document.getElementById('input-'+i*9+0).className = "color";
-    b[i][1] = document.getElementById('input-'+i*9+1).className = "color";
-    b[i][2] = document.getElementById('input-'+i*9+2).className = "color";
-    b[i][6] = document.getElementById('input-'+i*9+6).className = "color";
-    b[i][7] = document.getElementById('input-'+i*9+7).className = "color";
-    b[i][8] = document.getElementById('input-'+i*9+8).className = "color";
-    }
-}
-
-
-
-   
-
-
-
-
 
 
 
 /**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * 4th part of the project
  * this part updates the highscore based on the progress of the player
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  */
 
 
@@ -753,6 +694,14 @@ console.log(highscores);
 
 
 /**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * 5th part of the project
  * impruve cliants sudoku experience
  * add a timer
@@ -762,6 +711,13 @@ console.log(highscores);
  * if clicking on a number all the cells with the same number are highlighted
  * if clicking on a cell all the cells in the same row, column and box are highlighted
  *
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  */
 
 // // add a timer that starts when the player starts the game
@@ -782,8 +738,12 @@ console.log(highscores);
 // }
 
 // show a hint to the player
+let hintsReceived = 0;
 function showHint() {
-    highscores = highscores - 10;
+    
+
+    hintsReceived++;
+    // highscores = highscores - 10;
     // get a random empty cell
     let emptyCells = getEmptyCells(solvedsudoku);
     let randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
@@ -935,7 +895,14 @@ function updateScore(correctIndexes, wrongIndexes) {
     wrongIndexes.forEach(() => {
         score-= 1;
     });
+    score -= (hintsReceived * 10);
+    // creat a variabol who many hints the player has used and then subtract that from the score
+
     document.getElementById('score').innerHTML = score;
+
+
+
+    // if (showHint){}
 }
 
 function removeCellStyles(className) {
