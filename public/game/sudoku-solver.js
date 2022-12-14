@@ -14,6 +14,8 @@ let sudoku = []; //2D array representing board
 let correctIndexes = [];
 let totalMoves = 0;
 let boardObjHistory = [];
+let hintIndexes = [];
+
 let eventId = "id-0"; //this needs to be initalized for the score to be decreased when a hint is requested
 
 
@@ -561,7 +563,7 @@ function showHint() {
         document.getElementById('input-' + id).value = number;
         document.getElementById('input-' + id).classList.add('hint-cell');
         document.getElementById('input-' + id).disabled = true;
-        console.log(id);
+        hintIndexes.push(id);
         inputChange();
     }
 }
@@ -645,6 +647,7 @@ function updateCorrectedIndexes(boardstate, playablespots, fullboard, givenNumbe
         fullboard : fullboard,
         correctIndexes : correctIndexes,
         wrongIndexes : wrongIndexes,
+        hintIndexes : hintIndexes,
         givenNumberIndexes : givenNumberIndexes
     }
 

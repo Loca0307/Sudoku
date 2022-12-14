@@ -34,7 +34,7 @@ router.post("/sudoku", function(req,res) {
                 //TODO: First time login, Create user data table 
                 // var user = 
                 model.usernames.insertOne(userprofiledata).then(userdata => {
-
+                
                     res.format({
                         'text/html': function () {
                             res.render("middle", {message : `<h2>First time? Welcome, ${userprofiledata.username}!</h2><h4>We have taken the liberty to register an account for you. next time you can login with the same username and password you entered.</h4>`,userprofiledata});
@@ -70,14 +70,26 @@ router.post("/sudoku/solo_game", function(req,res) {
     });
 });
 
+router.get("/sudoku/high_scores/:user", function(req,res) {
+    let user = req.params.user;
+    model.high_scores.find({username : user}).toArray().then( high_scores => { 
+        console.log(high_scores);
+        res.format({
+            'text/html': function () {
+                res.render("high_scores", {high_scores});
+            },
+            'application/json': function () {
+                res.status(201).json(high_scores);
+            }
+        });
+    });
+});
+
 router.get("/sudoku/test_high_scores", function(req,res) {
 
                     res.format({
                         'text/html': function () {
                             res.render("high_scores");
-                        },
-                        'application/json': function () {
-                            res.status(201).json(pagedata);
                         }
                     });
                 });

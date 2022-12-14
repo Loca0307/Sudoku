@@ -15,7 +15,8 @@ ul li
   padding: 0.6em 1.2em;
   color: black;
   margin: 0.3em;
-  height: 8vh;
+  justify-content: center;
+  align-items: center;
   transition: .5s;/*adding a transition of half second*/
 }
 
@@ -75,6 +76,8 @@ ul li:hover
 
 .main-section
 {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   margin-top: 3rem;
 }

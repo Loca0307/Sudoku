@@ -44,8 +44,10 @@
           <br>
           <p>If you can't find your scores on the global highscores list, dont worry! remember that practice makes perfect!</p>
           <br><hr><br>
-          <button type="submit"><img src="/styles/img/list.png" >Your single-player games</button>
-          <button type="submit"><img src="/styles/img/list.png" >Your multi-player games</button>
+          <form method="GET">
+            <button type="submit" formaction="/sudoku/high_scores/<%- userprofiledata.username %>"><img src="/styles/img/list.png" >Your single-player games</button>
+            <button type="submit"><img src="/styles/img/list.png" >Your multi-player games</button>
+          </form>
           <br><br><hr><br>
           <button type="submit"><img src="/styles/img/worldwide.png" >Global single-player highscores</button>
           <button type="submit"><img src="/styles/img/worldwide.png" >Global multi-player highscores</button>
