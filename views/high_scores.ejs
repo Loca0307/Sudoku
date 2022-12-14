@@ -143,9 +143,9 @@
             </ul>
           </form>
           <script>
-            function prephs<%= high_score._id%>() {
+            function prephs() {
               var currentval = document.querySelector(".tracker-<%= high_score._id%>").value;
-              var hs = <%-JSON.stringify(high_score)%>;
+              var hs = JSON.stringify(high_score);
               for (let i = 0; i < 81; i++) {
                 //get cell
                 var cell = document.getElementById("<%= high_score._id%>-input-"+i);
@@ -174,9 +174,9 @@
               }
             }
             document.querySelector(".tracker-<%= high_score._id%>").addEventListener('input', () => {
-              prephs<%= high_score._id%>();
+              prephs();
             });;
-            prephs<%= high_score._id%>();
+            prephs();
           </script>
           <%
           }
