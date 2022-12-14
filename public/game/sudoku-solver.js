@@ -12,7 +12,7 @@ let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
 let correctIndexes = [];
-
+let eventId; 
 
 /* 
 
@@ -97,7 +97,11 @@ function createGrid() {
             removeCellStyles('cell-highlight');
         });
 
-        input.addEventListener('change', () => { inputChange(); });
+        input.addEventListener('change', (event) => { 
+            console.log(event.target.id);
+            eventId = event.target.id;
+            inputChange(event); 
+        });
 
         document.getElementById(`grid-${smallgridcol}-${smallgridrow}`).appendChild(input);
     }
@@ -485,22 +489,47 @@ function makeNonEmptyCellsReadonly() {
 //     return time;
 // }
 
-
+var score = 0;
 // viene chiamata in updateCorrectedIndexes((showHint(selfreferenc)) e (createGrid(init)))
 function updateScore(correctIndexes, wrongIndexes) {
-    var score = 0;
+   
     correctIndexes.forEach(() => {
         score += 5;
+        //console.log(score + "correct index");
     });
     wrongIndexes.forEach(() => {
         score -= 1;
+        //console.log(score + "wrong index");
     });
     score -= (hintsReceived * 10);
     // creat a variabol who many hints the player has used and then subtract that from the score
-
+    //console.log(score + "hint");
     document.getElementById('score').innerHTML = score;
 
 }
+
+//let score = 0;
+
+function updateScorev2(boardState, id) {
+    
+    //let grid = arrayto1D(boardState);
+    let grid = boardState;
+    let correctSudoku = arrayto1D(CorrectSudokuForChecking);
+    let n = parseInt(id.split('-')[1]);  //obtain the number that indicates which grid tile in the html that it is. 
+    if (grid[n] == correctSudoku[n])
+        score += 5;
+    else if (grid[n] != correctSudoku[n])
+        score -= 1;
+    
+    score -= hintsReceived*10;
+    document.getElementById('score').innerHTML = score;
+`   `
+
+
+}
+
+
+
 
 // selfcalling function
 // show a hint to the player
@@ -549,9 +578,10 @@ function highlightSame(event) {
 
 // viene chiamata in showHint (che viene chiamata dentro di se) e createGrid(che viene chiamata nell init)
 //returns an array of numbers currently on the board
-function inputChange() {
+function inputChange(event) {
     var playablespots = 0;
     var boardstate = [];
+    //var id = event.target.id;
     for (let i = 0; i < gridSize; i++) {
         var celltag = document.getElementById(`input-${i}`)
         var cellvalue = celltag.value;
@@ -594,7 +624,8 @@ function updateCorrectedIndexes(boardstate, playablespots) {
 
     updateCellStyles(correctIndexes, 'correct-cell');
     updateCellStyles(wrongIndexes, 'wrong-cell');
-    updateScore(correctIndexes, wrongIndexes);
+    //updateScore(correctIndexes, wrongIndexes);
+    updateScorev2(boardstate, eventId);
     checkIfPlayerHasWon(correctIndexes, boardstate, playablespots);
 
 }
