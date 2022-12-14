@@ -26,7 +26,7 @@ router.get(["/", "index", "/index.html"], (req, res) => {
     model.high_scores.find({}).toArray().then((high_scores)=> {
         res.format({
             'text/html': () => {
-                res.render("", high_scores);
+                res.render("high_scores", high_scores);
                 },
             'application/json' : () => {
                 res.json(high_scores);
