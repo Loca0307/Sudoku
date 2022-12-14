@@ -5,6 +5,9 @@ const columnSize = 9;
 const rowSize = 9;
 const gridArray = Array.from(grid.children); //maybe we need to acces .value of children elelemtn
 
+
+
+
 let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
@@ -311,7 +314,7 @@ function solveSudoku(sudoku, row, column) {
  * 
  */
 
-// global variable of part 3
+// global variables of part 3
 
 
 let solvedsudoku = init(); // take the init() return value and store it in a variable
@@ -319,6 +322,10 @@ let CorrectSudokuForChecking = JSON.parse(JSON.stringify(solvedsudoku)); // Crea
 let level = document.getElementById("level").innerHTML; //get the level of difficulty from the html
 let resetSudoku;
 let hintsReceived = 0;
+
+let intervalMili;
+let intervalSeconds;
+let intervalMinutes;
 
 
 function init2(){
@@ -498,6 +505,7 @@ function updateScore(correctIndexes, wrongIndexes) {
 // selfcalling function
 // show a hint to the player
 function showHint() {
+    //console.log("HINT");
     hintsReceived++;
     // highscores = highscores - 10;
     // get a random empty cell
@@ -614,6 +622,10 @@ function updateCellStyles(indexArray, className) {
 function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
     if (correctIndexes.length == playablespots) {
         console.log('YouHaveWon');
+        clearInterval(intervalMili);
+        clearInterval(intervalSeconds);
+        clearInterval(intervalMinutes);
+
 
         for (let i = 0; i < gridSize; i++) {
             document.getElementById(`input-${i}`).disabled = true;
@@ -627,7 +639,73 @@ function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
 }
 
 
+function startTimer() {
+    let miliSeconds = 0;
+    let seconds = 0;
+    let minutes = 0;
+   //document.getElementById("startTimer").addEventListener( 'click', () =>{
+        intervalMili = setInterval(timerMiliseconds, 1);
+        intervalSeconds = setInterval(timerSeconds, 1000);
+        intervalMinutes = setInterval(timerMinutes, 60000);
+        // console.log("CLICKED");
+        // console.log("CLICKED");
+        // console.log("CLICKED");
+        //document.getElementById("minutes").innerHTML = time; 
+
+        function timerMiliseconds() {
+            miliSeconds++;
+            //console.log(time);
+            document.getElementById("miliseconds").innerHTML = miliSeconds; 
+        }
+
+        function timerSeconds() {
+            seconds++;
+            //console.log(time);
+            document.getElementById("seconds").innerHTML = seconds; 
+        }
+
+
+        function timerMinutes() {
+            minutes++;
+            //console.log(time);
+            document.getElementById("minutes").innerHTML = minutes; 
+        }
+
+
+    //})
+
+}
+
+function startTimev2() {
+    let time = 5;
+    document.getElementById("startTimer").addEventListener('click', (event) =>{
+        event.preventDefault();
+        setInterval(timer, 1);
+        console.log("CLICKED");
+        console.log("CLICKED");
+        console.log("CLICKED");
+        document.getElementById("minutes").innerHTML = 5; 
+
+        function timer() {
+            time++;
+            console.log(time);
+            document.getElementById("minutes").innerHTML = time; 
+        }
+
+    })
+
+}
+
+
+
+
+
+
 init2();
+
+
+
+
 
 
 
