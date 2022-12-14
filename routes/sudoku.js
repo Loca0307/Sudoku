@@ -112,3 +112,25 @@ router.get("/waitroom", function(req, res) {
     
 })
 
+
+router.post("/waitroom", function(req, res) {
+    //we need to agree on data being passed
+    let data = {
+        username: req.body.username, // username
+        diff: req.body.diff, // difficulty
+        lobby: req.body.lobby, // number of the players 2/2 for now
+    
+    }
+    res.format({
+        'text/html': function () {
+            res.render("waitroom"); // render the waitroom.ejs page
+        },
+        'application/json': function () {
+            res.status(201).json(data); // passing all the parameters
+        }
+    
+    });
+
+    
+})
+
