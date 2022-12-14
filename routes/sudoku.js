@@ -69,18 +69,7 @@ router.post("/sudoku/solo_game", function(req,res) {
                     return
                 }
             }
-            /* if(userdata) {
-                if(userdata.menu == pagedata.menu) {
-                    res.format({
-                        'text/html': function () {
-                            res.render("middle");
-                        },
-                        'application/json': function () {
-                            res.status(201).json(pagedata);
-                        }
-                    });
-                }
-            } */
+           
     }); 
 });
 
