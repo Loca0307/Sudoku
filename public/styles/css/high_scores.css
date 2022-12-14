@@ -71,3 +71,10 @@ ul li:hover
   transform: scale(1.06);/*scale itself to make a sort of transition*/
   background-color: #00FF89;
 }
+
+
+.main-section
+{
+  flex: 1;
+  margin-top: 3rem;
+}
