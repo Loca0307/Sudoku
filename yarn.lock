@@ -1099,12 +1099,24 @@ ee-first@1.1.1:
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
+ejs@^2.3.4:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.7.4.tgz#48661287573dcc53e366c7a1ae52c3a120eec9ba"
+  integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
+
 ejs@^3.1.8:
   version "3.1.8"
   resolved "https://registry.npmjs.org/ejs/-/ejs-3.1.8.tgz"
   integrity sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==
   dependencies:
     jake "^10.8.5"
+
+ejsc@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ejsc/-/ejsc-0.1.0.tgz#30589bfcf410ba27054fd01c4359330bb55db7bf"
+  integrity sha512-cNLVBi8HKNKxPzoTMdJtZmIIePf8e/BjPmh9qjl83V9cw7NSWULywdrVGcy1wFpFdPBWtBZlzSGYwo9Y4Pa5Gg==
+  dependencies:
+    ejs "^2.3.4"
 
 encodeurl@~1.0.2:
   version "1.0.2"

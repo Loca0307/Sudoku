@@ -14,7 +14,7 @@ let sudoku = []; //2D array representing board
 let correctIndexes = [];
 let totalMoves = 0;
 let boardObjHistory = [];
-let eventId; 
+let eventId = "id-0"; //this needs to be initalized for the score to be decreased when a hint is requested
 
 
 /* 
