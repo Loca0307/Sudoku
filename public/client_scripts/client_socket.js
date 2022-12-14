@@ -15,7 +15,7 @@ socket.on('connect', () => {
 
 socket.on('multiplayer_connected', (a) => {
     console.log("Someone connected!", a);
-    document.querySelector("nav").innerHTML = ejs.views_waitroom({ready: a[0]});
+    document.querySelector("main").innerHTML = ejs.views_waitroom({ready: a[0]});
 
 });
 
