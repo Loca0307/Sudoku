@@ -6,9 +6,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="icon" href="icons/joystick.png" type="image/icon type">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/client_scripts/client_socket.js"></script>
     </head>
 
-    <body>
+    <body onload="init()">
       <%- include("includes/header") %>
       <%- message %>
       <button class="logout" type="submit"><img src="/styles/img/exit.png" >Log-out</button>
@@ -55,12 +57,16 @@
           <p>Join a game, or create a game to play with your friends!</p>
           <br><hr><br>
           <form class="" action="waitroom" method="post">
+            <input type="hidden" value="create" id="type" name="create">
             <label>Difficulty:</label>
-            <input type="range" min="1" max="3" value="2" id="diff-multi" name="diff">
+            <input type="range" min="1" max="3" value="2" id="diff" name="diff">
             <label>Lobby Size:</label>
-            <input type="range" min="1" max="3" value="2" id="lobby-multi" name="diff">
+            <input type="range" min="1" max="3" value="2" id="size" name="size">
             <button type="submit"><img src="/styles/img/people.png" >Create lobby</button>
             <br><br><hr><br>
+          </form>
+          <form class="" action="waitroom" method="post">
+            <input type="hidden" value="join" id="type" name="join">
             <label>Lobby Key</label>
             <input type="text" id="key" name="key">
             <button type="submit"><img src="/styles/img/people.png" >Join lobby</button>

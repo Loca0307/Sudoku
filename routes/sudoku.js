@@ -94,10 +94,10 @@ router.get("/sudoku/test_game", function(req,res) {
 router.get("/waitroom", function(req, res) {
     //we need to agree on data being passed
     let data = {
-        username: req.body.username, // username
-        diff: req.body.diff, // difficulty
-        lobby: req.body.lobby, // number of the players 2/2 for now
-    
+        username: req.query.username, // username
+        diff: req.query.diff, // difficulty
+        size: req.query.size // number of the players 2/2 for now
+
     }
     res.format({
         'text/html': function () {
@@ -108,8 +108,6 @@ router.get("/waitroom", function(req, res) {
         }
     
     });
-
-    
 })
 
 
@@ -118,12 +116,15 @@ router.post("/waitroom", function(req, res) {
     let data = {
         username: req.body.username, // username
         diff: req.body.diff, // difficulty
-        lobby: req.body.lobby, // number of the players 2/2 for now
-    
+        size: req.body.size, // number of the players 2/2 for now
+        ready: 1,
+        
     }
+
+
     res.format({
         'text/html': function () {
-            res.render("waitroom"); // render the waitroom.ejs page
+            res.render("waitroom", data); // render the waitroom.ejs page
         },
         'application/json': function () {
             res.status(201).json(data); // passing all the parameters
