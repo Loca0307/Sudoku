@@ -498,7 +498,7 @@ function updateScore(correctIndexes, wrongIndexes) {
 // selfcalling function
 // show a hint to the player
 function showHint() {
-    console.log("HINT");
+    //console.log("HINT");
     hintsReceived++;
     // highscores = highscores - 10;
     // get a random empty cell
@@ -628,20 +628,38 @@ function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
 }
 
 
-function startTimerv1() {
-    let time = 5;
+function startTimer() {
+    let miliSeconds = 0;
+    let seconds = 0;
+    let minutes = 0;
    //document.getElementById("startTimer").addEventListener( 'click', () =>{
-        setInterval(timer, 1);
+        setInterval(timerMiliseconds, 1);
+        setInterval(timerSeconds, 1000);
+        setInterval(timerMinutes, 60000);
         console.log("CLICKED");
         console.log("CLICKED");
         console.log("CLICKED");
-        document.getElementById("minutes").innerHTML = time; 
+        //document.getElementById("minutes").innerHTML = time; 
 
-        function timer() {
-            time++;
+        function timerMiliseconds() {
+            miliSeconds++;
             //console.log(time);
-            document.getElementById("minutes").innerHTML = time; 
+            document.getElementById("miliseconds").innerHTML = miliSeconds; 
         }
+
+        function timerSeconds() {
+            seconds++;
+            //console.log(time);
+            document.getElementById("seconds").innerHTML = seconds; 
+        }
+
+
+        function timerMinutes() {
+            minutes++;
+            //console.log(time);
+            document.getElementById("minutes").innerHTML = minutes; 
+        }
+
 
     //})
 
