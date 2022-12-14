@@ -70,6 +70,19 @@ router.post("/sudoku/solo_game", function(req,res) {
     });
 });
 
+router.get("/sudoku/test_high_scores", function(req,res) {
+
+                    res.format({
+                        'text/html': function () {
+                            res.render("high_scores");
+                        },
+                        'application/json': function () {
+                            res.status(201).json(pagedata);
+                        }
+                    });
+                });
+
+
 
 router.get("/sudoku/test_game", function(req,res) {
     pagedata = {username: '', diff: 999, score: 'YOU SHOULD NOT BE HERE, LEAVE!'};
