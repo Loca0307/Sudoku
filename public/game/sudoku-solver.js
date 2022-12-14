@@ -640,7 +640,6 @@ function updateCorrectedIndexes(boardstate, playablespots, fullboard, givenNumbe
     updateCellStyles(wrongIndexes, 'wrong-cell');
     //updateScore(correctIndexes, wrongIndexes);
     updateScorev2(boardstate, eventId);
-    checkIfPlayerHasWon(correctIndexes, boardstate, playablespots);
 
     var currentBoardObj = {
         fullboard : fullboard,
