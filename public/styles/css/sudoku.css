@@ -152,3 +152,9 @@ hr {
     margin-bottom: 1em;
   }
 
+
+  button img{
+    width: 40px;
+    padding: 0;
+  }
+

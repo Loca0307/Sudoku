@@ -76,6 +76,19 @@
   display: block;
 }
 
+
+
+input:hover{
+  border: 1px solid #8DFFCA;
+  transition: 1s;
+}
+
+img{
+  width: 25px;
+  float: left;
+}
+
+
 input{
   position:relative;
   width: 100%;
@@ -92,10 +105,3 @@ input{
   margin-bottom: 1em;
   border: 1px solid #00FF89;
 }
-
-input:hover{
-  border: 1px solid #8DFFCA;
-  transition: 1s;
-}
-
-

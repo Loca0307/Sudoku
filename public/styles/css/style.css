@@ -75,6 +75,7 @@ button{
   margin-top: 1em;
   margin-bottom: 1em;
   background-color: #00FF89;
+
 }
 
 button:hover{
@@ -123,4 +124,17 @@ input[type=range]::-webkit-slider-runnable-track  {
   box-shadow: none;
   border: none;
   background: transparent;
+}
+
+button img{
+  width: 30px;
+  margin-top: 0;
+  margin-bottom: 0;
+  float: left;
+  margin-left: 20px;
+}
+
+
+button:hover{
+  scale: 1.05;
 }
