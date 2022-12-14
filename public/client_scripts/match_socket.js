@@ -5,7 +5,7 @@ socket.on('connect', () => {
 });
 
 
-function init() {
+function socket_init() {
 
     socket.emit("multiplayer_connected", room);
 
@@ -29,12 +29,13 @@ function init() {
             
             let url = new URL(e.currentTarget.href);
             let path = url.pathname;
-
+            console.log("url:", url);
             // here in the if loop we have give the path right?
 
 
             
             if(path == "/waitroom") {
+        
                 console.log("waitroom in progress");
                 socket.emit("multiplayer_connected", "player");
                 //render the page
@@ -42,7 +43,10 @@ function init() {
                 //data needs to be passed 
                 
             }
-            
+            else if(path == "/multidouku") {
+                console.log("MATCH");
+                document.querySelector("main").innerHTML = ejs.views_multidouku({ready});
+            }
 
             })
             

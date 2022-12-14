@@ -26,7 +26,7 @@ client
         console.log("Connected to mongodb server");
 
         model.db = client.db(db_name);
-        collection_names.forEach(c=>{
+        collection_names.forEach(c =>{
             model[c] = model.db.collection(c);
             
         })
@@ -35,6 +35,6 @@ client
     .catch(err => console.error(err));
 
 
- 
+
 exports.model = model;
 

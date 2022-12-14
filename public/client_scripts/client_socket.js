@@ -22,6 +22,10 @@ function socket_init() {
     socket.on('multiplayer_connected', (a) => {
         console.log("Someone connected!", a);
         document.querySelector("#players_ready").innerHTML = "Ready: " + a;    
+        console.log(a);
+        if (a >= 2) {
+            window.location.replace("/multidoku?ready="+a);
+        }
     });
 
     socket.on('multiplayer_disconnected', (a) => {
@@ -33,12 +37,12 @@ function socket_init() {
 
 
     document.querySelectorAll("#button1").forEach(link => {
-        link.addEventListener("click", async (e) => {
+        link.addEventListener("click", (e) => {
             
             
             let url = new URL(e.currentTarget.href);
             let path = url.pathname;
-
+            console.log(url);
             // here in the if loop we have give the path right?
 
 
@@ -51,9 +55,7 @@ function socket_init() {
                 //data needs to be passed 
                 
             }
-            
-
             })
-            
+        
         })
     }

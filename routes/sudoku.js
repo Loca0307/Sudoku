@@ -66,9 +66,22 @@ router.post("/sudoku/solo_game", function(req,res) {
                             res.status(201).json(pagedata);
                         }
                     });
+                    return
                 }
             }
-    });
+            /* if(userdata) {
+                if(userdata.menu == pagedata.menu) {
+                    res.format({
+                        'text/html': function () {
+                            res.render("middle");
+                        },
+                        'application/json': function () {
+                            res.status(201).json(pagedata);
+                        }
+                    });
+                }
+            } */
+    }); 
 });
 
 router.get("/sudoku/high_scores/:user", function(req,res) {
@@ -88,16 +101,17 @@ router.get("/sudoku/high_scores/:user", function(req,res) {
 
 router.post("/high_scores", function(req,res) {
     let pagedata = {username: req.body.username, diff: req.body.diff, score: 0};
-
-                    res.format({
-                        'text/html': function () {
-                            res.render("high_scores");
-                        },
-                        'application/json': function () {
-                            res.status(201).json(pagedata);
-                        }
-                    });
+    model.high_scores.findOne({username : user}).toArray().then( high_scores => {
+                res.format({
+                    'text/html': function () {
+                        res.render("high_scores");
+                    },
+                    'application/json': function () {
+                        res.status(201).json(pagedata);
+                    }
                 });
+         });
+});
 
 
 
@@ -149,19 +163,16 @@ router.post("/waitroom", function(req, res) {
 })
 
 //
-router.post("/multidoku", function(req, res) {
+router.get("/multidoku", function(req, res) {
     //we need to agree on data being passed
-    let data = {
-        username: req.body.username, // username
-        diff: req.body.diff, // difficulty
-        size: req.body.size, // number of the players 2/2 for now
-        ready: req.body.ready
-    }
-    
+    const ready = parseInt(req.query.ready);
     res.format({
+    
         'text/html': function () {
-            if(data.ready === 2) {
-                res.render("multidoku", data);
+            console.log("WORK1", ready);
+            if(ready === 2) {
+                console.log("WORK2")
+                res.render("multidoku");
             }
         },
 
