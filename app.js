@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const fs = require('fs-extra');
 
 const server_socket = require('./server_scripts/server_socket')
+const {socket_init} = require('./websocket');
 
 
 
@@ -73,16 +74,7 @@ app.set('port', process.env.PORT || 8888);
 
 var server = require('http').createServer(app);
 
-const io = require("socket.io")(server);
-console.log('server loaded');
-
-io.on('connection', (socket) => {
-    console.log('client connected: ', socket.id);
-  
-    socket.on('disconnect', () => {
-      console.log('client disconnected');
-    });
-});
+const io = socket_init(server);
 
 server.on('listening', function() {
   console.log('Express server listening on port ' + server.address().port);

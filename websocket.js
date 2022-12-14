@@ -3,10 +3,10 @@ const io = require('socket.io')();
 // track users and sockets
 let map_user_ready = {}; // players that clicked on ready 
 let currentPlayer = 0;
-const playerId = 0;
+let playerId = 0;
 
 
-function init(server) {
+function socket_init(server) {
     io.attach(server);
 
     io.on('connection', function (socket) {
@@ -18,17 +18,17 @@ function init(server) {
     }
 
     currentPlayer = 1;
-
+/*
     playerId = socket.id;
     getPlayers(playerId);
 
     const id = getId(players, playerId);
     console.log("id", {id})
-    socket.emit("playerId", id);
+    socket.emit("playerId", id);*/
 
     
     socket.on('disconnect', function () {
-      console.log('player ' + id + ' disconnected');
+      //console.log('player ' + id + ' disconnected');
       //let key = getId(players, socket.id)
       if(map_user_ready[socket.id]) {
         delete map_user_ready[socket.id];
@@ -38,16 +38,23 @@ function init(server) {
     });
 
     socket.on('multiplayer_connected', function () {
+      console.log('player ' + socket.id + ' connected');
       map_user_ready[socket.id] = true;
       let ready = Object.keys(map_user_ready).length;
       Object.keys(map_user_ready).forEach((a) => {
+        console.log(a);
       io.to(a).emit('multiplayer_connected', ready);
       });
       
     })
-}
-)}
 
+}
+
+)
+
+return io;
+}
+/*
 function getPlayers(playerId) {
     for (const i in players) {
       let curr = players[i];
@@ -57,7 +64,7 @@ function getPlayers(playerId) {
         return;
       }
     }
-}
+}*/
 
 
 function getId(obj, value) {
@@ -65,4 +72,4 @@ function getId(obj, value) {
 }
 
 
-module.exports.init = init;
+module.exports.socket_init = socket_init;

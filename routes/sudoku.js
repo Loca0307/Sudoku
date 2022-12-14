@@ -1,4 +1,5 @@
 const express = require('express');
+const { read } = require('fs-extra');
 const router = express.Router();
 module.exports = router;
 
@@ -85,11 +86,15 @@ router.get("/sudoku/high_scores/:user", function(req,res) {
     });
 });
 
-router.get("/sudoku/test_high_scores", function(req,res) {
+router.post("/high_scores", function(req,res) {
+    let pagedata = {username: req.body.username, diff: req.body.diff, score: 0};
 
                     res.format({
                         'text/html': function () {
                             res.render("high_scores");
+                        },
+                        'application/json': function () {
+                            res.status(201).json(pagedata);
                         }
                     });
                 });
@@ -130,10 +135,8 @@ router.post("/waitroom", function(req, res) {
         diff: req.body.diff, // difficulty
         size: req.body.size, // number of the players 2/2 for now
         ready: 1,
-        
     }
-
-
+    
     res.format({
         'text/html': function () {
             res.render("waitroom", data); // render the waitroom.ejs page
@@ -143,7 +146,31 @@ router.post("/waitroom", function(req, res) {
         }
     
     });
-
-    
 })
+
+//
+router.post("/multidoku", function(req, res) {
+    //we need to agree on data being passed
+    let data = {
+        username: req.body.username, // username
+        diff: req.body.diff, // difficulty
+        size: req.body.size, // number of the players 2/2 for now
+        ready: req.body.ready
+    }
+    
+    res.format({
+        'text/html': function () {
+            if(data.ready === 2) {
+                res.render("multidoku", data);
+            }
+        },
+
+        'application/json': function () {
+            res.status(201).json(data); // passing all the parameters
+        }
+
+    });
+
+})
+
 

@@ -1,12 +1,3 @@
-/**
- * Web Atelier 2022 
- * 
- * Client-side routes for waiting room page 
- *
- */
-
-
-
 const socket = io();
 
 socket.on('connect', () => {
@@ -14,19 +5,19 @@ socket.on('connect', () => {
 });
 
 
-function socket_init() {
+function init() {
 
-    socket.emit("multiplayer_connected", "player");
-    console.log("init");
+    socket.emit("multiplayer_connected", room);
 
     socket.on('multiplayer_connected', (a) => {
         console.log("Someone connected!", a);
-        document.querySelector("#players_ready").innerHTML = "Ready: " + a;    
+        document.querySelector("main").innerHTML = ejs.views_waitroom({ready: 2});
+    
     });
 
     socket.on('multiplayer_disconnected', (a) => {
         console.log("Someone Disconneted!", a);
-        document.querySelector("#players_ready").innerHTML = "Ready: " + a;
+        document.querySelector("main").innerHTML = ejs.views_waitroom({ready: 1});
 
     });
 
