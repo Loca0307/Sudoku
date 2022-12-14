@@ -59,6 +59,10 @@ h1{
     border: 1px solid #00FF89;
   }
 
+  .logout{
+    width: 200px;
+  }
+
   @media all and (max-width: 1200px)
 {
   .main-section/*changing the flex direction of all the sections in the different pages*/
