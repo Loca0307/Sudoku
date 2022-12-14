@@ -498,6 +498,7 @@ function updateScore(correctIndexes, wrongIndexes) {
 // selfcalling function
 // show a hint to the player
 function showHint() {
+    console.log("HINT");
     hintsReceived++;
     // highscores = highscores - 10;
     // get a random empty cell
@@ -627,22 +628,59 @@ function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
 }
 
 
-init2();
-
-function startTimer() {
-    let time = 0;
+function startTimerv1() {
+    let time = 5;
    //document.getElementById("startTimer").addEventListener( 'click', () =>{
         setInterval(timer, 1);
+        console.log("CLICKED");
+        console.log("CLICKED");
+        console.log("CLICKED");
+        document.getElementById("minutes").innerHTML = time; 
 
         function timer() {
             time++;
-            console.log(time);
-            document.getElementById("miliseconds").innerHTML = time; 
+            //console.log(time);
+            document.getElementById("minutes").innerHTML = time; 
         }
 
     //})
 
 }
+
+function startTimev2() {
+    let time = 5;
+    document.getElementById("startTimer").addEventListener('click', (event) =>{
+        event.preventDefault();
+        setInterval(timer, 1);
+        console.log("CLICKED");
+        console.log("CLICKED");
+        console.log("CLICKED");
+        document.getElementById("minutes").innerHTML = 5; 
+
+        function timer() {
+            time++;
+            console.log(time);
+            document.getElementById("minutes").innerHTML = time; 
+        }
+
+    })
+
+}
+
+
+
+
+
+
+
+
+
+init2();
+
+startTimev2();
+
+
+
 
 
 

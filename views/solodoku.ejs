@@ -3,7 +3,7 @@
     <head>
         <link rel = "stylesheet" href = "/styles/css/sudoku.css">
     </head>
-    <body>
+    <body onload="startTimerv1()">
       <%- include("includes/header") %>
 
       <section class="main-section">
@@ -39,8 +39,8 @@
               
               <label>Difficulty</label>
               <input type="range" min="1" max="3" value="<%- pagedata.diff %>" id="diff" name="diff">
-              <button type="submit" id="startTimer" onclick="startTimer()" formaction="/sudoku/solo_game"><img src="/styles/img/refresh.png">New Game</button>
-            
+              <button type="submit" id="startTimer" formaction="/sudoku/solo_game"><img src="/styles/img/refresh.png">New Game</button>
+            <!-- onclick="startTimer()" -->
             </div>
           </form>
             
