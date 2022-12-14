@@ -629,6 +629,22 @@ function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
 
 init2();
 
+function startTimer() {
+    let time = 0;
+   //document.getElementById("startTimer").addEventListener( 'click', () =>{
+        setInterval(timer, 1);
+
+        function timer() {
+            time++;
+            console.log(time);
+            document.getElementById("miliseconds").innerHTML = time; 
+        }
+
+    //})
+
+}
+
+
 
 
 
