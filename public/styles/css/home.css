@@ -6,6 +6,15 @@
     Author: __Belotcaci Valentino__
 
 */
+
+.main-section
+{
+  display: flex;
+  flex: 1;
+  margin-top: 3rem;
+}
+
+
 .box{
   position: relative;
   width: 375px;

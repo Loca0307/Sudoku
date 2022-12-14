@@ -42,12 +42,7 @@ h1, h2
 }
 
 
-.main-section
-{
-  display: flex;
-  flex: 1;
-  margin-top: 3rem;
-}
+
 
 .main-header img
 {

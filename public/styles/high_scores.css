@@ -76,11 +76,7 @@ ul li:hover
 
 .main-section
 {
-  display: inline !important;/*not working*/
   flex: 1;
   margin-top: 3rem;
 }
 
-#section{
-  display: inline
-}

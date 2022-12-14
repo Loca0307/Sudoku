@@ -71,6 +71,14 @@ hr {
     border-right: 1px solid black;
 } */
 
+.main-section
+{
+  display: flex;
+  flex: 1;
+  margin-top: 3rem;
+}
+
+
 :root {
     --maxGridWidth: 672px;
     --maxGridHeight: 630px;
