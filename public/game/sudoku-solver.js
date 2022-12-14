@@ -524,7 +524,7 @@ function updateScorev2(boardState, id) {
     else if (grid[n] != correctSudoku[n])
         score -= 1;
     
-    score -= hintsReceived*10;
+   // score -= hintsReceived*10;
     document.getElementById('score').innerHTML = score;
 `   `
 
@@ -541,6 +541,7 @@ function showHint() {
     hintsReceived++;
     // highscores = highscores - 10;
     // get a random empty cell
+    score -= 10; 
     let emptyCells = getEmptyCells(solvedsudoku);
     let randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
     let x = randomCell;
@@ -581,7 +582,7 @@ function highlightSame(event) {
 
 // viene chiamata in showHint (che viene chiamata dentro di se) e createGrid(che viene chiamata nell init)
 //returns an array of numbers currently on the board
-function inputChange(event) {
+function inputChange() {
     var playablespots = 0;
     var boardstate = [];
 
