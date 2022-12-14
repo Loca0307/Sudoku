@@ -12,7 +12,10 @@ let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
 
 let correctIndexes = [];
+let totalMoves = 0;
+let boardObjHistory = [];
 let eventId; 
+
 
 /* 
 
@@ -581,10 +584,19 @@ function highlightSame(event) {
 function inputChange(event) {
     var playablespots = 0;
     var boardstate = [];
+
+    var fullboard = [];
+    var givenNumberIndexes = [];
+
+    totalMoves++;
+
     //var id = event.target.id;
     for (let i = 0; i < gridSize; i++) {
         var celltag = document.getElementById(`input-${i}`)
         var cellvalue = celltag.value;
+
+        fullboard.push(cellvalue);
+
         if (!celltag.readOnly) {
             if (cellvalue) {
                 boardstate.push(+cellvalue);
@@ -597,16 +609,17 @@ function inputChange(event) {
         }
         else {
             boardstate.push(0);
+            givenNumberIndexes.push(i);
         }
 
     }
-    updateCorrectedIndexes(boardstate, playablespots);
+    updateCorrectedIndexes(boardstate, playablespots, fullboard, givenNumberIndexes);
 
 
 }
 
 // viene chiamata in inputChange ( (showHint()selfreferenc) e (createGrid(init))
-function updateCorrectedIndexes(boardstate, playablespots) {
+function updateCorrectedIndexes(boardstate, playablespots, fullboard, givenNumberIndexes) {
     correctIndexes = [];
     var wrongIndexes = [];
 
@@ -627,6 +640,17 @@ function updateCorrectedIndexes(boardstate, playablespots) {
     //updateScore(correctIndexes, wrongIndexes);
     updateScorev2(boardstate, eventId);
     checkIfPlayerHasWon(correctIndexes, boardstate, playablespots);
+
+    var currentBoardObj = {
+        fullboard : fullboard,
+        correctIndexes : correctIndexes,
+        wrongIndexes : wrongIndexes,
+        givenNumberIndexes : givenNumberIndexes
+    }
+
+    boardObjHistory.push(currentBoardObj);
+
+    checkIfPlayerHasWon(correctIndexes, playablespots);
 
 }
 
@@ -650,7 +674,7 @@ function updateCellStyles(indexArray, className) {
 }
 
 //updateCorrectedIndexes((showHint()selfreferenc) e (createGrid(init))
-function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
+function checkIfPlayerHasWon(correctIndexes, playablespots) {
     if (correctIndexes.length == playablespots) {
         console.log('YouHaveWon');
         clearInterval(intervalMili);
@@ -665,6 +689,18 @@ function checkIfPlayerHasWon(correctIndexes, boardstate, playablespots) {
         document.getElementById('msg').innerHTML = "You Have Won, ";
 
         document.getElementById('score').innerHTML += " (You can start a new game!)";
+
+        var username = document.getElementById('username').value;
+
+        var highscore = {
+            username : username,
+            game : 'solo',
+            boardObjHistory : boardObjHistory,
+            totalMoves : totalMoves
+        }
+
+        console.log(highscore);
+        api.updateHistory(highscore);
 
     }
 }

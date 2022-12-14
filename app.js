@@ -31,6 +31,7 @@ const routers = require('./routes');
 
 app.use(routers.home);
 app.use('', routers.sudoku);
+app.use('', routers.high_scores);
 
 
 //default fallback handlers
