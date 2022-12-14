@@ -34,16 +34,7 @@
           <form class="form" method="POST">
               <input type="hidden" value="<%- pagedata.username %>" id="username" name="username">
               <input type="hidden" value="<%- pagedata.password %>" id="password" name="password">
-
-              <form action="/middle" method="get">
-                <button class="logout" type="submit" ><img src="/styles/img/exit.png">Back to menu</button>
-              </form>
-              <!-- <script type="">
-                document.getElementById("menu").onclick = function () {
-                  location.href = "/middle"
-                }
-              </script> -->
-
+              <button class="logout" type="submit" formaction="/sudoku"><img src="/styles/img/exit.png">Back to menu</button>
               <button type="button" onclick="showHint();"><img src="/styles/img/lamp.png">Show Hint!</button>
               
               <label>Difficulty</label>
@@ -57,7 +48,7 @@
        
       </section>
       <%- include("includes/footer") %>
-    </body>
+    </body> 
 
     <script src = "/client_scripts/api-client.js"></script>
     <script src = "/game/sudoku-solver.js"></script>

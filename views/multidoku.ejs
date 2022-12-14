@@ -34,17 +34,18 @@
           <form class="form" method="POST">
               <input type="hidden" value="<%- locals.username %>" id="username" name="username">
               <input type="hidden" value="<%- locals.password %>" id="password" name="password">
-              <button class="logout" type="submit"><img src="/styles/img/exit.png" >Back to menu</button>
+              <button class="logout" type="submit" formaction="/sudoku/solo_game"><img src="/styles/img/exit.png" >Back to menu</button>
               <button type="button" onclick="showHint();"><img src="/styles/img/lamp.png">Show Hint!</button>
               
               <label>Difficulty</label>
               <input type="range" min="1" max="3" value="<%- locals.diff %>" id="diff" name="diff">
-              <button type="submit" id="startTimer" formaction="/sudoku/solo_game"><img src="/styles/img/refresh.png">New Game</button>
+              <button type="submit" id="startTimer" onclick="window.location.href = 'sudoku';"><img src="/styles/img/refresh.png">New Game</button>
             <!-- onclick="startTimer()" -->
             </div>
           </form>
             
         </main>
+
        
       </section>
       <%- include("includes/footer") %>
