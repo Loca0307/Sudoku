@@ -1,55 +1,4 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
 
-
-body{
-  display: flex;
-  font-size: 1em;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #23242a;
-
-}
-
-h1
-{
-  color: #00FF89;
-}
-
-.main-home
-{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  padding-left: 2em;
-  padding-right: 2em;
-  flex: 3 3;
-}
-
-
-.main-section
-{
-  flex: 1;
-  margin-top: 3rem;
-}
-
-.main-header img
-{
-  width: 16em;
-}
-
-
-.main-footer
-{
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  text-align: center;
-}
 
 ul/*unordered list used in the aside for the scoreboard*/
 {
@@ -122,4 +71,16 @@ ul li:hover
 {
   transform: scale(1.06);/*scale itself to make a sort of transition*/
   background-color: #00FF89;
+}
+
+
+.main-section
+{
+  display: inline !important;/*not working*/
+  flex: 1;
+  margin-top: 3rem;
+}
+
+#section{
+  display: inline
 }
