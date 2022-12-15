@@ -345,6 +345,7 @@ function init2(){
 
     displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
     makeNonEmptyCellsReadonly();
+    // console.log(solvedsudoku);
 
     return solvedsudoku
 
@@ -387,8 +388,12 @@ function removeNumbers(solvedsudoku, level) {
         }
     }
     resetSudoku = JSON.parse(JSON.stringify(solvedsudoku));
+
     console.log(solvedsudoku);
     console.log(level);
+
+    console.log( solvedsudoku, level );
+
     return solvedsudoku;
     
 }

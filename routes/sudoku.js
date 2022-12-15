@@ -114,14 +114,16 @@ router.get("/sudoku/test_game", function(req,res) {
 router.get("/waitroom", function(req, res) {
     //we need to agree on data being passed
     let data = {
+        <input type="hidden" id="level" value="<%= data.diff %>">
         username: req.query.username, // username
         diff: req.query.diff, // difficulty
         size: req.query.size // number of the players 2/2 for now
 
     }
+
     res.format({
         'text/html': function () {
-            res.render("waitroom"); // render the waitroom.ejs page
+            res.render("waitroom", {data: data}); // render the waitroom.ejs page
         },
         'application/json': function () {
             res.status(201).json(data); // passing all the parameters
