@@ -24,7 +24,7 @@
           <form method="GET" action="/sudoku/high_scores">
             <ul>
               <li>
-                <div>Game name: <%= high_score.username%></div>
+                <div>Game ID: <%= high_score._id%></div>
                 <div>Game mode: <%= high_score.game%></div>
                 <div>Date played: <%= high_score.dateplayed%></div>
                 <div><img src="/styles/img/award.png"></div>
@@ -32,7 +32,6 @@
               <li>
                 <div>Total moves: <%= high_score.totalMoves%></div>
                 <div style="color: #00FF89; font-weight: bold; font-size: x-large;">Score: <%= high_score.score%></div>
-                <div>Time: </div>
                 <div>Hints used: <%= high_score.boardObjHistory[high_score.totalMoves - 1].hintIndexes.length%></div>
               </li>
               <li>
@@ -139,31 +138,34 @@
                 </div>
               </li>
               <li>
-                <span>Track moves: <span id="value"></span><input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                <div>
+                  <span>Track time: <span id="time-<%= high_score._id%>"></span></span>
+                </div>
+                <div>
+                  <span>Track moves: <span id="value-<%= high_score._id%>"></span><input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                </div>
+                <div>
+                  <span>Track score: <span id="score-<%= high_score._id%>"></span></span>
+                </div>
               </li>
             </ul>
           </form>
-<<<<<<< Updated upstream
           <script>
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
-            var slider = document.getElementById("moves");
-            var output = document.getElementById("value");
-  
-            output.innerHTML = slider.value;
-      
-            slider.oninput = function(){
-              let value = this.value;
-              output.innerHTML = value;
-            }
 
             function prephs<%= high_score._id %>() {
 
               var currentval = document.querySelector(".tracker-<%= high_score._id%>").value;
               var hs = <%-JSON.stringify(high_score)%>;
+
+              var movecount = document.getElementById("value-<%= high_score._id%>").innerHTML = +currentval + 1;
+              var scorecount = document.getElementById("score-<%= high_score._id%>").innerHTML = hs.boardObjHistory[currentval].score;
+              var timecount = document.getElementById("time-<%= high_score._id%>").innerHTML = hs.boardObjHistory[currentval].time;
+
               for (let i = 0; i < 81; i++) {
                 //get cell
                 var cell = document.getElementById("<%= high_score._id%>-input-"+i);
