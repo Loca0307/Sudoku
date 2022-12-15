@@ -342,6 +342,7 @@ let intervalMinutes;
 
 
 function init2(){
+
     displayGridValues(removeNumbersFromBoard(solvedsudoku, level));
     makeNonEmptyCellsReadonly();
 
@@ -362,6 +363,8 @@ function init2(){
 function removeNumbers(solvedsudoku, level) {
     let n = 0;
     let removedNumbers = 0;
+    console.log(solvedsudoku);
+    console.log(level);
     // easy level
     if (level == 1) {
         removedNumbers = 10;
@@ -384,7 +387,10 @@ function removeNumbers(solvedsudoku, level) {
         }
     }
     resetSudoku = JSON.parse(JSON.stringify(solvedsudoku));
+    console.log(solvedsudoku);
+    console.log(level);
     return solvedsudoku;
+    
 }
 
 

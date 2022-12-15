@@ -2,7 +2,7 @@ const express = require('express');
 const { read } = require('fs-extra');
 const router = express.Router();
 module.exports = router;
-
+let level;
 
 
 const ObjectId = require('mongodb').ObjectId;
@@ -133,13 +133,18 @@ router.get("/waitroom", function(req, res) {
 
 router.post("/waitroom", function(req, res) {
     //we need to agree on data being passed
+    if (req.body.diff) {
+        level = req.body.diff
+    }
+
+    
     let data = {
         username: req.body.username, // username
-        diff: req.body.diff, // difficulty
+        diff: level, // difficulty
         size: req.body.size, // number of the players 2/2 for now
         ready: 1,
     }
-    
+
     res.format({
         'text/html': function () {
             res.render("waitroom", data); // render the waitroom.ejs page
@@ -151,17 +156,21 @@ router.post("/waitroom", function(req, res) {
     });
 })
 
+
 //
 router.get("/multidoku", function(req, res) {
     //we need to agree on data being passed
-    
+
+    const data = {
+        diff: level
+    }
     const ready = parseInt(req.query.ready);
     console.log(req.query);
     res.format({
     
         'text/html': function () {
             if(ready === 2) {
-                res.render("multidoku");
+                res.render("multidoku", data);
             }
         },
 
