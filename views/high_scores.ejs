@@ -12,7 +12,12 @@
 
       <section class="main-section">
 
-        <h1>Highscores and game history</h1>
+        <div class="head">
+          <h1>Highscores and game history</h1>
+          <form action="/sudoku">
+            <button class="logout" type="submit" formaction="/sudoku"><img src="/styles/img/exit.png">Back to menu</button>
+          </form>
+        </div>
         <% high_scores.forEach(high_score => {
           if (high_score.game == "solo") {
           %>
@@ -27,6 +32,7 @@
               <li>
                 <div>Total moves: <%= high_score.totalMoves%></div>
                 <div style="color: #00FF89; font-weight: bold; font-size: x-large;">Score: <%= high_score.score%></div>
+                <div>Time: </div>
                 <div>Hints used: <%= high_score.boardObjHistory[high_score.totalMoves - 1].hintIndexes.length%></div>
               </li>
               <li>
@@ -133,7 +139,7 @@
                 </div>
               </li>
               <li>
-                <span>Track moves: <input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                <span>Track moves: <span id="value"></span><input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
               </li>
             </ul>
           </form>
@@ -144,6 +150,15 @@
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
+            var slider = document.getElementById("moves");
+            var output = document.getElementById("value");
+  
+            output.innerHTML = slider.value;
+      
+            slider.oninput = function(){
+              let value = this.value;
+              output.innerHTML = value;
+            }
 
             function prephs<%= high_score._id %>() {
 

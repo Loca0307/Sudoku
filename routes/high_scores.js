@@ -24,3 +24,4 @@ router.post("/high_scores/solo", function (req, res) {
         });
     });
 });
+
