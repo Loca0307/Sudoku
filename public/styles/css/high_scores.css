@@ -182,3 +182,20 @@ input[type="range"]::-webkit-slider-thumb {
   width: 20px;
   border-radius: 15px;
 }
+
+.head{
+  display: flex;
+}
+
+.head button{
+  float: right;
+  width:30%;
+}
+
+.head h1{
+  float: left;
+}
+
+form{
+  width:100%;
+}
