@@ -14,8 +14,8 @@
 
         <div class="head">
           <h1>Highscores and game history</h1>
-          <form action="/sudoku">
-            <button class="logout" type="submit" formaction="/sudoku"><img src="/styles/img/exit.png">Back to menu</button>
+          <form method="GET" action="/sudoku">
+            <button class="logout" type="submit"><img src="/styles/img/exit.png">Back to menu</button>
           </form>
         </div>
         <% high_scores.forEach(high_score => {

@@ -25,6 +25,7 @@ router.post("/sudoku", function(req, res) {
 
                     //save username as cookie
                     sess.username = req.body.username;
+                    sess.message = `<h2>Welcome back, ${userdata.username}!</h2><h4>We really missed you since the last time you were with us.</h4>`;
 
                     
                     //once cookie is saved redirect to the /sudoku with a GET request
@@ -39,15 +40,40 @@ router.post("/sudoku", function(req, res) {
                 }
                 else {
                     //password entered was wrong
-                    res.render("index", {msg:'<p style="color : red;"> Username found, wrong password </p>'});
+                    res.render("index", {msg:'<span style="color : red;"> Wrong password </span>'});
                 }
             } else {
                 //userdata not found AKA user is not registered.
+
+                //register new user and initiate cookie
+
+
+                model.usernames.insertOne(userprofiledata).then(userdata => {
+
+                    //initiate a session if login information is correct
+                    sess = req.session;
+
+                    //save username as cookie
+                    sess.username = req.body.username;
+                    sess.message = `<h2>First time? Welcome, ${req.body.username}!</h2><h4>We took the liberty to register a new account for you.</h4>`;
+
+                    res.format({
+                        'text/html': function () {
+                            res.redirect('/sudoku');
+                        },
+                        'application/json': function () {
+                            res.status(201).json(userprofiledata);
+                        }
+                    });
+                
+                });
             }
         });
     });
 
 router.get("/sudoku", function(req,res) {
+try{
+    //check if there is an active session aka user has logged in
     if (sess.username) {
         model.usernames.findOne({username : sess.username}).then(userdata => {
             if (userdata) {
@@ -57,7 +83,7 @@ router.get("/sudoku", function(req,res) {
                             'text/html': function () {
                                 console.log( lobbies );
                                 res.render("middle", {
-                                    message : `<h2>Welcome back, ${userdata.username}!</h2><h4>We really missed you since the last time you were with us.</h4>`,
+                                    message : sess.message,
                                     userdata,
                                     lobbies
                                 });
@@ -71,35 +97,52 @@ router.get("/sudoku", function(req,res) {
         });
     }
     else {
+        //user is not logged in, redirect to login page
         res.redirect('/');
     }
-});
+}
+catch {
+    res.redirect('/');
+}
     
+});
+
+router.get("/sudoku/log_out", function(req, res) {
+    sess = req.session.destroy();
+    res.redirect('/');
+});
 
 router.post("/sudoku/solo_game", function(req,res) {
+    if (sess.username) {
+        //user is logged in
+        pagedata = {
+            username : sess.username,
+            diff : req.body.diff
+        }
 
-    let pagedata = {username: req.body.username, diff: req.body.diff, password: req.body.password, score: 0};
-
-        model.usernames.findOne({username : pagedata.username}).then(userdata => {
+        model.usernames.findOne({username : sess.username}).then(userdata => {
             if (userdata) {
-                if (userdata.password == pagedata.password)
-                {
                     res.format({
                         'text/html': function () {
-                            // res.redirect('/sudoku');
                             res.render("solodoku", {message : "Solo game started, ", pagedata});
                         },
                         'application/json': function () {
                             res.status(201).json(pagedata);
                         }
-                    });
-                }
+                });
             }
-           
-    }); 
+        });
+    }
+    else {
+        //user is not logged in, redirect to login page
+        res.redirect('/');
+    }
+
 });
 
 router.get("/sudoku/high_scores/:user", function(req,res) {
+    //does not require login,
+    //page can be accessed without logging in
     let user = req.params.user;
     model.high_scores.find({username : user}).sort({score : -1}).toArray().then( high_scores => { 
         console.log(high_scores);
@@ -114,18 +157,20 @@ router.get("/sudoku/high_scores/:user", function(req,res) {
     });
 });
 
-router.post("/high_scores", function(req,res) {
-    let pagedata = {username: req.body.username, diff: req.body.diff, score: 0};
-    model.high_scores.findOne({username : user}).toArray().then( high_scores => {
-                res.format({
-                    'text/html': function () {
-                        res.render("high_scores");
-                    },
-                    'application/json': function () {
-                        res.status(201).json(pagedata);
-                    }
-                });
-         });
+router.get("/sudoku/global_high_scores", function(req,res) {
+    //does not require login,
+    //page can be accessed without logging in
+    model.high_scores.find({}).sort({score : -1}).toArray().then( high_scores => { 
+        console.log(high_scores);
+        res.format({
+            'text/html': function () {
+                res.render("high_scores", {high_scores});
+            },
+            'application/json': function () {
+                res.status(201).json(high_scores);
+            }
+        });
+    });
 });
 
 
