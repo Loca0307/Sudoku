@@ -14,11 +14,17 @@
           <hr>
           <h3><span id="msg"><%- message %></span> <%- pagedata.username %>!</h3>
           <p>Currently playing a game of difficulty: <span id="level"><%- pagedata.diff %></span></p>
-          <h2 id = "errors">Score: <span id="score"><%- pagedata.score %></span>
-          <span id="minutes"> 00 </span>
-          <span id="seconds"> 00 </span>
-          <span id="miliseconds"> 000 </span>
-          </h2>
+          <div class="container">
+            <div class="time">
+              <span>Time: </span>
+              <span id="minutes"> 00 </span>
+              <span id="seconds"> 00 </span>
+              <span id="miliseconds"> 000 </span>
+          </div>
+            <div class="scores">
+              <h2 id = "errors"><span>Score:</span> <span id="score"><%- pagedata.score %></span></h2>
+            </div>
+        </div>
 
           <div id="grid">
             <div class="smallgrid" id="grid-0-0"></div>

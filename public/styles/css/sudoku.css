@@ -108,6 +108,30 @@ input[type="range"]{
     padding: 0;
   }
 
+  .time span:first-child, .scores span:first-child{
+    color:#00FF89;
+  }
+
+  .time{
+    margin-bottom: 2em;
+    float: left;
+    margin-right: 50px;
+  }
+
+  .scores{
+    float: right;
+  }
+
+
+
+  span {
+    font-size: 1.3em;
+  }
+
+  h2{
+    color:white;
+    font-size: 1em;
+  }
 
 
   @media all and (max-width: 720px)
