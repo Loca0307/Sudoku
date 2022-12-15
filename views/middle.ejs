@@ -2,7 +2,6 @@
     <%- include("includes/head") %>
     <head>
         <link rel="stylesheet"  href="/styles/css/middle.css">
-        <link rel="stylesheet"  href="/styles/css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="icon" href="icons/joystick.png" type="image/icon type">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,12 +69,24 @@
             <button id="button1" type="submit"><img src="/styles/img/people.png" >Create lobby</button>
             <br><br><hr><br>
           </form>
-          <form class="" action="waitroom" method="post">
+          <!-- <form class="" action="waitroom" method="post">
             <input type="hidden" value="join" id="type" name="join">
             <label>Lobby Key</label>
             <input type="text" id="key" name="key">
             <button id="button2" type="submit"><img src="/styles/img/people.png" >Join lobby</button>
-          </form>
+          </form> -->
+          <% lobbies.forEach( lobby => { %>
+            <div>
+              <div><%=lobby.username%></div>
+              <div><%=lobby.diff%></div>
+              <div><%=lobby.size%></div>
+              <div>
+                <a href="/waitroom/<%=lobby._id%>">
+                  <button type="submit">Join</button>
+                </a>
+              </div>
+            </div>
+          <% }) %>
         </div>
       </section>
 

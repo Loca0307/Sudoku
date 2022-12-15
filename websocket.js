@@ -1,5 +1,7 @@
 // server side
 
+const { model } = require('./model');
+
 
 const io = require('socket.io')();
 
@@ -16,16 +18,19 @@ let q = [];
 
 // use .shift() to obtain head of que 
 
-
 function socket_init(server) {
     io.attach(server);
 
+    io.on('new_lobby', function (lobby) {
+        console.log("new lobby created");
+        console.log(lobby);
+    });
     io.on('connection', function (socket) {
 
-    p = { id: socket.id, difficulty: 1 , room: 2};
-    q.push(p);
+    // p = { id: socket.id, difficulty: 1 , room: 2};
+    // q.push(p);
     
-    console.log("player: " + socket.id + " connected");
+    // console.log("player: " + socket.id + " connected");
 
     // if (io.sockets.sockets.size >= 2) {
     //     console.log("there are already 2 players so enjoy!");

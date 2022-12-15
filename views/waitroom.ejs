@@ -11,8 +11,7 @@
       <%- include("includes/header") %>
 
       <section class="main-section">
-
-       
+        
         <main>
             <h1>Sudoku</h1>
             <hr>
@@ -20,9 +19,9 @@
                 <ul>
                     <li><h4>Connection Successful</h4></li>
                     <li>
-                        <h4 id="players_ready"> Ready: <%= ready %></h4>
-                        <h4>Difficulty: <%= diff %></h4>
-                        <h4>Room Size: <%= size %></h4> 
+                        <h4 id="players_ready"> Players: <%=  %></h4>
+                        <h4>Difficulty: <%= lobby.diff %></h4>
+                        <h4>Room Size: <%= lobby.size %></h4> 
 
                     </li>
                 </ul>
