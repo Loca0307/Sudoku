@@ -28,7 +28,6 @@
   }
 
 .smallgrid {
-        
         width: var(--smallgridWidth);
         height: var(--smallgridHeight);
         display: flex;
@@ -83,13 +82,86 @@
 
 
   .form{
-    margin-top: 1em;
-    margin-bottom: 1em;
+    width:100%;
+    margin: 0 auto;
+    display:block;
+    text-align: center;
   }
 
+  .info{
+    margin-top: 4em;
+    margin-bottom: 4em;
+    width: 100%;
+  }
+
+button{
+  width: 95%;
+}
+
+input[type="range"]{
+  width: 95%;
+  margin-right:0;
+}
 
   button img{
     width: 40px;
     padding: 0;
   }
 
+
+
+  @media all and (max-width: 720px)
+{
+  :root {
+    --maxGridWidth: 448px;
+    --maxGridHeight: 420x;
+    --smallgridWidth: 145.6px;
+    --smallgridHeight: 145.6px;
+    --cellWidth: 46px;
+    --cellHeight: 46px;
+    --cellBorder: 1px #ccc solid;
+}
+  #grid {
+    margin-left:5vw;
+  }
+
+  button img{
+    width: 25px;
+    padding: 0;
+  }
+  .info{
+    margin-top: 1em;
+  }
+
+}
+
+@media all and (max-width: 500px)
+{
+  :root {
+    --maxGridWidth: 336px;
+    --maxGridHeight: 315x;
+    --smallgridWidth: 109.2px;
+    --smallgridHeight: 109.2px;
+    --cellWidth: 34px;
+    --cellHeight: 34px;
+    --cellBorder: 1px #ccc solid;
+}
+  #grid {
+    margin-left:5vw;
+  }
+  button{
+    width: 88%;
+  }
+  input[type="range"]{
+    width: 88%;
+  }
+
+  button img{
+    width: 25px;
+    padding: 0;
+  }
+  .info{
+    margin-top: 1em;
+  }
+
+}
