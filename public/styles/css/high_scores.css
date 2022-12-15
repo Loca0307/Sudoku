@@ -15,7 +15,7 @@ ul li
   padding: 0.6em 1.2em;
   color: black;
   margin: 0.3em;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   transition: .5s;/*adding a transition of half second*/
 }
@@ -69,8 +69,7 @@ ul li span:nth-child(4)
 /*Adding some animation to the scoreboard*/
 ul li:hover
 {
-  transform: scale(1.06);/*scale itself to make a sort of transition*/
-  background-color: #00FF89;
+  transform: scale(1.02);/*scale itself to make a sort of transition*/
 }
 
 
@@ -80,4 +79,106 @@ ul li:hover
   flex-direction: column;
   flex: 1;
   margin-top: 3rem;
+}
+
+:root {
+  --maxGridWidth: 250px;
+  --maxGridHeight: 250px;
+  --smallgridWidth: 83px;
+  --smallgridHeight: 83.5px;
+  --cellWidth: 25.5px;
+  --cellHeight: 25px;
+  --cellBorder: 1px #ccc solid;
+}
+
+
+
+#grid {
+  /* to creat the grid as 1 cell is 50x50 if max with is 480 only 9 cells fit in it */
+  width: var(--maxGridWidth);
+  height: var(--maxGridHeight);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.smallgrid {
+      
+      width: var(--smallgridWidth);
+      height: var(--smallgridHeight);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      border: 3px #000 solid;
+}
+
+#grid input {
+  -webkit-appearance: none;
+  width: var(--cellWidth);
+  height: var(--cellHeight);
+  justify-content: center;
+  text-align: center;
+  border: var(--cellBorder);
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  color: rgb(66, 66, 66);
+  font-style: italic;
+  text-decoration-line: underline;
+
+}
+
+.givennumber {
+  text-decoration-line:none !important;
+  font-size: medium;
+  color: black !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+}
+
+.wrong-cell {
+  background-color: rgb(255, 180, 180) !important;
+}
+
+.correct-cell {
+  background-color: rgb(187, 255, 187) !important;
+}
+
+.hint-cell {
+  color: rgb(255, 98, 0) !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+  text-decoration-line:none !important;
+  font-size: large;
+}
+
+.cell-highlight {
+  background: rgb(226, 240, 255) !important;
+  color: rgb(0, 102, 255) !important;
+  font-weight: bold !important;
+}
+
+
+.form{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+button img{
+  width: 40px;
+  padding: 0;
+}
+
+input[type="range"] {
+  height: 20px !important;
+  background-image: linear-gradient(to right, #555, #ddd) !important;
+  border-radius: 15px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 15px;
 }

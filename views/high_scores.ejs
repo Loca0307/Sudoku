@@ -2,7 +2,6 @@
   <%- include("includes/head") %>
   <head>
       <link rel="stylesheet"  href="/styles/css/high_scores.css">
-      <link rel="stylesheet"  href="/styles/css/sudoku.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
       <link rel="icon" href="icons/joystick.png" type="image/icon type">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,23 +12,22 @@
 
       <section class="main-section">
 
-        <h1>Welcome to highscore page</h1>
+        <h1>Highscores and game history</h1>
         <% high_scores.forEach(high_score => {
           if (high_score.game == "solo") {
           %>
           <form method="GET" action="/sudoku/high_scores">
             <ul>
               <li>
-                <span>Game ID: <%= high_score._id%></span>
+                <div>Game ID: <%= high_score._id%></div>
+                <div>Game mode: <%= high_score.game%></div>
+                <div>Date played: <%= high_score.dateplayed%></div>
+                <div><img src="/styles/img/award.png"></div>
               </li>
               <li>
-                <span>Game mode: <%= high_score.game%></span>
-              </li>
-              <li>
-                Total moves: <%= high_score.totalMoves%>
-              </li>
-              <li>
-                <span>Track moves: <input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                <div>Total moves: <%= high_score.totalMoves%></div>
+                <div style="color: #00FF89; font-weight: bold; font-size: x-large;">Score: <%= high_score.score%></div>
+                <div>Hints used: <%= high_score.boardObjHistory[high_score.totalMoves - 1].hintIndexes.length%></div>
               </li>
               <li>
                 <div id="grid" class="grid-<%= high_score._id%>">
@@ -135,28 +133,29 @@
                 </div>
               </li>
               <li>
-                <span></span>
-                <span>a</span>
-                <span>0</span>
-                <span><img src="/styles/img/award.png"></span>
+                <span>Track moves: <input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
               </li>
             </ul>
           </form>
-<<<<<<< Updated upstream
           <script>
-            function prephs() {
-=======
-          <!-- <script>
+            //PLEASE DONT MODIFY THIS FILE
+            //PLEASE DONT MODIFY THIS FILE
+            //PLEASE DONT MODIFY THIS FILE
+            //PLEASE DONT MODIFY THIS FILE
+            //PLEASE DONT MODIFY THIS FILE
+
             function prephs<%= high_score._id %>() {
->>>>>>> Stashed changes
+
               var currentval = document.querySelector(".tracker-<%= high_score._id%>").value;
-              var hs = JSON.stringify(high_score);
+              var hs = <%-JSON.stringify(high_score)%>;
               for (let i = 0; i < 81; i++) {
                 //get cell
                 var cell = document.getElementById("<%= high_score._id%>-input-"+i);
 
                 //set numbers
                 cell.value = hs.boardObjHistory[currentval].fullboard[i];
+
+                cell.disabled = true;
 
                 //remove extra classes
                 cell.classList.remove("wrong-cell");
@@ -178,14 +177,16 @@
                 document.getElementById("<%= high_score._id%>-input-"+hs.boardObjHistory[currentval].hintIndexes[i]).classList.add("hint-cell");
               }
             }
+
             document.querySelector(".tracker-<%= high_score._id%>").addEventListener('input', () => {
-              prephs();
-            });;
-            prephs();
+              prephs<%= high_score._id %>();
+            });
+
+            prephs<%= high_score._id %>();
           </script>
           <%
           }
-        }); %> -->
+        }); %>
 
       </section>
 

@@ -75,7 +75,7 @@ router.post("/sudoku/solo_game", function(req,res) {
 
 router.get("/sudoku/high_scores/:user", function(req,res) {
     let user = req.params.user;
-    model.high_scores.find({username : user}).toArray().then( high_scores => { 
+    model.high_scores.find({username : user}).sort({score : -1}).toArray().then( high_scores => { 
         console.log(high_scores);
         res.format({
             'text/html': function () {

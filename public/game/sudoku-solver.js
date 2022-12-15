@@ -5,6 +5,8 @@ const columnSize = 9;
 const rowSize = 9;
 const gridArray = Array.from(grid.children); //maybe we need to acces .value of children elelemtn
 
+const date = new Date().toLocaleDateString("de-DE");;
+
 
 
 
@@ -648,7 +650,8 @@ function updateCorrectedIndexes(boardstate, playablespots, fullboard, givenNumbe
         correctIndexes : correctIndexes,
         wrongIndexes : wrongIndexes,
         hintIndexes : hintIndexes,
-        givenNumberIndexes : givenNumberIndexes
+        givenNumberIndexes : givenNumberIndexes,
+        score : score
     }
 
     boardObjHistory.push(currentBoardObj);
@@ -698,8 +701,10 @@ function checkIfPlayerHasWon(correctIndexes, playablespots) {
         var highscore = {
             username : username,
             game : 'solo',
+            dateplayed : date,
             boardObjHistory : boardObjHistory,
-            totalMoves : totalMoves
+            totalMoves : totalMoves,
+            score : score
         }
 
         console.log(highscore);
