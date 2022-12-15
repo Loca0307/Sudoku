@@ -1,4 +1,4 @@
-//EJS Compiled Views - This file was automatically generated on Thu Dec 15 2022 18:20:42 GMT+0100 (Central European Standard Time)
+//EJS Compiled Views - This file was automatically generated on Thu Dec 15 2022 20:03:29 GMT+0100 (Central European Standard Time)
 ejs.views_include = function(locals) {
     console.log("views_include_setup",locals);
     return function(path, d) {
@@ -1044,7 +1044,7 @@ function encode_char(c) {
 };
 ;
 var __line = 1
-  , __lines = "<html>\n    <%- include(\"includes/head\") %>\n    <head>\n        <link rel = \"stylesheet\" href = \"/styles/css/sudoku.css\">\n        <script src = \"/sudoku.js\"></script>\n    </head>\n    <body>\n      <%- include(\"includes/header\") %>\n\n      <section class=\"main-section\">\n        <main>\n            <h1>Sudoku</h1>\n            <hr>\n            <h3><%- message %> <%- pagedata.username %></h3>\n            <p>Currently playing a game of <%- pagedata.diff %> difficulty</p>\n            <h2 id = \"errors\">Score: <%- pagedata.score %></h2>\n\n            <!-- 9X9 board -->\n            <div id=\"grid\">\n            </div>\n            \n            <!-- \n            <div id = \"board\"></div>\n            \n            <div id=\"digits\"></div>\n            <br> -->\n        </main>\n      </section>\n      <%- include(\"includes/footer\") %>\n    </body>\n    <script src=\"/socket.io/socket.io.js\"></script>\n    <script src=\"/client_scripts/client_socket.js\"></script>\n</html>"
+  , __lines = "<html>\n    <%- include(\"includes/head\") %>\n    <head>\n        <link rel = \"stylesheet\" href = \"/styles/css/sudoku.css\">\n        <script src = \"/sudoku.js\"></script>\n    </head>\n    <body>\n      <%- include(\"includes/header\") %>\n\n      <section class=\"main-section\">\n        <main>\n            <h1>Sudoku</h1>\n            <hr>\n            <h3><%#- message %> <%#- pagedata.username %></h3>\n            <p>Currently playing a game of <%#- pagedata.diff %> difficulty</p>\n            <h2 id = \"errors\">Score: <%#- pagedata.score %></h2>\n\n            <!-- 9X9 board -->\n            <div id=\"grid\">\n            </div>\n            \n            <!-- \n            <div id = \"board\"></div>\n            \n            <div id=\"digits\"></div>\n            <br> -->\n        </main>\n      </section>\n      <%- include(\"includes/footer\") %>\n    </body>\n    <script src=\"/socket.io/socket.io.js\"></script>\n    <script src=\"/client_scripts/client_socket.js\"></script>\n</html>"
   , __filename = undefined;
 try {
   var __output = "";
@@ -1058,15 +1058,11 @@ try {
     ; __append( include("includes/header") )
     ; __append("\n\n      <section class=\"main-section\">\n        <main>\n            <h1>Sudoku</h1>\n            <hr>\n            <h3>")
     ; __line = 14
-    ; __append( message )
     ; __append(" ")
-    ; __append( pagedata.username )
     ; __append("</h3>\n            <p>Currently playing a game of ")
     ; __line = 15
-    ; __append( pagedata.diff )
     ; __append(" difficulty</p>\n            <h2 id = \"errors\">Score: ")
     ; __line = 16
-    ; __append( pagedata.score )
     ; __append("</h2>\n\n            <!-- 9X9 board -->\n            <div id=\"grid\">\n            </div>\n            \n            <!-- \n            <div id = \"board\"></div>\n            \n            <div id=\"digits\"></div>\n            <br> -->\n        </main>\n      </section>\n      ")
     ; __line = 29
     ; __append( include("includes/footer") )

@@ -31,10 +31,13 @@ router.get("/:roomId", function(req, res) {
 
 router.post("/", function(req, res) {
     //we need to agree on data being passed
+    if (req.body.diff){
+        level = req.body.diff;
+    }
     
     let data = {
-        username: 'John Doe', // username
-        diff: parseInt(req.body.diff), // difficulty
+        username: req.body.username, //'John Doe', // username
+        diff: level, //parseInt(req.body.diff), // difficulty
         size: parseInt(req.body.size), // number of the players 2/2 for now
         ready: 1,
     }

@@ -12,7 +12,6 @@ let {model} = require("../model");
 
 
 router.get("/sudoku", function(req,res) {
-
     let userprofiledata = {username: req.body.username, password: req.body.password}; 
 
         model.usernames.findOne({username : userprofiledata.username}).then(userdata => {
@@ -53,7 +52,7 @@ router.get("/sudoku", function(req,res) {
         
             res.format({
                 'text/html': function () {
-                    res.redirect('/middle');
+                    res.redirect('sudoku');
                     //res.render("middle", {message : `<h2>First time? Welcome, ${userprofiledata.username}!</h2><h4>We have taken the liberty to register an account for you. next time you can login with the same username and password you entered.</h4>`,userprofiledata});
                 },
                 'application/json': function () {
@@ -135,6 +134,8 @@ router.get("/multidoku", function(req, res) {
     const data = {
         diff: level
     }
+    // we have to pass the loby room get it from url pass it to multidoku and from multidoku we get  the info from the database 
+    // and pass it to multidoku 
     const ready = parseInt(req.query.ready);
     console.log(req.query);
     res.format({
