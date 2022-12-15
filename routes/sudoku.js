@@ -154,18 +154,19 @@ router.post("/waitroom", function(req, res) {
 //
 router.get("/multidoku", function(req, res) {
     //we need to agree on data being passed
+    
     const ready = parseInt(req.query.ready);
+    console.log(req.query);
     res.format({
     
         'text/html': function () {
-            console.log("WORK1", ready);
             if(ready === 2) {
-                console.log("WORK2")
                 res.render("multidoku");
             }
         },
 
         'application/json': function () {
+            console.log(json(data))
             res.status(201).json(data); // passing all the parameters
         }
 

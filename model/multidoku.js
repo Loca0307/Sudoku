@@ -46,7 +46,7 @@ function createGrid() {
 
 
 function newGame(){
-    init();
+    multiplayer_init();
 }
 
 

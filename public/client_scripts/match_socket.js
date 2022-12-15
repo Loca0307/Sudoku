@@ -7,7 +7,7 @@ socket.on('connect', () => {
 
 function socket_init() {
 
-    socket.emit("multiplayer_connected", room);
+    socket.emit("multiplayer_connected");
 
     socket.on('multiplayer_connected', (a) => {
         console.log("Someone connected!", a);
