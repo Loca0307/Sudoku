@@ -173,6 +173,25 @@ router.get("/multidoku", function(req, res) {
 
 })
 
+
+/* router.get("/public/client_scripts", function(req, res) {
+    //we need to agree on data being passed
+    
+    res.format({
+    
+        'text/html': function () {
+            res.render("multiplayer");
+            
+        },
+
+        'application/json': function () {
+            res.status(201).json(multiplayer); 
+        }
+
+    });
+
+})  */
+
 router.get("/", function(req,res) {
     res.format({
         'text/html': function () {

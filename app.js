@@ -14,7 +14,7 @@ const {socket_init} = require('./websocket');
 //init framework
 const app = express();
 
-
+// ho metti tutti i fails che vuoi che i costumers hanno in public ho crei custum root che ritorna quel file
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));    // parse application/x-www-form-urlencoded
