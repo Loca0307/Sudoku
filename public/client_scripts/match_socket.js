@@ -38,8 +38,6 @@ function socket_init() {
 
 
 
-
-
     document.querySelectorAll("#button1").forEach(link => {
         link.addEventListener("click", async (e) => {
 
