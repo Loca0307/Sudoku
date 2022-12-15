@@ -64,6 +64,7 @@
             <input type="range" min="1" max="3" value="2" id="diff" name="diff">
             <label>Lobby Size:</label>
             <input type="range" min="1" max="3" value="2" id="size" name="size">
+            <p>Number of players: <span id="value"></span></p>
             <button id="button1" type="submit"><img src="/styles/img/people.png" >Create lobby</button>
             <br><br><hr><br>
           </form>
@@ -77,5 +78,19 @@
       </section>
 
       <%- include("includes/footer") %>
+
+      <script>
+        var slider = document.getElementById("size");
+        var output = document.getElementById("value");
+  
+        let value = parseInt(slider.value) + 1;
+        output.innerHTML = value;
+  
+        slider.oninput = function(){
+          let value = parseInt(this.value) + 1;
+          output.innerHTML = value;
+        }
+  
+      </script>
     </body>
 </html>
