@@ -1,5 +1,8 @@
 //require framework and middleware dependencies
 const express = require('express');
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+
 const path = require('path');
 const logger = require('morgan');
 const methodOverride = require('method-override');
@@ -26,6 +29,16 @@ app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
 
+//sessions
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "mycutelittlesecretkey<3<3xp",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+app.use(cookieParser());
+
 
 //controllers
 const routers = require('./routes');
@@ -34,6 +47,7 @@ app.use(routers.home);
 app.use('', routers.sudoku);
 app.use('', routers.high_scores);
 app.use('/waitroom', routers.waitroom);
+
 
 //default fallback handlers
 // catch 404 and forward to error handler
