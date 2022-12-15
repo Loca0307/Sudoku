@@ -139,7 +139,7 @@
                 </div>
               </li>
               <li>
-                <span>Track moves: <input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                <span>Track moves: <span id="value"></span><input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
               </li>
             </ul>
           </form>
@@ -149,6 +149,15 @@
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
             //PLEASE DONT MODIFY THIS FILE
+            var slider = document.getElementById("moves");
+            var output = document.getElementById("value");
+  
+            output.innerHTML = slider.value;
+      
+            slider.oninput = function(){
+              let value = this.value;
+              output.innerHTML = value;
+            }
 
             function prephs<%= high_score._id %>() {
 
