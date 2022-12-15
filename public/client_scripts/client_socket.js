@@ -59,6 +59,6 @@ function socket_init() {
                 
             }
             })
-        
+            
         })
     }

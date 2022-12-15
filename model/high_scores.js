@@ -33,7 +33,6 @@ function add(player_score, player_boards, player_name, player_time) {
 
 
 function save() {
-    //TODO
     high_scores.sort((first, second) => second.score >= first.score ? 1 : -1);
     fs.writeJSONSync(path.resolve("../model/high_scores.json"), {high_scores});
 }

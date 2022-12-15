@@ -27,8 +27,7 @@ client
 
         model.db = client.db(db_name);
         collection_names.forEach(c =>{
-            model[c] = model.db.collection(c);
-            
+            model[c] = model.db.collection(c);  
         })
 
     }) 
