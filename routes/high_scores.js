@@ -14,7 +14,6 @@ router.post("/high_scores/solo", function (req, res) {
         totalMoves : req.body.totalMoves,
         score : req.body.score
     }
-    console.log();
 
     model.high_scores.insertOne(highscore).then(ans => {
                 res.format({
