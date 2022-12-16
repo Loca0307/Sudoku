@@ -6,7 +6,6 @@ const router = express.Router();
 module.exports = router;
 
 let level;
-var sess;
 
 
 const ObjectId = require('mongodb').ObjectId;
@@ -23,14 +22,13 @@ router.post("/sudoku", function(req, res) {
 
         model.usernames.findOne({username : userprofiledata.username}).then(userdata => {
             if (userdata) {
-                if(userdata.password == req.body.password) {
+                if(userdata.password == userprofiledata.password) {
 
                     //initiate a session if login information is correct
-                    sess = req.session;
 
                     //save username as cookie
-                    sess.username = req.body.username;
-                    sess.message = `<h2>Welcome back, ${userdata.username}!</h2><h4>We really missed you since the last time you were with us.</h4>`;
+                    req.session.username = req.body.username;
+                    req.session.message = `<h2>Welcome back, ${userdata.username}!</h2><h4>We really missed you since the last time you were with us.</h4>`;
 
                     
                     //once cookie is saved redirect to the /sudoku with a GET request
@@ -56,11 +54,10 @@ router.post("/sudoku", function(req, res) {
                 model.usernames.insertOne(userprofiledata).then(userdata => {
 
                     //initiate a session if login information is correct
-                    sess = req.session;
 
                     //save username as cookie
-                    sess.username = req.body.username;
-                    sess.message = `<h2>First time? Welcome, ${req.body.username}!</h2><h4>We took the liberty to register a new account for you.</h4>`;
+                    req.session.username = req.body.username;
+                    req.session.message = `<h2>First time? Welcome, ${req.body.username}!</h2><h4>We took the liberty to register a new account for you.</h4>`;
 
                     res.format({
                         'text/html': function () {
@@ -78,9 +75,9 @@ router.post("/sudoku", function(req, res) {
 
 router.get("/sudoku", function(req,res) {
 try{
-    //check if there is an active session aka user has logged in
-    if (sess.username) {
-        model.usernames.findOne({username : sess.username}).then(userdata => {
+    //check if there is an active req.session aka user has logged in
+    if (req.session.username) {
+        model.usernames.findOne({username : req.session.username}).then(userdata => {
             if (userdata) {
                     model.lobbies.find({}).toArray().then(lobbies => {
                         console.log(lobbies);
@@ -88,7 +85,7 @@ try{
                             'text/html': function () {
                                 console.log( lobbies );
                                 res.render("middle", {
-                                    message : sess.message,
+                                    message : req.session.message,
                                     userdata,
                                     lobbies
                                 });
@@ -113,19 +110,19 @@ catch {
 });
 
 router.get("/sudoku/log_out", function(req, res) {
-    sess = req.session.destroy();
+    req.session.destroy();
     res.redirect('/');
 });
 
 router.post("/sudoku/solo_game", function(req,res) {
-    if (sess.username) {
+    if (req.session.username) {
         //user is logged in
         pagedata = {
-            username : sess.username,
+            username : req.session.username,
             diff : req.body.diff
         }
 
-        model.usernames.findOne({username : sess.username}).then(userdata => {
+        model.usernames.findOne({username : req.session.username}).then(userdata => {
             if (userdata) {
                     res.format({
                         'text/html': function () {
@@ -192,8 +189,11 @@ router.get("/multidoku", function(req, res) {
     //we need to agree on data being passed
 
     const data = {
-        diff: level
+        username : req.session.username,
+        diff : req.body.diff
+        // diff: level
     }
+    console.log(data);
     // we have to pass the loby room get it from url pass it to multidoku and from multidoku we get  the info from the database 
     // and pass it to multidoku 
     const ready = parseInt(req.query.ready);
