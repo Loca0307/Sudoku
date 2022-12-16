@@ -253,5 +253,9 @@ li:nth-child(4){
   .slider input{
     width: 75% !important;
   }
+  
+  h1{
+    margin-left: 20px;
+  }
 
 }
