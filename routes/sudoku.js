@@ -12,13 +12,12 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 let {model} = require("../model");
+let lobbies = require("../model/lobbies");
 
 //called when the login form is sent
 router.post("/sudoku", function(req, res) {
-
-    let hashedpwd = {password: req.body.password};
     
-    let userprofiledata = {username: req.body.username, password: hash(hashedpwd)};
+    let userprofiledata = {username: req.body.username, password: hash(req.body.password)};
 
         model.usernames.findOne({username : userprofiledata.username}).then(userdata => {
             if (userdata) {
@@ -79,22 +78,18 @@ try{
     if (req.session.username) {
         model.usernames.findOne({username : req.session.username}).then(userdata => {
             if (userdata) {
-                    model.lobbies.find({}).toArray().then(lobbies => {
-                        console.log(lobbies);
                         res.format({
                             'text/html': function () {
-                                console.log( lobbies );
                                 res.render("middle", {
                                     message : req.session.message,
                                     userdata,
-                                    lobbies
+                                    lobbies : lobbies.lobbies
                                 });
                             },
                             'application/json': function () {
                                 res.status(201).json(userprofiledata);
                             }
-                    });
-                });
+                        });
             }
         });
     }
@@ -213,7 +208,7 @@ router.get("/multidoku", function(req, res) {
 
     });
 
-})
+});
 
 
 /* router.get("/public/client_scripts", function(req, res) {
@@ -231,6 +226,9 @@ router.get("/multidoku", function(req, res) {
         }
 
     });
+})
+
+
 
 })  */
 

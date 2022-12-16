@@ -68,8 +68,7 @@ function socket_init(server) {
         console.log(a);
       io.to(a).emit('multiplayer_connected', ready);
       });
-
-    })
+    });
 
     socket.on('multiplayer_start', function () {
       if (q.length >= 2) {

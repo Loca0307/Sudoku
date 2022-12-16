@@ -9,7 +9,7 @@
         <script src="/client_scripts/client_socket.js"></script>
     </head>
 
-    <body onload="init()">
+    <body>
       <%- include("includes/header") %>
       <%- message %>
       <form action="/sudoku/log_out" method="get">
@@ -58,7 +58,7 @@
           <form class="" action="waitroom" method="post">
             <input type="hidden" value="create" id="type" name="create">
             <label>Difficulty: <span id="diff-value"></span></label>
-            <input type="range" min="1" max="3" value="2" id="mpdiff" name="diff">
+            <input type="range" min="1" max="3" value="2" id="mpdiff" name="mpdiff">
             <label>Lobby Size: <span id="value"></span></label>
             <input type="range" min="2" max="4" value="3" id="size" name="size">
             <button id="button1" type="submit"><img src="/styles/img/people.png" >Create lobby</button>
@@ -72,12 +72,17 @@
           </form> -->
           <% lobbies.forEach( lobby => { %>
             <div style="background-color: rgb(66, 66, 66); border-radius: 5px; margin: 10px; padding: 10px;">
-              <div>Lobby Host: <%=lobby.username%></div>
-              <div>Game Difficulty: <%=lobby.diff%></div>
-              <div>Lobby Size: <%=lobby.size%></div>
-              <div>Connected Players: <%=lobby.ready%></div>
+              <h4>Lobby ID: <%= lobby.id %></h4>
+                        <h4>Difficulty: <%= lobby.lobbyDiff %></h4>
+                        <h4>Room Size: <%= lobby.lobbySize %></h4>
+                        <h4> Players: </h4>
+                        <% lobby.connected_players.player.forEach(p => {
+                            %>
+                            <li><%-p%></li>
+                            <%
+                        });%>
               <div>
-                <a href="/waitroom/<%=lobby._id%>">
+                <a href="/waitroom/<%=lobby.id%>">
                   <button type="submit">Join</button>
                 </a>
               </div>

@@ -13,6 +13,7 @@ router.post("/high_scores/solo", function (req, res) {
         boardObjHistory : req.body.boardObjHistory,
         totalMoves : req.body.totalMoves,
         score : req.body.score
+        
     }
 
     model.high_scores.insertOne(highscore).then(ans => {
@@ -24,4 +25,5 @@ router.post("/high_scores/solo", function (req, res) {
         });
     });
 });
+
 

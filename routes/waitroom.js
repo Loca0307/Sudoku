@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const { read } = require('fs-extra');
 const { io } = require('../app');
 const router = express.Router();
@@ -9,49 +10,52 @@ let level;
 const ObjectId = require('mongodb').ObjectId;
 
 
-let {model} = require("../model");
+let { model } = require("../model");
+
+let lobbies = require("../model/lobbies");
 
 //not sure if route should be /waitroom instead
-router.get("/:roomId", function(req, res) {
-    //we need to agree on data being passed
-    model.lobbies.findOne({_id: ObjectId(req.params.roomId)}).then(lobby => {    
-        res.format({
-            'text/html': function () {
-                res.render("waitroom", {lobby:lobby}); // render the waitroom.ejs page
-            },
-            'application/json': function () {
-                res.status(201).json(lobby); // passing all the parameters
-            }
+router.get("/:roomID", function (req, res) { 
+    if (req.session.username) {
+        let roomID = req.params.roomID;
+        let username = req.session.username;
         
+        lobbies.lobbies.forEach(lobby => {
+            if (lobby.id == roomID) {
+                if (!lobby.connected_players.player.includes(username)) {
+                    // YOU ARE NOT IN THIS LOBBY => JOIN LOBBY
+                    lobbies.joinLobby(lobby.id,username);
+                }
+                res.format({
+                    'text/html': function () {
+                        res.render("waitroom", {lobby: lobby}); // render the waitroom.ejs page
+                    },
+                    'application/json': function () {
+                        res.status(201).json(lobby); // passing all the parameters
+                    }
+                });
+            }
         });
-    });
-    
-})
-
+    }
+    else {
+        res.redirect('/');
+    }
+        
+});
 
 router.post("/", function(req, res) {
-    //we need to agree on data being passed
-    if (req.body.diff){
-        level = req.body.diff;
-    }
-    
-    let data = {
-        username: req.body.username, //'John Doe', // username
-        diff: level, //parseInt(req.body.diff), // difficulty
-        size: parseInt(req.body.size), // number of the players 2/2 for now
-        ready: 1,
-    }
-
-    model.lobbies.insertOne(data).then(lobby => {
-        //Inform the server about the new lobby
+    if (req.session.username) {
+        let lobby = lobbies.createLobby(req.session.username,parseInt(req.body.size),parseInt(req.body.mpdiff));
         res.format({
-            'text/html': function () {
-                res.redirect(302, `/waitroom/${lobby.insertedId.toString()}?create=true`); // render the waitroom.ejs page
-            },
-            'application/json': function () {
-                res.status(201).json(data); // passing all the parameters
-            }
-        
-        });
-    });
-})
+                    'text/html': function () {
+                    res.redirect(302, `/waitroom/${lobby.id.toString()}`); // render the waitroom.ejs page
+                    },
+                    'application/json': function () {
+                    res.status(201).json(lobby); // passing all the parameters
+                    }
+                });
+    }
+    else {
+        res.redirect('/');
+    }
+});
