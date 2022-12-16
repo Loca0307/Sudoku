@@ -1,6 +1,6 @@
 // server side
 
-const { model } = require('./model');
+const { model } = require('../model');
 
 
 const io = require('socket.io')();
