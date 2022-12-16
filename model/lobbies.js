@@ -5,18 +5,24 @@ let lobbies = [];
 
 function createLobby(host,lobbySize,lobbyDiff){
     let connected_players = {
-        player = [],
-        boardObjArray = []
+        player : [],
+        boardObjArray : []
     }
+
+    connected_players.player.push(host);
 
     let lobby = {
         id : nextlobbyid,
         lobbySize : lobbySize,
         lobbyDiff : lobbyDiff,
-        connected_players : connected_players.player.push(host) 
+        connected_players : connected_players
     }
     
-    return lobbies.push(lobby);
+    lobbies.push(lobby);
+    nextlobbyid++;
+    
+    console.log(lobby.connected_players.player);
+    return lobby;
 }
 
 function joinLobby(lobbyID, guest){
@@ -35,6 +41,22 @@ function joinLobby(lobbyID, guest){
 }
 
 function exitLobby(lobbyID, player){
-    
+    lobbies.forEach(lobby => {
+        if(lobby.id == lobbyID){
+            for (let i = 0; i < lobby.connected_players.player.length; i++)
+            {
+                if (lobby.connected_players.player[i] == player){
+                    lobby.connected_players.player.splice(i,1);
+                }
+            }
+        }
+    });
+    return "lobby not found which means your code sucks"
 }
 
+module.exports = {
+    lobbies : lobbies,
+    createLobby,
+    joinLobby,
+    exitLobby
+}
