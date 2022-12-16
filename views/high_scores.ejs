@@ -26,7 +26,7 @@
           <form method="GET" action="/sudoku/high_scores">
             <ul>
               <li>
-                <div>Game ID: <%= high_score._id%></div>
+                <div>Game name: <%= high_score.username%></div>
                 <div>Game mode: <%= high_score.game%></div>
                 <div>Date played: <%= high_score.dateplayed%></div>
                 <div>Rank: <span><%-rank++%></span><img src="/styles/img/award.png"></div>
