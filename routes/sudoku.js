@@ -173,17 +173,7 @@ router.get("/multidoku", function(req, res) {
 
 })
 
-router.get("/", function(req,res) {
-    res.format({
-        'text/html': function () {
-            res.render("index", data);
-        },
-        'application/json': function () {
-            res.status(201).json(data); 
-        }
-    
-    });
-}); 
+
 
 
 
