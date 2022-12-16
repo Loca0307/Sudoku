@@ -702,7 +702,7 @@ function checkIfPlayerHasWon(correctIndexes, playablespots) {
 
         document.getElementById('score').innerHTML += " (You can start a new game!)";
 
-        var username = document.getElementById('username').value;
+        var username = document.getElementById('username').innerText;
 
         var highscore = {
             username : username,

@@ -18,7 +18,9 @@
             <button class="logout" type="submit"><img src="/styles/img/exit.png">Back to menu</button>
           </form>
         </div>
-        <% high_scores.forEach(high_score => {
+        <% 
+          var rank = 1;
+          high_scores.forEach(high_score => {
           if (high_score.game == "solo") {
           %>
           <form method="GET" action="/sudoku/high_scores">
@@ -27,7 +29,7 @@
                 <div>Game ID: <%= high_score._id%></div>
                 <div>Game mode: <%= high_score.game%></div>
                 <div>Date played: <%= high_score.dateplayed%></div>
-                <div><img src="/styles/img/award.png"></div>
+                <div>Rank: <span><%-rank++%></span><img src="/styles/img/award.png"></div>
               </li>
               <li>
                 <div>Total moves: <%= high_score.totalMoves%></div>
