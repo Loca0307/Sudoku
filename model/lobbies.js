@@ -4,12 +4,15 @@ let lobbies = [];
 
 
 function createLobby(host,lobbySize,lobbyDiff){
-    let connected_players = {
-        player : [],
+
+    let someplayerconstructstuffthatidontknowwhattocall = {
+        player : host,
+        socket_id : "",
         boardObjArray : []
     }
 
-    connected_players.player.push(host);
+    let connected_players = [];
+    connected_players.push(someplayerconstructstuffthatidontknowwhattocall);
 
     let lobby = {
         id : nextlobbyid,
@@ -20,8 +23,7 @@ function createLobby(host,lobbySize,lobbyDiff){
     
     lobbies.push(lobby);
     nextlobbyid++;
-    
-    console.log(lobby.connected_players.player);
+
     return lobby;
 }
 
@@ -29,8 +31,13 @@ function joinLobby(lobbyID, guest){
     
     lobbies.forEach(lobby => {
         if(lobby.id == lobbyID){
-            if(lobby.connected_players.player.length < lobby.lobbySize) {
-                lobby.connected_players.player.push(guest);
+            if(lobby.connected_players.length < lobby.lobbySize) {
+                let someplayerconstructstuffthatidontknowwhattocall = {
+                    player : guest,
+                    socket_id : "",
+                    boardObjArray : []
+                }
+                lobby.connected_players.push(someplayerconstructstuffthatidontknowwhattocall);
                 return lobby;
             }
             console.log('tried to join a full lobby');
@@ -43,12 +50,20 @@ function joinLobby(lobbyID, guest){
 function exitLobby(lobbyID, player){
     lobbies.forEach(lobby => {
         if(lobby.id == lobbyID){
-            for (let i = 0; i < lobby.connected_players.player.length; i++)
+            for (let i = 0; i < lobby.connected_players.length; i++)
             {
-                if (lobby.connected_players.player[i] == player){
-                    lobby.connected_players.player.splice(i,1);
+                if (lobby.connected_players[i].player == player){
+                    lobby.connected_players.splice(i,1);
                 }
             }
+            if(lobby.connected_players.length == 0) {
+                for (let i = 0; i < lobbies.length; i++) {
+                    if (lobbies[i].id == lobbyID) {
+                        lobbies.splice(i,1);
+                    }
+                }
+            }
+            return lobby;
         }
     });
     return "lobby not found which means your code sucks"

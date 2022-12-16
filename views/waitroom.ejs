@@ -24,9 +24,9 @@
                         <br>
                         <h4 id="players_ready"></h4>
                         <h2> Players: </h2>
-                        <% lobby.connected_players.player.forEach(p => {
+                        <% lobby.connected_players.forEach(p => {
                             %>
-                            <li><%-p%></li>
+                            <li><%-p.player%></li>
                             <%
                         });%>
                         <h4 id="players_ready"></h4>

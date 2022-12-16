@@ -53,8 +53,13 @@ api = function() {
         return _fetchJSON("POST", "/high_scores/solo", data);
     }
 
+    function leaveLobby(room) {
+        return _fetchJSON("GET", "/waitroom/leave/"+room);
+    }
+
     return {
-        updateHistory
+        updateHistory,
+        leaveLobby
     }
 
 }();

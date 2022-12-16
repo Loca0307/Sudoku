@@ -11,6 +11,8 @@ let currentPlayer = 0;
 let playerId = 0;
 let q = [];
 
+let players = [];
+
 /* state {
   board : board,
 
@@ -25,12 +27,15 @@ function socket_init(server) {
         console.log("new lobby created");
         console.log(lobby);
     });
+
     io.on('connection', function (socket) {
 
     // p = { id: socket.id, difficulty: 1 , room: 2};
     // q.push(p);
     
-    // console.log("player: " + socket.id + " connected");
+    console.log("player: " + socket.id + " connected");
+
+   
 
     // if (io.sockets.sockets.size >= 2) {
     //     console.log("there are already 2 players so enjoy!");
@@ -47,7 +52,6 @@ function socket_init(server) {
     const id = getId(players, playerId);
     console.log("id", {id})
     socket.emit("playerId", id);*/
-
     
     socket.on('disconnect', function () {
       //console.log('player ' + id + ' disconnected');
@@ -66,7 +70,7 @@ function socket_init(server) {
       let ready = Object.keys(map_user_ready).length;
       Object.keys(map_user_ready).forEach((a) => {
         console.log(a);
-      io.to(a).emit('multiplayer_connected', ready);
+        io.to(a).emit('multiplayer_connected', ready);
       });
     });
 
@@ -74,9 +78,6 @@ function socket_init(server) {
       if (q.length >= 2) {
         let p1 = q.shift();
         let p2 = q.shift();
-
-
-
       }
     } )
 
@@ -103,5 +104,20 @@ function getId(obj, value) {
     return Object.keys(obj).find(key => obj[key] === value);
 }
 
+io.on('newsocketuserconnectedorsomething', function (socket) {
+  console.log("SOCKET STUFF: new player is announcing socket user relations: ");
+  players.push(socket);
 
-module.exports.socket_init = socket_init;
+});
+
+function getUserSocketList() {
+  io.sockets.emit('plsannounceuser');
+  return players;
+}
+
+
+
+module.exports = {
+  getUserSocketList : getUserSocketList,
+  socket_init : socket_init
+};

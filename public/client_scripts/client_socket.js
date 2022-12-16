@@ -9,18 +9,22 @@
 
 const socket = io();
 
+
 socket.on('connect', () => {
     console.log("socket.io connected");
 });
-
-
-
 
 
 function socket_init() {
 
     socket.emit("multiplayer_connected", "player");
     console.log("init");
+
+    socket.on('plsannounceuser', (a) => {
+        let user = document.getElementById('username-holder').value;
+        console.log("socket announced: "+ user);
+        socket.emit("newsocketuserconnectedorsomething");
+    });
 
     socket.on('multiplayer_connected', (a) => {
         console.log("Someone connected!", a);
@@ -46,9 +50,7 @@ function socket_init() {
             let url = new URL(e.currentTarget.href);
             let path = url.pathname;
             console.log(url);
-            // here in the if loop we have give the path right?
-
-
+            
             
             if(path == "/waitroom") {
                 console.log("waitroom in progress");

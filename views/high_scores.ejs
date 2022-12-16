@@ -20,6 +20,11 @@
         </div>
         <% 
           var rank = 1;
+          if (high_scores.length == 0) {
+            %> 
+            <h3>You need to finish at least one game to see anything here!</h3>
+            <%
+          }
           high_scores.forEach(high_score => {
           if (high_score.game == "solo") {
           %>

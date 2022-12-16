@@ -11,6 +11,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 let { model } = require("../model");
+const {getUserSocketList} = require('../server_scripts/websocket');
 
 let lobbies = require("../model/lobbies");
 
@@ -22,13 +23,19 @@ router.get("/:roomID", function (req, res) {
         
         lobbies.lobbies.forEach(lobby => {
             if (lobby.id == roomID) {
-                if (!lobby.connected_players.player.includes(username)) {
+                let playerIsInRoom = false;
+                lobby.connected_players.forEach(connected_player => {
+                    if (connected_player.player == username) {
+                        playerIsInRoom = true;
+                    }
+                });
+                if (!playerIsInRoom) {
                     // YOU ARE NOT IN THIS LOBBY => JOIN LOBBY
                     lobbies.joinLobby(lobby.id,username);
                 }
                 res.format({
                     'text/html': function () {
-                        res.render("waitroom", {lobby: lobby}); // render the waitroom.ejs page
+                        res.redirect("/sudoku"); // render the waitroom.ejs page
                     },
                     'application/json': function () {
                         res.status(201).json(lobby); // passing all the parameters
@@ -41,6 +48,29 @@ router.get("/:roomID", function (req, res) {
         res.redirect('/');
     }
         
+});
+
+router.get("/leave/:roomID", function (req, res) { 
+    if (req.session.username) {
+        let roomID = req.params.roomID;
+        let username = req.session.username;
+        
+        lobbies.lobbies.forEach(lobby => {
+            if (lobby.id == roomID) {
+
+                lobbies.exitLobby(roomID,username);
+
+                res.format({
+                    'text/html': function () {
+                        res.redirect("/sudoku"); // render the waitroom.ejs page
+                    },
+                    'application/json': function () {
+                        res.status(201).json(lobby); // passing all the parameters
+                    }
+                });
+            }
+        });
+    }   
 });
 
 router.post("/", function(req, res) {
