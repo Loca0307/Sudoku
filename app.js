@@ -9,8 +9,7 @@ const methodOverride = require('method-override');
 
 const fs = require('fs-extra');
 
-const server_socket = require('./server_scripts/server_socket')
-const {socket_init} = require('./websocket');
+const {socket_init} = require('./server_scripts/websocket');
 
 
 
@@ -32,7 +31,7 @@ app.set('view engine', 'ejs');
 //sessions
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
-    secret: "mycutelittlesecretkey<3<3xp",
+    secret: "mycutelittlesecretkey<3<3xD;)",
     saveUninitialized:true,
     cookie: { maxAge: oneDay },
     resave: false 

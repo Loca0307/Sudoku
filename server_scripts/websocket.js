@@ -1,6 +1,6 @@
 // server side
 
-const { model } = require('./model');
+const { model } = require('../model');
 
 
 const io = require('socket.io')();
@@ -68,8 +68,7 @@ function socket_init(server) {
         console.log(a);
       io.to(a).emit('multiplayer_connected', ready);
       });
-
-    })
+    });
 
     socket.on('multiplayer_start', function () {
       if (q.length >= 2) {
