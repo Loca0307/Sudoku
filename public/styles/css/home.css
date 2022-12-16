@@ -118,4 +118,11 @@ p{
   margin-top: 2em;
   margin-bottom: 2em;
   font-weight: bold;
+  
+}
+
+@media all and (max-width: 550px){
+  p{
+    margin-left: 15px;
+  }
 }

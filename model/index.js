@@ -14,7 +14,7 @@ const client = new mongodb.MongoClient(mongodb_uri);
 const db_name = 'web-atelier-project';
 
 
-const collection_names = ['high_scores', 'usernames'];
+const collection_names = ['high_scores', 'usernames', 'lobbies'];
 
 const model = {};
 
@@ -27,8 +27,7 @@ client
 
         model.db = client.db(db_name);
         collection_names.forEach(c =>{
-            model[c] = model.db.collection(c);
-            
+            model[c] = model.db.collection(c);  
         })
 
     }) 

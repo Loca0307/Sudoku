@@ -14,6 +14,9 @@ socket.on('connect', () => {
 });
 
 
+
+
+
 function socket_init() {
 
     socket.emit("multiplayer_connected", "player");
@@ -56,6 +59,6 @@ function socket_init() {
                 
             }
             })
-        
+            
         })
     }

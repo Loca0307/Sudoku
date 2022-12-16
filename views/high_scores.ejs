@@ -14,25 +14,26 @@
 
         <div class="head">
           <h1>Highscores and game history</h1>
-          <form method="get">
-            <button class="logout" type="submit" ><img src="/styles/img/exit.png">Back to menu</button>
+          <form method="GET" action="/sudoku">
+            <button class="logout" type="submit"><img src="/styles/img/exit.png">Back to menu</button>
           </form>
         </div>
-        <% high_scores.forEach(high_score => {
+        <% 
+          var rank = 1;
+          high_scores.forEach(high_score => {
           if (high_score.game == "solo") {
           %>
           <form method="GET" action="/sudoku/high_scores">
             <ul>
               <li>
-                <div>Game name: <%= high_score.username%></div>
+                <div>Player: <%= high_score.username%></div>
                 <div>Game mode: <%= high_score.game%></div>
                 <div>Date played: <%= high_score.dateplayed%></div>
-                <div><img src="/styles/img/award.png"></div>
+                <div>Rank: <span><%-rank++%></span><img src="/styles/img/award.png"></div>
               </li>
               <li>
                 <div>Total moves: <%= high_score.totalMoves%></div>
-                <div style="color: #00FF89; font-weight: bold; font-size: x-large;">Score: <%= high_score.score%></div>
-                <div>Time: </div>
+                <div class="score">Score: <%= high_score.score%></div>
                 <div>Hints used: <%= high_score.boardObjHistory[high_score.totalMoves - 1].hintIndexes.length%></div>
               </li>
               <li>
@@ -139,7 +140,15 @@
                 </div>
               </li>
               <li>
-                <span>Track moves: <input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                <div>
+                  <span>Track time: <span id="time-<%= high_score._id%>"></span></span>
+                </div>
+                <div>
+                  <span class="slider">Track moves: <span id="value-<%= high_score._id%>"></span><input class="tracker-<%= high_score._id%>" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                </div>
+                <div>
+                  <span>Track score: <span id="score-<%= high_score._id%>"></span></span>
+                </div>
               </li>
             </ul>
           </form>
@@ -154,6 +163,11 @@
 
               var currentval = document.querySelector(".tracker-<%= high_score._id%>").value;
               var hs = <%-JSON.stringify(high_score)%>;
+
+              var movecount = document.getElementById("value-<%= high_score._id%>").innerHTML = +currentval + 1;
+              var scorecount = document.getElementById("score-<%= high_score._id%>").innerHTML = hs.boardObjHistory[currentval].score;
+              var timecount = document.getElementById("time-<%= high_score._id%>").innerHTML = hs.boardObjHistory[currentval].time;
+
               for (let i = 0; i < 81; i++) {
                 //get cell
                 var cell = document.getElementById("<%= high_score._id%>-input-"+i);

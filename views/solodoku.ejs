@@ -12,17 +12,15 @@
         <main>
           <h1>Sudoku</h1>
           <hr>
-          <h3><span id="msg"><%- message %></span> <%- pagedata.username %>!</h3>
+          <h3><span id="msg"><%- message %></span> <span id="username"><%- pagedata.username %></span>!</h3>
           <p>Currently playing a game of difficulty: <span id="level"><%- pagedata.diff %></span></p>
           <div class="container">
             <div class="time">
               <span>Time: </span>
-              <span id="minutes"> 00 </span>
-              <span id="seconds"> 00 </span>
-              <span id="miliseconds"> 000 </span>
+              <span id="seconds"> 00 </span>s
           </div>
             <div class="scores">
-              <h2 id = "errors"><span>Score:</span> <span id="score"><%- pagedata.score %></span></h2>
+              <h2 id = "errors"><span>Score:</span> <span id="score">0</span></h2>
             </div>
         </div>
 
@@ -39,17 +37,18 @@
           </div>
           <form class="form" method="POST">
           <div class="info">
-              <input type="hidden" value="<%- pagedata.username %>" id="username" name="username">
-              <input type="hidden" value="<%- pagedata.password %>" id="password" name="password">
               <button type="button" onclick="showHint();"><img src="/styles/img/lamp.png">Show Hint!</button>
-              <button class="logout" type="submit" formaction="/sudoku"><img src="/styles/img/exit.png">Back to menu</button>
               <br>
+              
               <label>Difficulty</label>
               <br>
               <input type="range" min="1" max="3" value="<%- pagedata.diff %>" id="diff" name="diff">
               <button type="submit" id="startTimer" formaction="/sudoku/solo_game"><img src="/styles/img/refresh.png">New Game</button>
-            <!-- onclick="startTimer()" -->
-            </div>
+            
+          </form>
+          <form class="form-out" method="GET">
+              <button type="submit" formaction="/sudoku/high_scores/<%-pagedata.username%>"><img src="/styles/img/list.png" >Your games</button>
+              <button class="logout" type="submit" formaction="/sudoku"><img src="/styles/img/exit.png">Back to menu</button>
           </form>
             
         </main>

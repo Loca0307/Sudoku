@@ -1,20 +1,22 @@
 //require framework and middleware dependencies
 const express = require('express');
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+
 const path = require('path');
 const logger = require('morgan');
 const methodOverride = require('method-override');
 
 const fs = require('fs-extra');
 
-const server_socket = require('./server_scripts/server_socket')
-const {socket_init} = require('./websocket');
+const {socket_init} = require('./server_scripts/websocket');
 
 
 
 //init framework
 const app = express();
 
-
+// ho metti tutti i fails che vuoi che i costumers hanno in public ho crei custum root che ritorna quel file
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));    // parse application/x-www-form-urlencoded
@@ -26,6 +28,16 @@ app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
 
+//sessions
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "mycutelittlesecretkey<3<3xD;)",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+app.use(cookieParser());
+
 
 //controllers
 const routers = require('./routes');
@@ -33,6 +45,7 @@ const routers = require('./routes');
 app.use(routers.home);
 app.use('', routers.sudoku);
 app.use('', routers.high_scores);
+app.use('/waitroom', routers.waitroom);
 
 
 //default fallback handlers

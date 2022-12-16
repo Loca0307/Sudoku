@@ -9,6 +9,8 @@ const date = new Date().toLocaleDateString("de-DE");;
 
 
 
+let currentTime = "";
+
 
 let gridValues = []; //1D array representing board
 let sudoku = []; //2D array representing board
@@ -645,13 +647,17 @@ function updateCorrectedIndexes(boardstate, playablespots, fullboard, givenNumbe
     //updateScore(correctIndexes, wrongIndexes);
     updateScorev2(boardstate, eventId);
 
+    var seconds = document.getElementById("seconds").innerHTML;
+    var time = seconds+"s ";
+
     var currentBoardObj = {
         fullboard : fullboard,
         correctIndexes : correctIndexes,
         wrongIndexes : wrongIndexes,
         hintIndexes : hintIndexes,
         givenNumberIndexes : givenNumberIndexes,
-        score : score
+        score : score,
+        time : time,
     }
 
     boardObjHistory.push(currentBoardObj);
@@ -696,7 +702,7 @@ function checkIfPlayerHasWon(correctIndexes, playablespots) {
 
         document.getElementById('score').innerHTML += " (You can start a new game!)";
 
-        var username = document.getElementById('username').value;
+        var username = document.getElementById('username').innerText;
 
         var highscore = {
             username : username,
@@ -718,20 +724,20 @@ function startTimer() {
     let miliSeconds = 0;
     let seconds = 0;
     let minutes = 0;
-   //document.getElementById("startTimer").addEventListener( 'click', () =>{
-        intervalMili = setInterval(timerMiliseconds, 1);
+//    //document.getElementById("startTimer").addEventListener( 'click', () =>{
+//         intervalMili = setInterval(timerMiliseconds, 1);
         intervalSeconds = setInterval(timerSeconds, 1000);
-        intervalMinutes = setInterval(timerMinutes, 60000);
+        // intervalMinutes = setInterval(timerMinutes, 60000);
         // console.log("CLICKED");
         // console.log("CLICKED");
         // console.log("CLICKED");
         //document.getElementById("minutes").innerHTML = time; 
 
-        function timerMiliseconds() {
-            miliSeconds++;
-            //console.log(time);
-            document.getElementById("miliseconds").innerHTML = miliSeconds; 
-        }
+        // function timerMiliseconds() {
+        //     miliSeconds++;
+        //     //console.log(time);
+        //     document.getElementById("miliseconds").innerHTML = miliSeconds; 
+        // }
 
         function timerSeconds() {
             seconds++;
@@ -740,11 +746,11 @@ function startTimer() {
         }
 
 
-        function timerMinutes() {
-            minutes++;
-            //console.log(time);
-            document.getElementById("minutes").innerHTML = minutes; 
-        }
+        // function timerMinutes() {
+        //     minutes++;
+        //     //console.log(time);
+        //     document.getElementById("minutes").innerHTML = minutes; 
+        // }
 
 
     //})

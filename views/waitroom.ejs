@@ -11,21 +11,26 @@
       <%- include("includes/header") %>
 
       <section class="main-section">
-
-       
+        
         <main>
             <h1>Sudoku</h1>
             <hr>
             
-                <ul>
-                    <li><h4>Connection Successful</h4></li>
-                    <li>
-                        <h4 id="players_ready"> Ready: <%= ready %></h4>
-                        <h4>Difficulty: <%= diff %></h4>
-                        <h4>Room Size: <%= size %></h4> 
+                    <h4>Connection Successful</h4></li>
+                        <br>
+                        <h2>Lobby ID: <%= lobby.id %></h2>
+                        <h4>Difficulty: <%= lobby.lobbyDiff %></h4>
+                        <h4>Room Size: <%= lobby.lobbySize %></h4>
+                        <br>
+                        <h4 id="players_ready"></h4>
+                        <h2> Players: </h2>
+                        <% lobby.connected_players.player.forEach(p => {
+                            %>
+                            <li><%-p%></li>
+                            <%
+                        });%>
+                        <h4 id="players_ready"></h4>
 
-                    </li>
-                </ul>
             </main>
         </section>
       <%- include("includes/footer") %>
