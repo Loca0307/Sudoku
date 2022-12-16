@@ -31,7 +31,7 @@
               </li>
               <li>
                 <div>Total moves: <%= high_score.totalMoves%></div>
-                <div style="color: #00FF89; font-weight: bold; font-size: x-large;">Score: <%= high_score.score%></div>
+                <div class="score">Score: <%= high_score.score%></div>
                 <div>Hints used: <%= high_score.boardObjHistory[high_score.totalMoves - 1].hintIndexes.length%></div>
               </li>
               <li>
@@ -142,7 +142,7 @@
                   <span>Track time: <span id="time-<%= high_score._id%>"></span></span>
                 </div>
                 <div>
-                  <span>Track moves: <span id="value-<%= high_score._id%>"></span><input class="tracker-<%= high_score._id%>" style="width: 100% !important;" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
+                  <span class="slider">Track moves: <span id="value-<%= high_score._id%>"></span><input class="tracker-<%= high_score._id%>" type="range" id="moves" min="0" max="<%=high_score.totalMoves - 1%>" value="<%= high_score.totalMoves - 1%>"></span>
                 </div>
                 <div>
                   <span>Track score: <span id="score-<%= high_score._id%>"></span></span>

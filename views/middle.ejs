@@ -91,13 +91,23 @@
       <script>
         var slider = document.getElementById("size");
         var output = document.getElementById("value");
+        
   
         output.innerHTML = slider.value;
   
         slider.oninput = function(){
           let value = this.value;
+          if (this.value == 2)
+            output.style.color = "lightgreen";
+            else if(this.value == 3)
+              output.style.color = "yellow";
+              else 
+                output.style.color = "red";
           output.innerHTML = value;
+          
         }
+
+
   
       </script>
     </body>

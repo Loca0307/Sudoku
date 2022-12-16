@@ -88,10 +88,27 @@
     text-align: center;
   }
 
+  .form-out{
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .form-out button{
+    margin: 15px;
+  }
+
   .info{
     margin-top: 4em;
     margin-bottom: 4em;
     width: 100%;
+  }
+
+  .new-game{
+    display: flex;
+    margin: 0 auto;
+  }
+  .form-out button{
+    margin: 15px;
   }
 
 button{
@@ -184,8 +201,12 @@ input[type="range"]{
     width: 25px;
     padding: 0;
   }
-  .info{
-    margin-top: 1em;
+
+  .form-out button{
+    font-size: 12px;
+    margin: 17px;
   }
+
+
 
 }
