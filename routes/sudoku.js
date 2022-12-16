@@ -190,8 +190,8 @@ router.get("/multidoku", function(req, res) {
 
     const data = {
         username : req.session.username,
-        diff : req.body.diff
-        // diff: level
+        diff : req.body.diff,
+        level: req.body.diff
     }
     console.log(data);
     // we have to pass the loby room get it from url pass it to multidoku and from multidoku we get  the info from the database 
