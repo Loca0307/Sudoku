@@ -1,6 +1,8 @@
 const express = require('express');
 const { read } = require('fs-extra');
+var hash = require('object-hash');
 const router = express.Router();
+
 module.exports = router;
 
 let level;
@@ -14,7 +16,10 @@ let {model} = require("../model");
 
 //called when the login form is sent
 router.post("/sudoku", function(req, res) {
-    let userprofiledata = {username: req.body.username, password: req.body.password}; 
+
+    let hashedpwd = {password: req.body.password};
+    
+    let userprofiledata = {username: req.body.username, password: hash(hashedpwd)};
 
         model.usernames.findOne({username : userprofiledata.username}).then(userdata => {
             if (userdata) {
