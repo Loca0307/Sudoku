@@ -66,7 +66,12 @@ function socket_init() {
                 console.log("MATCH");
                 document.querySelector("main").innerHTML = ejs.views_multidouku({ready});
                 socket.emit("multiplayer_connected", "player");
-                //render the page
+
+                //Chat Extra Feature 
+                socket.emit("chat", "player", "text", "txt");
+        
+            
+    
                 //data needs to be passed
 
             }
