@@ -57,8 +57,7 @@ function socket_init() {
                 socket.emit("multiplayer_connected", "player");
                 //render the page
                 document.querySelector("main").innerHTML = ejs.views_waitroom({ready});
-                //data needs to be passed 
-                
+                //data needs to be passed
             }
             })
             

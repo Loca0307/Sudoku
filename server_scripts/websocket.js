@@ -79,7 +79,17 @@ function socket_init(server) {
         let p1 = q.shift();
         let p2 = q.shift();
       }
+
+
     } )
+
+    // Chat Preview 
+    socket.on('chat', function (room, txt, player) {
+      console.log('chat', room, txt, player);
+      io.to(room).emit('chat', txt, player);
+    });
+      
+
 
 }
 
