@@ -88,8 +88,13 @@ function socket_init(server) {
       console.log('chat', room, txt, player);
       io.to(room).emit('chat', txt, player);
     });
-      
 
+    //socket.onmessage = ({data}) => {
+    //  socket.forEach(function each(client) {
+    //  if (client !== ws && client.readyState === WebSocket.OPEN) {
+    //    client.send(`${data}`);
+    //  }
+    //});
 
 }
 
