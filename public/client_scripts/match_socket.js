@@ -65,9 +65,18 @@ function socket_init() {
                 socket.emit("multiplayer_connected", "player");
 
                 //Chat Extra Feature 
-                socket.emit("chat", "player", "text", "txt");
-        
-            
+                $('form').submit(function(){
+                    socket.emit('chat message', $('#m').val());
+                    $('#m').val('');
+                    return false;
+                  });
+
+                  socket.on('chat message', (msg) => {
+                    $('#messages').append($('<li>').text(msg));
+                  });
+                  
+                  
+    
     
                 //data needs to be passed
 

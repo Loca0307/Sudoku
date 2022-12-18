@@ -30,10 +30,17 @@ function socket_init(server) {
 
     io.on('connection', function (socket) {
 
+      socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+      });
+
     // p = { id: socket.id, difficulty: 1 , room: 2};
     // q.push(p);
     
     console.log("player: " + socket.id + " connected");
+
+
+
 
    
 
@@ -83,11 +90,8 @@ function socket_init(server) {
 
     } )
 
-    // Chat Preview 
-    socket.on('chat', function (room, txt, player) {
-      console.log('chat', room, txt, player);
-      io.to(room).emit('chat', txt, player);
-    });
+  
+  
 
     //socket.onmessage = ({data}) => {
     //  socket.forEach(function each(client) {
