@@ -4,7 +4,8 @@ const { read } = require('fs-extra');
 const { io } = require('../app');
 const router = express.Router();
 module.exports = router;
-let level;
+
+const websocket = require('../server_scripts/websocket');
 
 
 const ObjectId = require('mongodb').ObjectId;
@@ -18,6 +19,9 @@ let lobbies = require("../model/lobbies");
 //not sure if route should be /waitroom instead
 router.get("/:roomID", function (req, res) { 
     if (req.session.username) {
+        userdata = {
+            username : req.session.username
+        }
         let roomID = req.params.roomID;
         let username = req.session.username;
         
@@ -33,12 +37,16 @@ router.get("/:roomID", function (req, res) {
                     // YOU ARE NOT IN THIS LOBBY => JOIN LOBBY
                     lobbies.joinLobby(lobby.id,username);
                 }
+                websocket.reloadLobbies();
                 res.format({
                     'text/html': function () {
                         res.redirect("/sudoku"); // render the waitroom.ejs page
                     },
                     'application/json': function () {
-                        res.status(201).json(lobby); // passing all the parameters
+                        res.status(201).json({
+                            lobbies : lobbies.lobbies,
+                            userdata
+                        }); // passing all the parameters
                     }
                 });
             }
@@ -52,6 +60,9 @@ router.get("/:roomID", function (req, res) {
 
 router.get("/leave/:roomID", function (req, res) { 
     if (req.session.username) {
+        userdata = {
+            username : req.session.username
+        }
         let roomID = req.params.roomID;
         let username = req.session.username;
         
@@ -59,13 +70,16 @@ router.get("/leave/:roomID", function (req, res) {
             if (lobby.id == roomID) {
 
                 lobbies.exitLobby(roomID,username);
-
+                websocket.reloadLobbies();
                 res.format({
                     'text/html': function () {
                         res.redirect("/sudoku"); // render the waitroom.ejs page
                     },
                     'application/json': function () {
-                        res.status(201).json(lobby); // passing all the parameters
+                        res.status(201).json({
+                            lobbies : lobbies.lobbies,
+                            userdata
+                        }); // passing all the parameters
                     }
                 });
             }
@@ -75,13 +89,44 @@ router.get("/leave/:roomID", function (req, res) {
 
 router.post("/", function(req, res) {
     if (req.session.username) {
+        userdata = {
+            username : req.session.username
+        }
         let lobby = lobbies.createLobby(req.session.username,parseInt(req.body.size),parseInt(req.body.mpdiff));
+        websocket.reloadLobbies();
         res.format({
                     'text/html': function () {
                     res.redirect(302, `/waitroom/${lobby.id.toString()}`); // render the waitroom.ejs page
                     },
                     'application/json': function () {
-                    res.status(201).json(lobby); // passing all the parameters
+                    res.status(201).json({
+                        lobbies : lobbies.lobbies,
+                        userdata
+                    }); // passing all the parameters
+                    }
+                });
+    }
+    else {
+        res.redirect('/');
+    }
+});
+
+router.get("/", function(req, res) {
+    if (req.session.username) {
+        userdata = {
+            username : req.session.username
+        }
+        res.format({
+                    'text/html': function () {
+                        res.redirect('/sudoku');
+                    },
+                    'application/json': function () {
+                    res.status(201).json(
+                        {
+                            lobbies : lobbies.lobbies,
+                            userdata
+                        }
+                    ); // passing all the parameters
                     }
                 });
     }

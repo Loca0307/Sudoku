@@ -1,12 +1,9 @@
 <html>
     <%- include("includes/head") %>
     <head>
-        <link rel="stylesheet"  href="/styles/css/middle.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
         <link rel="icon" href="icons/joystick.png" type="image/icon type">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <script src="/socket.io/socket.io.js"></script> -->
-        <!-- <script src="/client_scripts/client_socket.js"></script> -->
     </head>
 
     <body>
@@ -15,152 +12,24 @@
       <form action="/sudoku/log_out" method="get">
       <button class="logout" type="submit"><img src="/styles/img/exit.png" >Log-out</button>
       </form>
-      <section class="main-section">
-
-        <div class="boxes">
-          <img src = "/styles/img/player.png">
-          <h1>Play solo</h1>
-          <p>Here you can practice to improve your sudoku solving skill.</p>
-          <br>
-          <p>Simply start a game of your chosen difficulty, and play away!</p>
-          <br>
-          <p>Single-player games are not timed, so don't stress. But remember that your moves are recorded, and wrong inputs are penalized. After each game, make sure to review your mistakes by checking your personal single-player games history.</p>
-      
-          <br><hr><br>
-          <form method="POST" action="/sudoku/solo_game">
-            <label>Difficulty:</label>
-            <input type="range" min="1" max="3" value="2" id="diff" name="diff">
-            <br>
-            <button type="submit"><img src="/styles/img/play.png" >Play Solo</button>
-          </form>
-
-        </div>
-
-        <div class="boxes">
-          <img src = "/styles/img/high-score.png">
-          <h1>High Scores</h1>
-          <p>Here you can see a complete history of your single-player and multi-player games, as well as the global highscores to compare your scores with the world!</p>
-          <br>
-          <p>If you can't find your scores on the global highscores list, dont worry! remember that practice makes perfect!</p>
-          <br><hr><br>
-          <form method="GET">
-            <button type="submit" formaction="/sudoku/high_scores/<%- userdata.username %>"><img src="/styles/img/list.png" >Your games history and highscores</button>
-            <br><br><hr><br>
-            <button type="submit" formaction="/sudoku/global_high_scores/"><img src="/styles/img/worldwide.png" >Global games history and highscores</button>
-          </form>
-        </div>
-
-        <div class="boxes">
-          <img src = "/styles/img/team.png">
-          <h1>Play with friends</h1>
-          <p>Join a game, or create a game to play with your friends!</p>
-          <br><hr><br>
-          <form class="" action="waitroom" method="post">
-            <input type="hidden" value="create" id="type" name="create">
-            <label>Difficulty: <span id="diff-value"></span></label>
-            <input type="range" min="1" max="3" value="2" id="mpdiff" name="mpdiff">
-            <label>Lobby Size: <span id="value"></span></label>
-            <input type="range" min="2" max="4" value="3" id="size" name="size">
-            <% 
-            let playerIsInAnyLobby = false; 
-            lobbies.forEach( lobby => { 
-              lobby.connected_players.forEach(p => {
-                            if (p.player == userdata.username) {
-                              playerIsInAnyLobby = true;
-                            }
-                          });
-            });
-            if (!playerIsInAnyLobby) {
-              %> 
-              <button id="button1" type="submit"><img src="/styles/img/people.png" >Create lobby</button>
-              <%
-            }
-            %>
-            <br><br><hr><br>
-          </form>
-          <%
-          lobbies.forEach( lobby => { 
-            let playerIsInThisLobby = false; 
-            %>
-            <div style="background-color: rgb(66, 66, 66); border-radius: 5px; margin: 10px; padding: 10px;">
-              <h4>Lobby ID: <%= lobby.id %></h4>
-                        <h4>Difficulty: <%= lobby.lobbyDiff %></h4>
-                        <h4>Room Size: <%= lobby.lobbySize %></h4>
-                        <h4> Players: </h4>
-                        <% 
-                        lobby.connected_players.forEach(p => {
-                            if (p.player == userdata.username) {
-                              playerIsInAnyLobby = true;
-                              playerIsInThisLobby = true;
-                            }
-                            %>
-                            <li><%-p.player%></li>
-                            <%
-                        });%>
-              <div>
-                <% 
-                if (playerIsInThisLobby) {
-                  %> 
-                  <a href="/waitroom/leave/<%=lobby.id%>">
-                    <button type="submit">Leave</button>
-                  </a>
-                  <%
-                }
-                else if (!playerIsInAnyLobby){
-                  %>
-                  <a href="/waitroom/<%=lobby.id%>">
-                    <button type="submit">Join</button>
-                  </a>
-                  <%
-                }
-                
-                %>
-              </div>
-            </div>
-          <% }) %>
-        </div>
-      </section>
+      <div class="lobcont" style="
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;">
+      <%- include("includes/mainsection") %>
+      </div>
 
       <%- include("includes/footer") %>
 
-      <script>
-        var slider = document.getElementById("size");
-        var output = document.getElementById("value");
-
-        var diffslider = document.getElementById("mpdiff");
-        var diffoutput = document.getElementById("diff-value");
-        
-        diffoutput.innerHTML = diffslider.value;
-        output.innerHTML = slider.value;
-  
-        slider.oninput = function(){
-          let value = this.value;
-          if (this.value == 2)
-            output.style.color = "lightgreen";
-            else if(this.value == 3)
-              output.style.color = "yellow";
-              else 
-                output.style.color = "red";
-          output.innerHTML = value;
-          
-        }
-
-        diffslider.oninput = function(){
-          let value = this.value;
-          if (this.value == 1)
-          diffoutput.style.color = "lightgreen";
-            else if(this.value == 2)
-            diffoutput.style.color = "yellow";
-              else 
-              diffoutput.style.color = "red";
-          diffoutput.innerHTML = value;
-          
-        }
-
-
-  
-      </script>
-      <input type="hidden" id="username-holder" value="<%- userdata.username %>">
+      <script src="/socket.io/socket.io.js"></script>
       <script src = "/client_scripts/api-client.js"></script>
+      <script class="std" src="./js/ejs.min.js"></script>
+      <script class="std" src="./js/views.js"></script>
+
+      <script src="/client_scripts/client_socket.js"></script>
+
+      <input type="hidden" id="username-holder" value="<%- userdata.username %>">
     </body>
 </html>

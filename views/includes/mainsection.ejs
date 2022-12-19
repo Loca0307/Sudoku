@@ -1,0 +1,315 @@
+<% 
+      let playerIsInAnyLobby = false; 
+      let playersLobby;
+      let playerObj;
+      lobbies.forEach( lobby => { 
+        lobby.connected_players.forEach(p => {
+                      if (p.player == userdata.username) {
+                        playerIsInAnyLobby = true;
+                        playerObj = p;
+                        playersLobby = lobby;
+                      }
+                    });
+      });
+%>
+<section class="main-section">
+<% 
+if (!playerIsInAnyLobby || (playerIsInAnyLobby && playersLobby.lobbyOpen))
+{
+%>
+<link rel="stylesheet"  href="/styles/css/middle.css">
+<div class="boxes">
+    <img src = "/styles/img/player.png">
+    <h1>Play solo</h1>
+    <p>Here you can practice to improve your sudoku solving skill.</p>
+    <br>
+    <p>Simply start a game of your chosen difficulty, and play away!</p>
+    <br>
+    <p>Single-player games are not timed, so don't stress. But remember that your moves are recorded, and wrong inputs are penalized. After each game, make sure to review your mistakes by checking your personal single-player games history.</p>
+
+    <br><hr><br>
+    <form method="POST" action="/sudoku/solo_game">
+      <label>Difficulty:</label>
+      <input type="range" min="1" max="3" value="2" id="diff" name="diff">
+      <br>
+      <button type="submit"><img src="/styles/img/play.png" >Play Solo</button>
+    </form>
+
+  </div>
+
+  <div class="boxes">
+    <img src = "/styles/img/high-score.png">
+    <h1>High Scores</h1>
+    <p>Here you can see a complete history of your single-player and multi-player games, as well as the global highscores to compare your scores with the world!</p>
+    <br>
+    <p>If you can't find your scores on the global highscores list, dont worry! remember that practice makes perfect!</p>
+    <br><hr><br>
+    <form method="GET">
+      <button type="submit" formaction="/sudoku/high_scores/<%- userdata.username %>"><img src="/styles/img/list.png" >Your games history and highscores</button>
+      <br><br><hr><br>
+      <button type="submit" formaction="/sudoku/global_high_scores/"><img src="/styles/img/worldwide.png" >Global games history and highscores</button>
+    </form>
+  </div>
+
+  <div class="boxes">
+    <img src = "/styles/img/team.png">
+    <h1>Play with friends</h1>
+    <p>Join a game, or create a game to play with your friends!</p>
+    <br><hr><br>
+    <form class="">
+      <input type="hidden" value="create" id="type" name="create">
+      <label>Difficulty: <span id="diff-value"></span></label>
+      <input type="range" min="1" max="3" value="2" id="mpdiff" name="mpdiff">
+      <label>Lobby Size: <span id="value"></span></label>
+      <input type="range" min="2" max="4" value="3" id="size" name="size">
+      <% 
+      if (!playerIsInAnyLobby) {
+        %> 
+        <button id="hostgame" type="button" onclick="host();"><img src="/styles/img/people.png" >Create lobby</button>
+        <%
+      }
+      %>
+      <br><br><hr><br>
+    </form>
+    <%
+    lobbies.forEach( lobby => { 
+      let playerIsInThisLobby = false; 
+      %>
+      <div style="background-color: rgb(66, 66, 66); border-radius: 5px; margin: 10px; padding: 10px;">
+        <h4>Lobby ID: <%= lobby.id %></h4>
+                  <h4>Difficulty: <%= lobby.lobbyDiff %></h4>
+                  <h4>Room Size: <%= lobby.lobbySize %></h4>
+                  <h4> Players: </h4>
+                  <% 
+                  lobby.connected_players.forEach(p => {
+                      if (p.player == userdata.username) {
+                        playerIsInAnyLobby = true;
+                        playerIsInThisLobby = true;
+                      }
+                      %>
+                      <li><%-p.player%></li>
+                      <%
+                  });%>
+        <div>
+          <% 
+          if (playerIsInThisLobby) {
+            %> 
+              <button type="submit" onclick="leave(<%=lobby.id%>);">Leave</button>
+            <%
+          }
+          else if (!playerIsInAnyLobby){
+            if (lobby.lobbyOpen)
+                {
+            %>
+              <button type="submit" onclick="join(<%=lobby.id%>);">Join</button>
+            <%
+                }
+                else {
+                    %>
+                    <button type="submit" disabled>GAME ALREADY IN PROGRESS</button>
+                    <%
+                }
+          }
+          
+          %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <% } else {
+  %>
+        <link rel = "stylesheet" href = "/styles/css/sudoku.css">
+        <main>
+        <p>Currently playing a game of difficulty: <span id="level"><%- userdata.diff %></span></p>
+        <div class="container">
+            <div class="time">
+              <span>Time: </span>
+              <span id="seconds"> 00 </span>s
+          </div>
+            <div class="scores">
+              <h2 id = "errors"><span>Score:</span> <span id="score">0</span></h2>
+            </div>
+        </div>
+
+        <div id="grid" class="grid">
+            <div class="smallgrid" id="grid-0-0">
+              <input id="input-0" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-1" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-2" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-9" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-10" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-11" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-18" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-19" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-20" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+            </div>
+            <div class="smallgrid" id="grid-1-0">
+              <input id="input-3" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-4" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-5" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-12" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-13" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-14" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-21" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-22" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-23" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+            </div>
+            <div class="smallgrid" id="grid-2-0">
+              <input id="input-6" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-7" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-8" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-15" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-16" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-17" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-24" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-25" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-26" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+            </div>
+            <div class="smallgrid" id="grid-0-1">
+              <input id="input-27" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+              <input id="input-28" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-29" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-36" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-37" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-38" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-45" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-46" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-47" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+            </div>
+            <div class="smallgrid" id="grid-1-1">
+              <input id="input-30" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+              <input id="input-31" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-32" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-39" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-40" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-41" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-48" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-49" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-50" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+            </div>
+            <div class="smallgrid" id="grid-2-1">
+              <input id="input-33" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+              <input id="input-34" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-35" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-42" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-43" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-44" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-51" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-52" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-53" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              </div>
+            <div class="smallgrid" id="grid-0-2">
+              <input id="input-54" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+              <input id="input-55" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-56" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-63" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-64" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-65" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-72" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-73" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-74" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+            </div>
+            <div class="smallgrid" id="grid-1-2">
+              <input id="input-57" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-58" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-59" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-66" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-67" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-68" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-75" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-76" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-77" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+            </div>
+            <div class="smallgrid" id="grid-2-2">
+              <input id="input-60" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-61" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-62" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-69" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-70" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-71" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-78" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+              <input id="input-79" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+              <input id="input-80" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+            </div>
+          </div>
+          <br>
+          <br>
+          <hr>
+          <br>
+          <form class="form-out" method="GET">
+              <button class="logout" type="button" onclick="leave(<%=playersLobby.id%>);"><img src="/styles/img/exit.png">Leave Lobby</button>
+          </form>
+        </main>
+  <% } %> 
+    </section>
+  <%
+  if (playerIsInAnyLobby) {
+    %>
+        <div style="
+        width: 80%;
+        background:#28292d;
+        border-radius: 5px;
+
+        padding: 2em;
+        margin: 2em;
+
+        border: 1px #00FF89 solid;
+        ">
+            <h4>Lobby chat</h4>
+            <textarea style="
+            width: 100%;
+            font-size: 15px;
+            color: white;
+            height: 200px; 
+            margin: 0;
+            padding: 0;
+            resize: vertical;
+            background-color: #28292d;" readonly>
+            <% playersLobby.chat.forEach(c => {
+                %>
+                <%- c.player %>: <%- c.message %>
+                <%
+            });%>
+            </textarea>
+            <input type="text" id="newchat" placeholder="chat message">
+            <button type="submit" onclick="chat();">Send Message</button>
+        </div>
+    
+    <%
+  }
+  %>
+
+  <script>
+        var slider = document.getElementById("size");
+        var output = document.getElementById("value");
+
+        var diffslider = document.getElementById("mpdiff");
+        var diffoutput = document.getElementById("diff-value");
+        
+        diffoutput.innerHTML = diffslider.value;
+        output.innerHTML = slider.value;
+  
+        slider.oninput = function(){
+          let value = this.value;
+          if (this.value == 2)
+            output.style.color = "lightgreen";
+            else if(this.value == 3)
+              output.style.color = "yellow";
+              else 
+                output.style.color = "red";
+          output.innerHTML = value;
+          
+        }
+
+        diffslider.oninput = function(){
+          let value = this.value;
+          if (this.value == 1)
+          diffoutput.style.color = "lightgreen";
+            else if(this.value == 2)
+            diffoutput.style.color = "yellow";
+              else 
+              diffoutput.style.color = "red";
+          diffoutput.innerHTML = value;
+          
+        }
+      </script>

@@ -9,6 +9,9 @@ const methodOverride = require('method-override');
 
 const fs = require('fs-extra');
 
+const ejsc = require('ejsc-views');
+ejsc.compile();
+
 const {socket_init} = require('./server_scripts/websocket');
 
 

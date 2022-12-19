@@ -49,16 +49,31 @@ api = function() {
 
     }
 
-    function updateHistory(data) {
-        return _fetchJSON("POST", "/high_scores/solo", data);
+    function updateHistory() {
+        return _fetchJSON("POST", "/high_scores/solo");
     }
 
-    function leaveLobby(room) {
-        return _fetchJSON("GET", "/waitroom/leave/"+room);
+    function reloadLobbies() {
+        return _fetchJSON("GET", "/waitroom/");
+    }
+
+    function hostLobby(size,mpdiff) {
+        return _fetchJSON("POST", "/waitroom/", {size , mpdiff});
+    }
+
+    function joinLobby(id) {
+        return _fetchJSON("GET", "/waitroom/"+id);
+    }
+
+    function leaveLobby(id) {
+        return _fetchJSON("GET", "/waitroom/leave/"+id);
     }
 
     return {
         updateHistory,
+        reloadLobbies,
+        hostLobby,
+        joinLobby,
         leaveLobby
     }
 

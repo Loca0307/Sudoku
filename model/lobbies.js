@@ -7,7 +7,6 @@ function createLobby(host,lobbySize,lobbyDiff){
 
     let someplayerconstructstuffthatidontknowwhattocall = {
         player : host,
-        socket_id : "",
         boardObjArray : []
     }
 
@@ -18,7 +17,10 @@ function createLobby(host,lobbySize,lobbyDiff){
         id : nextlobbyid,
         lobbySize : lobbySize,
         lobbyDiff : lobbyDiff,
-        connected_players : connected_players
+        lobbyOpen : true,
+        connected_players : connected_players,
+        correctedSudoku : [],
+        chat : []
     }
     
     lobbies.push(lobby);

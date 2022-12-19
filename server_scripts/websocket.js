@@ -1,123 +1,188 @@
 // server side
 
-const { model } = require('../model');
-
-
 const io = require('socket.io')();
 
-// track users and sockets
-let map_user_ready = {}; // players that clicked on ready 
-let currentPlayer = 0;
-let playerId = 0;
-let q = [];
-
+const e = require('express');
+const { check } = require('fast-check');
+let lobbies = require("../model/lobbies");
+let multidoku = require("./multidoku");
 let players = [];
-
-/* state {
-  board : board,
-
- } */
-
-// use .shift() to obtain head of que 
 
 function socket_init(server) {
     io.attach(server);
 
-    io.on('new_lobby', function (lobby) {
-        console.log("new lobby created");
-        console.log(lobby);
-    });
-
     io.on('connection', function (socket) {
 
-    // p = { id: socket.id, difficulty: 1 , room: 2};
-    // q.push(p);
-    
-    console.log("player: " + socket.id + " connected");
-
-   
-
-    // if (io.sockets.sockets.size >= 2) {
-    //     console.log("there are already 2 players so enjoy!");
-    // }
-
-    
+      console.log("player: " + socket.id + " connected");
 
 
-    currentPlayer = 1;
-/*
-    playerId = socket.id;
-    getPlayers(playerId);
-
-    const id = getId(players, playerId);
-    console.log("id", {id})
-    socket.emit("playerId", id);*/
-    
-    socket.on('disconnect', function () {
-      //console.log('player ' + id + ' disconnected');
-      //let key = getId(players, socket.id)
-      if(map_user_ready[socket.id]) {
-        delete map_user_ready[socket.id];
-      }
-      let ready = Object.keys(map_user_ready).length;
-      io.emit('multiplayer_disconnected', ready);
-    });
-
-    //keeping track on howmany players waiting in the room
-    socket.on('multiplayer_connected', function () {
-      console.log('player ' + socket.id + ' connected');
-      map_user_ready[socket.id] = true;
-      let ready = Object.keys(map_user_ready).length;
-      Object.keys(map_user_ready).forEach((a) => {
-        console.log(a);
-        io.to(a).emit('multiplayer_connected', ready);
+      socket.on('announce-connect', function (username) {
+        let player = {
+          username : username,
+          sock : socket
+        }
+        const itemIndex = players.findIndex(o => o.username === player.username);
+        if(itemIndex > -1) {
+              players[itemIndex] = player;
+        } else {
+              players.push(player);
+        }
+        
+        console.log('\n');
+        console.log("PLAYERS ARRAY: ");
+        players.forEach(p => {
+          console.log("username: "+p.username + " socket id: " + p.sock.id);
+        });
       });
+
+      socket.on('chat', function (data) {
+        let username = data.username;
+        let text = data.text;
+        lobbies.lobbies.forEach(lobby => {
+          lobby.connected_players.forEach(p => {
+            if (p.player == username) {
+              lobby.chat.push({
+                player : username,
+                message : text});
+            }
+          });
+        });
+        reloadLobbies();
+      });
+
+      socket.on('game-update', function (data) {
+        lobbies.lobbies.forEach(lobby => {
+          lobby.connected_players.forEach(p => {
+            if (p.player == data.username) {
+              let currentBoardObj = p.boardObjArray[p.boardObjArray.length - 1];
+              let fullboard = [];
+              let correctIndexes = [];
+              let wrongIndexes = [];
+              for (let i = 0; i < 81; i++) {
+                if (data.boardarr[i] != '') {
+                  fullboard.push(data.boardarr[i]);
+                }
+                else {
+                  fullboard.push(0);
+                }
+              }
+              currentBoardObj.playerNumberIndexes.forEach(index => {
+                if (fullboard[index] == lobby.correctedSudoku[index]) {
+                  correctIndexes.push(index);
+                } else {
+                  if (fullboard[index] != 0) {
+                    wrongIndexes.push(index);
+                  }
+                }
+              });
+              var newBoardObj = {
+                fullboard : fullboard,
+                correctIndexes : correctIndexes,
+                wrongIndexes : wrongIndexes,
+                hintIndexes : [],
+                givenNumberIndexes : currentBoardObj.givenNumberIndexes,
+                playerNumberIndexes : currentBoardObj.playerNumberIndexes,
+                score : 0,
+                time : 0,
+              }
+              p.boardObjArray.push(newBoardObj);
+            }
+            if (playerSocket(p.player)) {
+              playerSocket(p.player).emit('update-game',p);
+            }
+          });
+        });
+        
+      });
+
+      socket.on('disconnect', function () {});
+
+
+
+
     });
 
-    socket.on('multiplayer_start', function () {
-      if (q.length >= 2) {
-        let p1 = q.shift();
-        let p2 = q.shift();
-      }
-    } )
-
+    return io;
 }
 
-)
+function reloadLobbies(){
+  io.sockets.emit("reloadlobby");
+  lobbies.lobbies.forEach(lobby => {
+    if (checkIfLobbyFull(lobby) && lobby.lobbyOpen) {
+      //START GAME
 
-return io;
-}
-/*
-function getPlayers(playerId) {
-    for (const i in players) {
-      let curr = players[i];
-      if (curr == "") {
-        players[i] = playerId;
-        console.log(players)
-        return;
+      lobby.lobbyOpen = false;
+
+      let game = multidoku.createGame(lobby.lobbyDiff);
+      lobby.correctedSudoku = game.CorrectSudokuForChecking;
+      let fullboard = game.board;
+      let givenNumberIndexes = [];
+      let playerNumberIndexes = [];
+      for (let i = 0; i < fullboard.length;i++){
+        if (fullboard[i] != 0) {
+          givenNumberIndexes.push(i);
+        } else {
+          playerNumberIndexes.push(i);
+        }
       }
+
+      lobby.connected_players.forEach(p => {
+        let username = p.player;
+        var currentBoardObj = {
+          fullboard : fullboard,
+          correctIndexes : [],
+          wrongIndexes : [],
+          hintIndexes : [],
+          givenNumberIndexes : givenNumberIndexes,
+          playerNumberIndexes : playerNumberIndexes,
+          score : 0,
+          time : 0,
+        }
+        p.boardObjArray.push(currentBoardObj);
+
+        if (playerSocket(username)) {
+          playerSocket(username).emit('start-game',p);
+        }
+      });
     }
-}*/
-
-
-function getId(obj, value) {
-    return Object.keys(obj).find(key => obj[key] === value);
+  });
 }
 
-io.on('newsocketuserconnectedorsomething', function (socket) {
-  console.log("SOCKET STUFF: new player is announcing socket user relations: ");
-  players.push(socket);
-
-});
-
-function getUserSocketList() {
-  io.sockets.emit('plsannounceuser');
-  return players;
+function playerSocket(username) {
+  for(let i = 0; i < players.length; i++) {
+    if (players[i].username == username) {
+      return players[i].sock;
+    }
+  }
+  return;
 }
 
+function playerUsername(socket) {
+  for(let i = 0; i < players.length; i++) {
+    if (players[i].sock.id == socket.id) {
+      return players[i].username;
+    }
+  }
+  return;
+}
 
+function checkIfLobbyFull(lobby) {
+  if (lobby.lobbySize <= lobby.connected_players.length) {
+    return true;
+  }
+  return false;
+}
+
+function startGame(lobby) {
+    lobby.lobbyOpen = false;
+    lobby.connected_players.forEach(p => {
+      let username = p.player;
+      let sock = p.sock;
+      sock.emit('test');
+    });
+}
 
 module.exports = {
-  getUserSocketList : getUserSocketList,
-  socket_init : socket_init
+  socket_init,
+  reloadLobbies
 };

@@ -5,8 +5,6 @@ const router = express.Router();
 
 module.exports = router;
 
-let level;
-
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -87,7 +85,11 @@ try{
                                 });
                             },
                             'application/json': function () {
-                                res.status(201).json(userprofiledata);
+                                res.status(201).json({
+                                    message : req.session.message,
+                                    userdata,
+                                    lobbies : lobbies.lobbies
+                                });
                             }
                         });
             }
@@ -209,27 +211,5 @@ router.get("/multidoku", function(req, res) {
     });
 
 });
-
-
-/* router.get("/public/client_scripts", function(req, res) {
-    //we need to agree on data being passed
-    
-    res.format({
-    
-        'text/html': function () {
-            res.render("multiplayer");
-            
-        },
-
-        'application/json': function () {
-            res.status(201).json(multiplayer); 
-        }
-
-    });
-})
-
-
-
-})  */
 
 
