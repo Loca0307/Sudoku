@@ -14,7 +14,7 @@ const client = new mongodb.MongoClient(mongodb_uri);
 const db_name = 'web-atelier-project';
 
 
-const collection_names = ['high_scores', 'usernames'];
+const collection_names = ['high_scores', 'usernames', 'multi_high_scores'];
 
 const model = {};
 

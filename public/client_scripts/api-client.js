@@ -49,8 +49,8 @@ api = function() {
 
     }
 
-    function updateHistory() {
-        return _fetchJSON("POST", "/high_scores/solo");
+    function updateHistory(highscore) {
+        return _fetchJSON("POST", "/high_scores/solo",highscore);
     }
 
     function reloadLobbies() {

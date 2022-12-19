@@ -87,7 +87,8 @@ if (!playerIsInAnyLobby || (playerIsInAnyLobby && playersLobby.lobbyOpen))
                         playerIsInThisLobby = true;
                       }
                       %>
-                      <li><%-p.player%></li>
+                      <div style="color: <%-p.color%>;"><li><%-p.player%></li></div>
+                      
                       <%
                   });%>
         <div>
@@ -120,12 +121,17 @@ if (!playerIsInAnyLobby || (playerIsInAnyLobby && playersLobby.lobbyOpen))
   %>
         <link rel = "stylesheet" href = "/styles/css/sudoku.css">
         <main>
+        <span id="gamemessage">
         <p>Currently playing a game of difficulty: <span id="level"><%- playersLobby.lobbyDiff %></span></p>
+        </span>
+        <p>Players:</p>
+        <% 
+          playersLobby.connected_players.forEach(p => {
+            %>
+            <div style="color: <%-p.color%>;"><li><%-p.player%>, score:<%-p.boardObjArray[p.boardObjArray.length - 1].score%></li></div>
+            <%
+        });%>
         <div class="container">
-            <div class="time">
-              <span>Time: </span>
-              <span id="seconds"> 00 </span>s
-          </div>
             <div class="scores">
               <h2 id = "errors"><span>Score:</span> <span id="score">0</span></h2>
             </div>

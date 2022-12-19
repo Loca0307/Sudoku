@@ -2,12 +2,26 @@
 var nextlobbyid = 0;
 let lobbies = [];
 
+const date = new Date().toLocaleDateString("de-DE");
+
+function rand(min, max) {
+    return min + Math.random() * (max - min);
+}
+
+function get_random_color() {
+    var h = rand(1,6) * 60;
+    var s = 100;
+    var l = 80;
+    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+}
 
 function createLobby(host,lobbySize,lobbyDiff){
 
     let someplayerconstructstuffthatidontknowwhattocall = {
         player : host,
-        boardObjArray : []
+        color : get_random_color(),
+        boardObjArray : [],
+        guessedFirst : []
     }
 
     let connected_players = [];
@@ -18,7 +32,11 @@ function createLobby(host,lobbySize,lobbyDiff){
         lobbySize : lobbySize,
         lobbyDiff : lobbyDiff,
         lobbyOpen : true,
+        gameOver : false,
+        winner : '',
+        firsts : [],
         connected_players : connected_players,
+        dateplayed : date,
         correctedSudoku : [],
         chat : []
     }
@@ -36,8 +54,9 @@ function joinLobby(lobbyID, guest){
             if(lobby.connected_players.length < lobby.lobbySize) {
                 let someplayerconstructstuffthatidontknowwhattocall = {
                     player : guest,
-                    socket_id : "",
-                    boardObjArray : []
+                    color : get_random_color(),
+                    boardObjArray : [],
+                    guessedFirst : []
                 }
                 lobby.connected_players.push(someplayerconstructstuffthatidontknowwhattocall);
                 return lobby;

@@ -4,9 +4,13 @@ var inLobby = true;
 var inGame = false;
 
 var playerObj;
+var lobbyObj;
+
+var gameOver = false;
 
 socket.on('connect', () => {
     console.log("socket.io connected");
+    setTimeout(announce(), 5000);
 });
 
 //LOBBY MANAGEMENT SECTION
@@ -86,7 +90,8 @@ function announce(){
 
 function updateCells(boardObjArray){
     let boardObj = boardObjArray[boardObjArray.length - 1];
-    console.log(boardObj);
+    document.querySelector('span#score').innerHTML = playerObj.boardObjArray[playerObj.boardObjArray.length - 1].score;
+
     for (let i = 0; i < 81; i++){
         let cell = document.getElementById('input-'+i);
         if (boardObj.fullboard[i] == 0) {
@@ -121,6 +126,19 @@ function updateCells(boardObjArray){
             socket.emit('game-update', {username, boardarr});
         });
     });
+    lobbyObj.connected_players.forEach(p => {
+        p.guessedFirst.forEach(gfi => {
+            let cell = document.getElementById('input-'+gfi);
+            cell.style.backgroundColor = p.color;
+        });
+    });
+    if (lobbyObj && lobbyObj.gameOver) {
+        document.getElementById('gamemessage').innerHTML = "<h1>GAME OVER!</h1>" + "<h2> Finished first: " + lobbyObj.winner + "</h2>";
+        for (let i = 0; i < 81; i++){
+            let cell = document.getElementById('input-'+i);
+            cell.disabled = true;
+        }
+    }
 }
 
 socket.on('reloadlobby', () => {
@@ -137,12 +155,20 @@ socket.on('start-game', function (p) {
     
 });
 
-socket.on('update-game', function (p) {
+socket.on('update-game', function (data) {
     inLobby = false;
-    playerObj = p;
+    playerObj = data.p;
+    gameOver = data.lobby.gameOver;
+    console.log('update '+ data.lobby.gameOver);
+    lobbyObj = data.lobby;
     inGame = true;
     reloadLobbiesDisplayed();
     
+});
+
+socket.on('game-over', function (lobby) {
+    gameOver = true;
+    reloadLobbiesDisplayed();
 });
 
 socket.on('test', () => {

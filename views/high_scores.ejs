@@ -11,9 +11,8 @@
       <%- include("includes/header") %>
 
       <section class="main-section">
-
         <div class="head">
-          <h1>Highscores and game history</h1>
+          <h1>Singleplayer highscores and game history</h1>
           <form method="GET" action="/sudoku">
             <button class="logout" type="submit"><img src="/styles/img/exit.png">Back to menu</button>
           </form>
@@ -213,6 +212,195 @@
           }
         }); %>
 
+      </section>
+      <hr>
+      <section class="main-section">
+        <h1>Multiplayer - history</h1>
+        <% 
+          let rel = false;
+          multi_high_scores.forEach(mhs => {
+            %>
+            <form method="GET" action="/sudoku/high_scores">
+            <ul>
+              <li>
+                <div>Game mode: Multiplayer</div>
+                <div>Date played: <%= mhs.dateplayed%></div>
+              </li>
+              <li>
+                Players:
+              </li>
+              <li>
+                    <% mhs.connected_players.forEach(p => {
+                      %>
+                      <div style="color: <%-p.color%>;"><%-p.player%></div>
+                      <%
+                    });%>
+              </li>
+              <li>
+                <% mhs.connected_players.forEach(p => {
+                      %>
+                
+                <div id="grid" class="grid-<%= mhs._id%>-<%= p.player%>">
+                  <div class="smallgrid" id="grid-0-0">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-0" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-1" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-2" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-9" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-10" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-11" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-18" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-19" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-20" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                  </div>
+                  <div class="smallgrid" id="grid-1-0">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-3" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-4" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-5" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-12" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-13" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-14" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-21" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-22" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-23" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                  </div>
+                  <div class="smallgrid" id="grid-2-0">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-6" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-7" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-8" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-15" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-16" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-17" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-24" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-25" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-26" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                  </div>
+                  <div class="smallgrid" id="grid-0-1">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-27" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-28" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-29" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-36" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-37" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-38" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-45" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-46" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-47" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                  </div>
+                  <div class="smallgrid" id="grid-1-1">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-30" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-31" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-32" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-39" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-40" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-41" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-48" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-49" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-50" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                  </div>
+                  <div class="smallgrid" id="grid-2-1">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-33" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-34" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-35" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-42" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-43" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-44" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-51" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-52" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-53" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    </div>
+                  <div class="smallgrid" id="grid-0-2">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-54" type="number" min="1" max="9" maxlength="1" class="sudoku-input" >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-55" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-56" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-63" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-64" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-65" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-72" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-73" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-74" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                  </div>
+                  <div class="smallgrid" id="grid-1-2">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-57" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-58" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-59" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-66" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-67" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-68" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-75" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-76" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-77" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                  </div>
+                  <div class="smallgrid" id="grid-2-2">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-60" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-61" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-62" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-69" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-70" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-71" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-78" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-79" type="number" min="1" max="9" maxlength="1" class="sudoku-input">
+                    <input id="<%= mhs._id%>-<%= p.player%>-input-80" type="number" min="1" max="9" maxlength="1" class="sudoku-input " >
+                  </div>
+                </div>
+                
+                <%
+                    });%>
+              </li>
+              <li>
+                <div>
+                  <span class="slider">Track moves: <span id="value-<%= mhs._id%>"></span><input class="tracker-<%= mhs._id%>" type="range" id="moves" min="0" max="" value=""></span>
+                </div>
+              </li>
+              <script>
+                function prepremhs<%-mhs._id%>() {
+                  var mhss = <%-JSON.stringify(mhs)%>;
+                  var maxmoves = 0;
+                  mhss.connected_players.forEach(p => {
+                    if (p.boardObjArray.length > maxmoves) maxmoves = p.boardObjArray.length;
+                  });
+                  prepmhs<%-mhs._id%>(maxmoves);
+
+                  let slider = document.querySelector('input.tracker-<%= mhs._id%>');
+                  slider.max = maxmoves;
+                  slider.value = maxmoves;
+                  slider.addEventListener('input', (event) => {
+                    prepmhs<%-mhs._id%>(event.target.value);
+                  });
+
+                }
+                function prepmhs<%-mhs._id%>(n) {
+                  var mhss = <%-JSON.stringify(mhs)%>;
+                  mhss.connected_players.forEach(p => {
+                    if (n > p.boardObjArray.length) n = p.boardObjArray.length;
+                    for (let i = 0; i < 81; i++) {
+                      let cell = document.getElementById(mhss._id+"-"+p.player+"-input-"+i);
+                      cell.value =  p.boardObjArray[n - 1].fullboard[i];
+                      if (cell.value == 0) cell.value = '';
+                      cell.className = ""
+                    }
+                    p.boardObjArray[n - 1].givenNumberIndexes.forEach(i => {
+                      let cell = document.getElementById(mhss._id+"-"+p.player+"-input-"+i);
+                      cell.classList.add("givennumber");
+                    });
+                    p.boardObjArray[n - 1].correctIndexes.forEach(i => {
+                      let cell = document.getElementById(mhss._id+"-"+p.player+"-input-"+i);
+                      cell.classList.add("correct-cell");
+                    });
+                    p.boardObjArray[n - 1].wrongIndexes.forEach(i => {
+                      let cell = document.getElementById(mhss._id+"-"+p.player+"-input-"+i);
+                      cell.classList.add("wrong-cell");
+                    });
+                  });
+
+                  
+
+
+                }
+                prepremhs<%-mhs._id%>();
+              </script>
+            </ul>
+          </form>
+            <%
+        }); %>
       </section>
 
       <%- include("includes/footer") %>

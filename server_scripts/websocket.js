@@ -6,6 +6,9 @@ const e = require('express');
 const { check } = require('fast-check');
 let lobbies = require("../model/lobbies");
 let multidoku = require("./multidoku");
+
+let {model} = require("../model/");
+
 let players = [];
 
 function socket_init(server) {
@@ -66,8 +69,23 @@ function socket_init(server) {
                   fullboard.push(0);
                 }
               }
+
               currentBoardObj.playerNumberIndexes.forEach(index => {
+                let guessedBefore = false;
                 if (fullboard[index] == lobby.correctedSudoku[index]) {
+                  lobby.firsts.forEach(f => {
+                    if (f.index == index) {
+                      //somebody guessed this before you
+                      guessedBefore = true;
+                    }
+                  });
+                  if (!guessedBefore) {
+                    f = {
+                      index : index
+                    }
+                    lobby.firsts.push(f);
+                    p.guessedFirst.push(index);
+                  }
                   correctIndexes.push(index);
                 } else {
                   if (fullboard[index] != 0) {
@@ -82,7 +100,7 @@ function socket_init(server) {
                 hintIndexes : [],
                 givenNumberIndexes : currentBoardObj.givenNumberIndexes,
                 playerNumberIndexes : currentBoardObj.playerNumberIndexes,
-                score : 0,
+                score : p.guessedFirst.length * 5,
                 time : 0,
               }
               
@@ -91,14 +109,22 @@ function socket_init(server) {
               if (correctIndexes.length == currentBoardObj.playerNumberIndexes.length) {
                 //GAMEOVER
                 console.log('GAME OVER');
+                lobby.gameOver = true;
+                lobby.winner = p.player;
+
+                //save to db
+                model.multi_high_scores.insertOne(lobby);
               }
-            }
-            if (playerSocket(p.player)) {
-              playerSocket(p.player).emit('update-game',p);
             }
           });
         });
-        
+        lobbies.lobbies.forEach(lobby => {
+          lobby.connected_players.forEach(p => {
+            if (playerSocket(p.player)) {
+                playerSocket(p.player).emit('update-game',{p , lobby});
+            }
+          });
+        });
       });
 
       socket.on('disconnect', function () {});

@@ -144,14 +144,16 @@ router.get("/sudoku/high_scores/:user", function(req,res) {
     //page can be accessed without logging in
     let user = req.params.user;
     model.high_scores.find({username : user}).sort({score : -1}).toArray().then( high_scores => { 
-        console.log(high_scores);
+        model.multi_high_scores.find({}).toArray().then(multi_high_scores => {
+            console.log(multi_high_scores);
         res.format({
             'text/html': function () {
-                res.render("high_scores", {high_scores});
+                res.render("high_scores", {high_scores,multi_high_scores});
             },
             'application/json': function () {
-                res.status(201).json(high_scores);
+                res.status(201).json(high_scores,multi_high_scores);
             }
+        });
         });
     });
 });
@@ -160,15 +162,17 @@ router.get("/sudoku/global_high_scores", function(req,res) {
     //does not require login,
     //page can be accessed without logging in
     model.high_scores.find({}).sort({score : -1}).toArray().then( high_scores => { 
+        model.multi_high_scores.find({}).toArray().then(multi_high_scores => {
         console.log(high_scores);
         res.format({
             'text/html': function () {
-                res.render("high_scores", {high_scores});
+                res.render("high_scores", {high_scores,multi_high_scores});
             },
             'application/json': function () {
-                res.status(201).json(high_scores);
+                res.status(201).json(high_scores,multi_high_scores);
             }
         });
+    });
     });
 });
 
