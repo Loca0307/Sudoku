@@ -277,7 +277,22 @@ if (!playerIsInAnyLobby || (playerIsInAnyLobby && playersLobby.lobbyOpen))
                 <%
             });%>
             </textarea>
-            <input type="text" id="newchat" placeholder="chat message">
+            <input type="text" style="
+            position:relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #23242a;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            border: 1px solid white;
+            color:white;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            border: 1px solid #00FF89;
+            " id="newchat" placeholder="chat message">
             <button type="submit" onclick="chat();">Send Message</button>
         </div>
     
