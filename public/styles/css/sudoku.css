@@ -1,85 +1,21 @@
-/* body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    
+.main-section
+{
+  display: flex;
+  flex: 1;
+  margin-top: 3rem;
 }
 
-hr {
-    width: 500px;
-}
-
-#errors {
-    color: coral;
-}
-
-#board {
-    width: 460px;
-    height: 450px;
-
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.tile {
-    width: 48px; 
-    height: 48px;
-    border: 1px solid lightgray;
-
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#digits {
-    width: 460px;
-    height: 50px;
-
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.number {
-    width: 44px; 
-    height: 44px;
-    border: 1px solid black;
-    margin: 2px;
-
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.number-selected {
-    background-color: gray;
-}
-
-.tile-start {
-    background-color: whitesmoke;
-}
-
-.horizontal-line {
-    border-bottom: 1px solid black;
-}
-
-.vertical-line {
-    border-right: 1px solid black;
-} */
 
 :root {
-    --maxGridWidth: 480px;
-    --maxGridHeight: 450px;
-    --smallgridWidth: 156px;
-    --smallgridHeight: 156px;
-    --cellWidth: 50px;
-    --cellHeight: 50px;
+    --maxGridWidth: 672px;
+    --maxGridHeight: 630px;
+    --smallgridWidth: 218.4px;
+    --smallgridHeight: 218.4px;
+    --cellWidth: 70px;
+    --cellHeight: 70px;
     --cellBorder: 1px #ccc solid;
 }
+
 
 
 #grid {
@@ -92,7 +28,6 @@ hr {
   }
 
 .smallgrid {
-        
         width: var(--smallgridWidth);
         height: var(--smallgridHeight);
         display: flex;
@@ -115,7 +50,7 @@ hr {
 
   }
 
-  .givennumber{
+  .givennumber {
     text-decoration-line:none !important;
     font-size: medium;
     color: black !important;
@@ -145,4 +80,133 @@ hr {
     font-weight: bold !important;
   }
 
- 
+
+  .form{
+    width:100%;
+    margin: 0 auto;
+    display:block;
+    text-align: center;
+  }
+
+  .form-out{
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .form-out button{
+    margin: 15px;
+  }
+
+  .info{
+    margin-top: 4em;
+    margin-bottom: 4em;
+    width: 100%;
+  }
+
+  .new-game{
+    display: flex;
+    margin: 0 auto;
+  }
+  .form-out button{
+    margin: 15px;
+  }
+
+button{
+  width: 95%;
+}
+
+input[type="range"]{
+  width: 95%;
+  margin-right:0;
+}
+
+  button img{
+    width: 40px;
+    padding: 0;
+  }
+
+  .time span:first-child, .scores span:first-child{
+    color:#00FF89;
+  }
+
+  .time{
+    margin-bottom: 2em;
+    float: left;
+    margin-right: 50px;
+  }
+
+  .scores{
+    float: right;
+  }
+
+
+
+  span {
+    font-size: 1.3em;
+  }
+
+  h2{
+    color:white;
+    font-size: 1em;
+  }
+
+
+  @media all and (max-width: 720px)
+{
+  :root {
+    --maxGridWidth: 448px;
+    --maxGridHeight: 420x;
+    --smallgridWidth: 145.6px;
+    --smallgridHeight: 145.6px;
+    --cellWidth: 46px;
+    --cellHeight: 46px;
+    --cellBorder: 1px #ccc solid;
+}
+  #grid {
+    margin-left:5vw;
+  }
+
+  button img{
+    width: 25px;
+    padding: 0;
+  }
+  .info{
+    margin-top: 1em;
+  }
+
+}
+
+@media all and (max-width: 500px)
+{
+  :root {
+    --maxGridWidth: 336px;
+    --maxGridHeight: 315x;
+    --smallgridWidth: 109.2px;
+    --smallgridHeight: 109.2px;
+    --cellWidth: 34px;
+    --cellHeight: 34px;
+    --cellBorder: 1px #ccc solid;
+}
+  #grid {
+    margin-left:5vw;
+  }
+  button{
+    width: 88%;
+  }
+  input[type="range"]{
+    width: 88%;
+  }
+
+  button img{
+    width: 25px;
+    padding: 0;
+  }
+
+  .form-out button{
+    font-size: 12px;
+    margin: 17px;
+  }
+
+
+
+}

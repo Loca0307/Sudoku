@@ -14,9 +14,19 @@ router.get("/", function(req,res) {
 }); 
 
 router.get(["/","/index.html","/index"], function(req, res) {
-    console.log(req.query);
-    res.render("index");
+    if (req.session.username) {
+        res.redirect("/sudoku");
+    }
+    else {
+        console.log(req.query);
+        res.render("index", {msg:'Login to enter the game!'});
+    }
 });
+
+
+
+
+
 
 /*
 router.post('/index.html', function (req, res) {

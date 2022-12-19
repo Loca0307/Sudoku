@@ -5,32 +5,25 @@ module.exports = router;
 let {model} = require("../model");
 
 
-router.post("/", (req, res) => {
-    let obj = {
-        player: req.body.player,
-        score: Number.parseInt(req.body.score)
+router.post("/high_scores/solo", function (req, res) {
+    var highscore = {
+        username : req.body.username,
+        game : req.body.game,
+        dateplayed : req.body.dateplayed,
+        boardObjHistory : req.body.boardObjHistory,
+        totalMoves : req.body.totalMoves,
+        score : req.body.score
+        
     }
-    model.high_scores.inserOne(obj).then(high_scores => {
-        res.format({'text/html' : () => {
-            res.redirect("/index.html");
-        },
-        'application/json' : () => {
-            res.status(201).json(obj);
-        }
-    })
-    })
-})
 
-router.get(["/", "index", "/index.html"], (req, res) => {
-
-    model.high_scores.find({}).toArray().then((high_scores)=> {
-        res.format({
-            'text/html': () => {
-                res.render("", high_scores);
-                },
-            'application/json' : () => {
-                res.json(high_scores);
-            }
-        })
+    model.high_scores.insertOne(highscore).then(ans => {
+                res.format({
+                    'application/json': function () {
+                        console.log(ans);
+                        res.status("201").json(ans);
+                    }
+        });
     });
 });
+
+

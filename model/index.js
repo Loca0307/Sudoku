@@ -14,7 +14,7 @@ const client = new mongodb.MongoClient(mongodb_uri);
 const db_name = 'web-atelier-project';
 
 
-const collection_names = ['high_scores', 'usernames'];
+const collection_names = ['high_scores', 'usernames', 'multi_high_scores'];
 
 const model = {};
 
@@ -26,15 +26,14 @@ client
         console.log("Connected to mongodb server");
 
         model.db = client.db(db_name);
-        collection_names.forEach(c=>{
-            model[c] = model.db.collection(c);
-            
+        collection_names.forEach(c =>{
+            model[c] = model.db.collection(c);  
         })
 
     }) 
     .catch(err => console.error(err));
 
 
- 
+
 exports.model = model;
 
