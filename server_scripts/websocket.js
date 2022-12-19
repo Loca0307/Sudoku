@@ -85,7 +85,13 @@ function socket_init(server) {
                 score : 0,
                 time : 0,
               }
+              
               p.boardObjArray.push(newBoardObj);
+              //TODO: check if p has won
+              if (correctIndexes.length == currentBoardObj.playerNumberIndexes.length) {
+                //GAMEOVER
+                console.log('GAME OVER');
+              }
             }
             if (playerSocket(p.player)) {
               playerSocket(p.player).emit('update-game',p);
