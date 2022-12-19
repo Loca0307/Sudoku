@@ -10,7 +10,7 @@ var gameOver = false;
 
 socket.on('connect', () => {
     console.log("socket.io connected");
-    setTimeout(announce(), 5000);
+    setTimeout(announce(), 1000);
 });
 
 //LOBBY MANAGEMENT SECTION
