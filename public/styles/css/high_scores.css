@@ -1,0 +1,261 @@
+
+ul/*unordered list used in the aside for the scoreboard*/
+{
+  margin: 2em;
+  padding: 0.2em;
+  background: rgba(0,0,0,.1);
+  width: 80vw;
+  font-size: 1.2vw;/*using vw to make the ul be resizable*/
+}
+
+ul li
+{
+  display: flex;/*flex every li tag*/
+  background: rgba(255,255,255,.1);/*background color for the non-top 3 scores*/
+  padding: 0.6em 1.2em;
+  color: black;
+  margin: 0.3em;
+  justify-content: space-around;
+  align-items: center;
+  transition: .5s;/*adding a transition of half second*/
+}
+
+ul li img
+{
+  width: 2vw;
+}
+
+/*adding the color contrast on the first 3 scores*/
+/*any color we select as <aside> background, will create a contrast between the spans*/
+ul li:nth-child(1)
+{
+  background: rgba(255,255,255,.6);
+}
+
+ul li:nth-child(2)
+{
+  background: rgba(255,255,255,.4);
+}
+
+ul li:nth-child(3)
+{
+  background: rgba(255,255,255,.2);
+}
+
+/*adding some spacing between the span elements in the li tag*/
+ul li span:nth-child(1)
+{
+  min-width: 9%;
+}
+
+ul li span:nth-child(2)
+{
+  width: 50%;
+  text-align: left;
+
+}
+ul li span:nth-child(3)
+{
+  width: 25%;
+}
+
+ul li span:nth-child(4)
+{
+  width: 16%;
+}
+
+
+
+/*Adding some animation to the scoreboard*/
+ul li:hover
+{
+  transform: scale(1.02);/*scale itself to make a sort of transition*/
+}
+
+
+.main-section
+{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 3rem;
+}
+
+:root {
+  --maxGridWidth: 250px;
+  --maxGridHeight: 250px;
+  --smallgridWidth: 83px;
+  --smallgridHeight: 83.5px;
+  --cellWidth: 25.5px;
+  --cellHeight: 25px;
+  --cellBorder: 1px #ccc solid;
+}
+
+
+
+#grid {
+  /* to creat the grid as 1 cell is 50x50 if max with is 480 only 9 cells fit in it */
+  width: var(--maxGridWidth);
+  height: var(--maxGridHeight);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.smallgrid {
+      
+      width: var(--smallgridWidth);
+      height: var(--smallgridHeight);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      border: 3px #000 solid;
+}
+
+#grid input {
+  -webkit-appearance: none;
+  width: var(--cellWidth);
+  height: var(--cellHeight);
+  justify-content: center;
+  text-align: center;
+  border: var(--cellBorder);
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  color: rgb(66, 66, 66);
+  font-style: italic;
+  text-decoration-line: underline;
+
+}
+
+.givennumber {
+  text-decoration-line:none !important;
+  font-size: medium;
+  color: black !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+}
+
+.wrong-cell {
+  background-color: rgb(255, 180, 180) !important;
+}
+
+.correct-cell {
+  background-color: rgb(187, 255, 187) !important;
+}
+
+.hint-cell {
+  color: rgb(255, 98, 0) !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+  text-decoration-line:none !important;
+  font-size: large;
+}
+
+.cell-highlight {
+  background: rgb(226, 240, 255) !important;
+  color: rgb(0, 102, 255) !important;
+  font-weight: bold !important;
+}
+
+
+.form{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+button img{
+  width: 40px;
+  padding: 0;
+}
+
+input[type="range"] {
+  height: 20px !important;
+  background-image: linear-gradient(to right, #555, #ddd) !important;
+  border-radius: 15px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 15px;
+}
+
+.head{
+  display: flex;
+}
+
+.head button{
+  float: right;
+  width: 50%;
+  margin-right:3vw;
+}
+
+.head button img{
+  width: 25px;
+}
+
+.head h1{
+  float: left;
+
+  width: 100%;
+}
+
+form{
+  width:100%;
+}
+
+li:nth-child(4){
+  color: white;
+}
+
+.score{
+  color: #00FF89; 
+  font-weight: bold; 
+  font-size: x-large;
+}
+
+.slider input{
+  width: 100% !important;
+}
+
+
+
+@media all and (max-width: 900px)
+{
+  .head h1{
+    font-size:14px;
+  }
+
+  .head button{
+    margin: 10px;
+    width: 70%;
+    font-size: 8px;
+    padding: 5px;
+  }
+
+  .head button img{
+    margin-left: 0;
+  }
+  
+  ul{
+    font-size:12px;
+    margin: 1em;
+    width: 95vw;
+  }
+
+  .score{
+    font-size: 12px;
+  }
+  
+  .slider input{
+    width: 75% !important;
+  }
+  
+  h1{
+    margin-left: 20px;
+  }
+
+}

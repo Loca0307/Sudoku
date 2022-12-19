@@ -1,0 +1,35 @@
+<html>
+    <%- include("includes/head") %>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="icon" href="icons/joystick.png" type="image/icon type">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body>
+      <%- include("includes/header") %>
+      <%- message %>
+      <form action="/sudoku/log_out" method="get">
+      <button class="logout" type="submit"><img src="/styles/img/exit.png" >Log-out</button>
+      </form>
+      <div class="lobcont" style="
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;">
+      <%- include("includes/mainsection") %>
+      </div>
+
+      <%- include("includes/footer") %>
+
+      <script src="/socket.io/socket.io.js"></script>
+      <script src = "/client_scripts/api-client.js"></script>
+      <script class="std" src="./js/ejs.min.js"></script>
+      <script class="std" src="./js/views.js"></script>
+
+      <script src="/client_scripts/client_socket.js"></script>
+
+      <input type="hidden" id="username-holder" value="<%- userdata.username %>">
+    </body>
+</html>

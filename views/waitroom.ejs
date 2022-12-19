@@ -1,0 +1,39 @@
+<html>
+    <%- include("includes/head") %>
+    <head>
+        <link rel = "stylesheet" href = "/styles/css/sudoku.css">
+        <script src="/js/ejs.min.js"></script>
+        <script src="/js/views.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/client_scripts/client_socket.js"></script>
+    </head>
+    <body onload="socket_init()">
+      <%- include("includes/header") %>
+
+      <section class="main-section">
+        
+        <main>
+            <h1>Sudoku</h1>
+            <hr>
+            
+                    <h4>Connection Successful</h4></li>
+                        <br>
+                        <h2>Lobby ID: <%= lobby.id %></h2>
+                        <h4>Difficulty: <%= lobby.lobbyDiff %></h4>
+                        <h4>Room Size: <%= lobby.lobbySize %></h4>
+                        <br>
+                        <h4 id="players_ready"></h4>
+                        <h2> Players: </h2>
+                        <% lobby.connected_players.forEach(p => {
+                            %>
+                            <li><%-p.player%></li>
+                            <%
+                        });%>
+                        <h4 id="players_ready"></h4>
+
+            </main>
+        </section>
+      <%- include("includes/footer") %>
+    </body>
+
+</html>

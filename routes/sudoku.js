@@ -1,100 +1,219 @@
 const express = require('express');
+const { read } = require('fs-extra');
+var hash = require('object-hash');
 const router = express.Router();
-module.exports = router;
 
+module.exports = router;
 
 
 const ObjectId = require('mongodb').ObjectId;
 
 
 let {model} = require("../model");
+let lobbies = require("../model/lobbies");
 
+//called when the login form is sent
+router.post("/sudoku", function(req, res) {
+    
+    let userprofiledata = {username: req.body.username, password: hash(req.body.password)};
 
-router.post("/sudoku/new_game", function(req,res) {
-
-    let pagedata = {username: req.body.username, diff: req.body.diff, score:0}; 
-
-    //TODO: Login verification
-    //get information from the 
-    //res.render("sudoku", {PASS PLAYER AND DIFFICULTY INFORMATION AFTER LOGIN} );
-
-    //TODO: Call sudokumodel (model/sudoku.js) to set up the game
-
-        model.usernames.findOne({username : pagedata.username}).then(userdata => {
+        model.usernames.findOne({username : userprofiledata.username}).then(userdata => {
             if (userdata) {
-                res.format({
-                    'text/html': function () {
-                        res.render("sudoku", {message : "Welcome back ", pagedata});
-                    },
-                    'application/json': function () {
-                        res.status(201).json(pagedata);
-                    }
-                });
-            }
-            else {
-                //TODO: First time login, Create user data table 
-                // var user = 
-                model.usernames.insertOne(pagedata).then(userdata => {
+                if(userdata.password == userprofiledata.password) {
+
+                    //initiate a session if login information is correct
+
+                    //save username as cookie
+                    req.session.username = req.body.username;
+                    req.session.message = `<h2>Welcome back, ${userdata.username}!</h2><h4>We really missed you since the last time you were with us.</h4>`;
+
+                    
+                    //once cookie is saved redirect to the /sudoku with a GET request
+                    res.format({
+                        'text/html': function () {
+                            res.redirect('/sudoku');
+                        },
+                        'application/json': function () {
+                            res.status(201).json(userprofiledata);
+                        }
+                    });
+                }
+                else {
+                    //password entered was wrong
+                    res.render("index", {msg:'<span style="color : red;"> Wrong password </span>'});
+                }
+            } else {
+                //userdata not found AKA user is not registered.
+
+                //register new user and initiate cookie
+
+
+                model.usernames.insertOne(userprofiledata).then(userdata => {
+
+                    //initiate a session if login information is correct
+
+                    //save username as cookie
+                    req.session.username = req.body.username;
+                    req.session.message = `<h2>First time? Welcome, ${req.body.username}!</h2><h4>We took the liberty to register a new account for you.</h4>`;
 
                     res.format({
                         'text/html': function () {
-                            res.render("sudoku", {message : "First time? Welcome ", pagedata});
+                            res.redirect('/sudoku');
                         },
                         'application/json': function () {
-                            res.status(201).json(pagedata);
+                            res.status(201).json(userprofiledata);
                         }
                     });
                 
-                }); 
+                });
             }
         });
+    });
+
+router.get("/sudoku", function(req,res) {
+try{
+    //check if there is an active req.session aka user has logged in
+    if (req.session.username) {
+        model.usernames.findOne({username : req.session.username}).then(userdata => {
+            if (userdata) {
+                        res.format({
+                            'text/html': function () {
+                                res.render("middle", {
+                                    message : req.session.message,
+                                    userdata,
+                                    lobbies : lobbies.lobbies
+                                });
+                            },
+                            'application/json': function () {
+                                res.status(201).json({
+                                    message : req.session.message,
+                                    userdata,
+                                    lobbies : lobbies.lobbies
+                                });
+                            }
+                        });
+            }
+        });
+    }
+    else {
+        //user is not logged in, redirect to login page
+        res.redirect('/');
+    }
+}
+catch {
+    res.redirect('/');
+}
+    
+});
+
+router.get("/sudoku/log_out", function(req, res) {
+    req.session.destroy();
+    res.redirect('/');
 });
 
 router.post("/sudoku/solo_game", function(req,res) {
+    if (req.session.username) {
+        //user is logged in
+        pagedata = {
+            username : req.session.username,
+            diff : req.body.diff
+        }
 
-    let pagedata = {username: req.body.username, diff: req.body.diff, score:0, password: req.body.password};
-
-    //TODO: Login verification
-    //get information from the 
-    //res.render("sudoku", {PASS PLAYER AND DIFFICULTY INFORMATION AFTER LOGIN} );
-
-    //TODO: Call sudokumodel (model/sudoku.js) to set up the game
-
-        model.usernames.findOne({username : pagedata.username}).then(userdata => {
-            if (userdata  && userdata.password == req.body.password) {
-                res.format({
-                    'text/html': function () {
-                        res.render("solodoku", {message : "Welcome back, ", pagedata});
-                    },
-                    'application/json': function () {
-                        res.status(201).json(pagedata);
-                    }
-                });
-            }
-            else if (!userdata) {
-                //TODO: First time login, Create user data table 
-                // var user = 
-                model.usernames.insertOne(pagedata).then(userdata => {
-
+        model.usernames.findOne({username : req.session.username}).then(userdata => {
+            if (userdata) {
                     res.format({
                         'text/html': function () {
-                            res.render("solodoku", {message : "First time? Welcome, ", pagedata});
+                            res.render("solodoku", {message : "Solo game started, ", pagedata});
                         },
                         'application/json': function () {
                             res.status(201).json(pagedata);
                         }
-                    });
-                
-                }); 
-            }
-            else {
-                
+                });
             }
         });
+    }
+    else {
+        //user is not logged in, redirect to login page
+        res.redirect('/');
+    }
+
 });
+
+router.get("/sudoku/high_scores/:user", function(req,res) {
+    //does not require login,
+    //page can be accessed without logging in
+    let user = req.params.user;
+    model.high_scores.find({username : user}).sort({score : -1}).toArray().then( high_scores => { 
+        model.multi_high_scores.find({}).toArray().then(multi_high_scores => {
+            console.log(multi_high_scores);
+        res.format({
+            'text/html': function () {
+                res.render("high_scores", {high_scores,multi_high_scores});
+            },
+            'application/json': function () {
+                res.status(201).json(high_scores,multi_high_scores);
+            }
+        });
+        });
+    });
+});
+
+router.get("/sudoku/global_high_scores", function(req,res) {
+    //does not require login,
+    //page can be accessed without logging in
+    model.high_scores.find({}).sort({score : -1}).toArray().then( high_scores => { 
+        model.multi_high_scores.find({}).toArray().then(multi_high_scores => {
+        console.log(high_scores);
+        res.format({
+            'text/html': function () {
+                res.render("high_scores", {high_scores,multi_high_scores});
+            },
+            'application/json': function () {
+                res.status(201).json(high_scores,multi_high_scores);
+            }
+        });
+    });
+    });
+});
+
 
 
 router.get("/sudoku/test_game", function(req,res) {
     pagedata = {username: '', diff: 999, score: 'YOU SHOULD NOT BE HERE, LEAVE!'};
     res.render("solodoku",{message : "OLD PAGE, PLEASE USE 'PLAY SOLO' FROM HOMEPAGE", pagedata});
 });
+
+
+
+//
+router.get("/multidoku", function(req, res) {
+    //we need to agree on data being passed
+
+    const data = {
+        username : req.session.username,
+        diff : req.body.diff,
+        level: req.body.diff
+    }
+    console.log(data);
+    // we have to pass the loby room get it from url pass it to multidoku and from multidoku we get  the info from the database 
+    // and pass it to multidoku 
+    const ready = parseInt(req.query.ready);
+    console.log(req.query);
+    res.format({
+    
+        'text/html': function () {
+            if(ready === 2) {
+                res.render("multidoku", data);
+            }
+        },
+
+        'application/json': function () {
+            console.log(json(data))
+            res.status(201).json(data); // passing all the parameters
+        }
+
+    });
+
+});
+
+

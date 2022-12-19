@@ -1,7 +1,8 @@
 <main class = "main-home">
+  <p>Welcome to sudoku online, please login and play!</p>
     <div class="box">
-      <form class="form" method="POST" action="/sudoku/new_game">
-        <h3>Enter the game!</h3>
+      <form class="form" method="POST" action="/sudoku">
+        <h3><%- msg %></h3>
         <div class="inputBox">
           <label>Username</label>
           <input type="text" required = "required" id="username" name="username">
@@ -9,11 +10,11 @@
           <label>Password</label>
           <input type="password" required = "required" id="password" name="password">
           <br>
-          <label>Difficulty</label>
-          <input type="range" min="1" max="3" value="2" id="diff" name="diff">
+          <!-- <label>Difficulty</label>
+          <input type="range" min="1" max="3" value="2" id="diff" name="diff"> -->
           <br>
-          <button type="submit">Play With Friends</button>
-          <button type="submit" formaction="/sudoku/solo_game">Play Solo</button>
+          <button type="submit"><img src="/styles/img/enter.png">Login</button>
+          <!-- <button type="submit" formaction="/sudoku/solo_game">Play Solo</button> -->
         </div>
       </form>
 

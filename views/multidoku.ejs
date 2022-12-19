@@ -1,0 +1,55 @@
+<html>
+    <%- include("includes/head") %>
+    <head>
+        <link rel = "stylesheet" href = "/styles/css/sudoku.css">
+    </head>
+    <body>
+      <%- include("includes/header") %>
+      
+
+      <section class="main-section">
+
+       
+        <main>
+          <h1>Sudoku</h1>
+          <hr>
+          <h3><span id="msg"><%- locals.message %></span> <%- locals.username %>!</h3>
+          <p>Currently playing a game of difficulty: <span id="level"><%- locals.diff %></span></p>
+          <h2 id = "errors">Score: <span id="score"><%- locals.score %></span>
+          <span id="minutes"> 00 </span>
+          <span id="seconds"> 00 </span>
+          <span id="miliseconds"> 000 </span>
+          </h2>
+
+          <div id="grid">
+            <div class="smallgrid" id="grid-0-0"></div>
+            <div class="smallgrid" id="grid-1-0"></div>
+            <div class="smallgrid" id="grid-2-0"></div>
+            <div class="smallgrid" id="grid-0-1"></div>
+            <div class="smallgrid" id="grid-1-1"></div>
+            <div class="smallgrid" id="grid-2-1"></div>
+            <div class="smallgrid" id="grid-0-2"></div>
+            <div class="smallgrid" id="grid-1-2"></div>
+            <div class="smallgrid" id="grid-2-2"></div>
+          </div>
+          <form class="form" method="POST">
+              <input type="hidden" value="<%- locals.username %>" id="username" name="username">
+              <input type="hidden" value="<%- locals.password %>" id="password" name="password">
+              <button class="logout" type="submit" formaction="/sudoku/solo_game"><img src="/styles/img/exit.png" >Back to menu</button>
+              <label>Difficulty</label>
+              <input type="range" min="1" max="3" value="<%- locals.diff %>" id="diff" name="diff">
+              <button type="submit" id="startTimer" ><img src="/styles/img/refresh.png">New Game</button>
+            <!-- onclick="startTimer()" -->
+            </div>
+          </form>
+        </main>
+
+       
+      </section>
+      <%- include("includes/footer") %>
+      <script src = "/client_scripts/multiplayer.js"></script>
+
+    </body>
+
+   
+</html>
