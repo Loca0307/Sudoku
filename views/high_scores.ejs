@@ -220,14 +220,14 @@
           let rel = false;
           multi_high_scores.forEach(mhs => {
             %>
-            <form method="GET" action="/sudoku/high_scores">
+            <form method="GET">
             <ul>
               <li>
                 <div>Game mode: Multiplayer</div>
                 <div>Date played: <%= mhs.dateplayed%></div>
               </li>
               <li>
-                Players:
+                Winner: <%= mhs.winner%>
               </li>
               <li>
                     <% mhs.connected_players.forEach(p => {
@@ -368,6 +368,7 @@
 
                 }
                 function prepmhs<%-mhs._id%>(n) {
+                  document.getElementById('value-<%= mhs._id%>').innerHTML = n;
                   var mhss = <%-JSON.stringify(mhs)%>;
                   mhss.connected_players.forEach(p => {
                     if (n > p.boardObjArray.length) n = p.boardObjArray.length;
